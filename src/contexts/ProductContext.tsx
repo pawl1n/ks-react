@@ -1,10 +1,14 @@
 import {createContext, useState} from "react";
 import {useQuery} from "react-query";
 
-export type CartItemType = {
+export interface CartItemType {
     id: number;
-    category: string;
+    title: string;
+    price: number;
     description: string;
+    category: string;
+    image: string;
+    quantity: number
 }
 
 export const getProducts = async () => {

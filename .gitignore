@@ -1,6 +1,9 @@
 # MacOS
 .DS_Store
 
+# SonarLint
+.idea/SonarLint
+
 # Logs
 logs
 *.log

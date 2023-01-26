@@ -1,6 +1,7 @@
 import {useQuery} from "react-query";
 import {ProductType, getProducts} from "../api/Products";
 import Product from "../components/Product";
+import Hero from "../components/Hero";
 
 const Home = () => {
     const {data, isLoading, error} = useQuery<ProductType[]>(
@@ -15,19 +16,20 @@ const Home = () => {
         product => product.category.includes('clothing')
     );
 
-    console.log(filteredProducts);
-
-    return <div>
-        <section className="py-16">
-            <div className="container mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-10">
-                    {filteredProducts.map(product => {
-                        return <Product key={product.id} product={product}/>;
-                    })}
+    return (
+        <div>
+            <Hero/>
+            <section className="py-16">
+                <div className="container mx-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-10">
+                        {filteredProducts.map(product => {
+                            return <Product key={product.id} product={product}/>;
+                        })}
+                    </div>
                 </div>
-            </div>
-        </section>
-    </div>;
+            </section>
+        </div>
+    );
 }
 
 export default Home;
