@@ -3,10 +3,11 @@ import Navbar from "../components/Navbar.astro";
 import CartIcon from "../components/CartIcon";
 import Sidebar from "../components/Sidebar";
 
-const { title } = Astro.props;
+const { title, description } = Astro.props;
 
 export interface Props {
   title: string;
+  description: string;
 }
 ---
 
@@ -16,6 +17,9 @@ export interface Props {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description}>
+    <meta name="theme-color" content="#222222"/>
+    <link rel="apple-touch-icon" href="/logo.png">
     <title>{title}</title>
     <style is:global>
       input:-webkit-autofill,

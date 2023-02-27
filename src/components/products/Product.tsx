@@ -15,6 +15,8 @@ const Product = ({ product }: ProductProps) => {
               className="max-h-[160px] group-hover:scale-110 transition duration-300"
               src={product.image}
               alt={product.title}
+              height="160"
+              width="auto"
             />
           </div>
         </div>
