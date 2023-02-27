@@ -14,6 +14,9 @@ const products: ProductType[] = await fetch(
     return data.filter((product: ProductType) =>
       product.category.includes("clothing")
     );
+  })
+  .catch(() => {
+    isLoading = false;
   });
 
 const Products = memo(() => {
@@ -24,7 +27,7 @@ const Products = memo(() => {
           "Loading..."
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-10">
-            {products.map((product) => {
+            {products?.map((product) => {
               return <Product key={product.id} product={product} />;
             })}
           </div>

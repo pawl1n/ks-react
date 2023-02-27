@@ -15,12 +15,11 @@ md:w-[40vw] xl:max-w-[45vw] transition-all duration-300 ease-in-out z-20 px-4 lg
     >
       <div className="flex items-center justify-between py-6 border-b">
         <div className="uppercase text-sm font-semibold">
-          Кошик ({$cartItems.length})
+          Кошик ({$cartItems?.length})
         </div>
         <div
           className="cursor-pointer w-8 h-8 flex justify-center items-center"
           onClick={() => {
-            console.log($isCartOpen);
             isCartOpen.set(false);
           }}
         >
@@ -41,7 +40,7 @@ md:w-[40vw] xl:max-w-[45vw] transition-all duration-300 ease-in-out z-20 px-4 lg
         </div>
       </div>
       <div className="flex flex-col gap-y-2 lg:h[640px] overflow-y-auto overflow-x-hidden border-b">
-        {Object.values($cartItems).map((item) => {
+        {$cartItems?.map((item) => {
           return <CartItem key={item.id} item={item} />;
         })}
       </div>

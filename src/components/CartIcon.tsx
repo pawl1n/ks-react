@@ -28,7 +28,7 @@ const CartIcon = () => {
         className="bg-red-500 absolute -right-2 -bottom-2 text-12px w-[18px] h-[18px] text-white
                 rounded-full flex justify-center items-center"
       >
-        {$shoppingCart.length}
+        {$shoppingCart?.length ?? 0}
       </div>
     </div>
   );

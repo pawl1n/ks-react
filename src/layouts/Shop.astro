@@ -4,39 +4,20 @@ import CartIcon from "../components/CartIcon";
 import Sidebar from "../components/Sidebar";
 
 const { title, description } = Astro.props;
-
-export interface Props {
-  title: string;
-  description: string;
-}
 ---
 
-<html lang="en" class="h-full">
+<html lang="en" class="min-h-full">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={description}>
-    <meta name="theme-color" content="#222222"/>
-    <link rel="apple-touch-icon" href="/logo.png">
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#222222" />
+    <link rel="apple-touch-icon" href="/logo.png" />
     <title>{title}</title>
-    <style is:global>
-      input:-webkit-autofill,
-      input:-webkit-autofill:hover,
-      input:-webkit-autofill:focus,
-      textarea:-webkit-autofill,
-      textarea:-webkit-autofill:hover,
-      textarea:-webkit-autofill:focus,
-      select:-webkit-autofill,
-      select:-webkit-autofill:hover,
-      select:-webkit-autofill:focus {
-        -webkit-text-fill-color: inherit !important;
-        transition: inherit !important;
-      }
-    </style>
   </head>
-  <body class="h-full flex flex-col">
+  <body class="flex flex-col min-h-screen">
     <header
       class="sticky bg-primary text-white w-full z-10 transition-all py-5 top-0 left-0 right-0"
     >
