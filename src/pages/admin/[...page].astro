@@ -1,7 +1,7 @@
 ---
 import Layout from "../../layouts/Admin.astro";
 import Profile from "../../types/Profile";
-import Descriptor, { Column } from "../../types/Alps";
+import Alps, { Column } from "../../types/Alps";
 import Table from "../../components/admin/Table";
 
 interface Param {
@@ -30,8 +30,8 @@ const link = "http://localhost:8080/profile/" + page;
 console.log(link);
 
 const profile = await fetch(link)
-  .then((data) => data.json() as Promise<Descriptor>)
-  .catch(console.log);
+  .then((data) => data.json() as Promise<Alps>)
+  .catch();
 
 const entry = profile.alps.descriptor.find((item) => item?.href ?? "" == link);
 const columns: Column[] = entry.descriptor;
