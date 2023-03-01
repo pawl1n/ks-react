@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2800331-6ce1-4cce-80be-da4d09fc01fd" name="Changes" comment="chore: add sitemap and compress" />
+    <list default="true" id="d2800331-6ce1-4cce-80be-da4d09fc01fd" name="Changes" comment="chore: remove unused import">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/admin/productsaaa.astro" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/sidebar/Sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/sidebar/Sidebar.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,6 +23,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="2MPF9YczIwJhfSYc6N1aa5vav0o" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -21,8 +33,10 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "SONARLINT_PRECOMMIT_ANALYSIS": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
@@ -34,26 +48,18 @@
     "nodejs_package_manager_path": "npm",
     "prettierjs.PrettierConfiguration.Package": "/Users/andreypinchuk/Documents/Projects/ks-astro/node_modules/prettier",
     "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "/Users/andreypinchuk/Documents/Projects/ks-astro/node_modules/typescript/lib",
+    "ts.external.directory.path": "/Users/andreypinchuk/Library/Application Support/JetBrains/Toolbox/apps/WebStorm/ch-1/231.7665.25/WebStorm 2023.1 EAP.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Shell Script.nx dev">
-    <configuration name="nx dev" type="ShConfigurationType">
-      <option name="SCRIPT_TEXT" value="NX_BRANCH=testing npx run ks-astro:start" />
-      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
-      <option name="SCRIPT_PATH" value="" />
-      <option name="SCRIPT_OPTIONS" value="" />
-      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
-      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
-      <option name="INTERPRETER_PATH" value="/bin/zsh" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="EXECUTE_IN_TERMINAL" value="true" />
-      <option name="EXECUTE_SCRIPT_FILE" value="false" />
-      <envs />
-      <method v="2" />
-    </configuration>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/pages/admin" />
+      <recent name="$PROJECT_DIR$/src/components/admin/sidebar" />
+      <recent name="$PROJECT_DIR$/src/components/admin" />
+    </key>
+  </component>
+  <component name="RunManager">
     <configuration name="dev" type="js.build_tools.npm" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -64,10 +70,6 @@
       <envs />
       <method v="2" />
     </configuration>
-    <list>
-      <item itemvalue="npm.dev" />
-      <item itemvalue="Shell Script.nx dev" />
-    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -81,6 +83,7 @@
       <workItem from="1677661240820" duration="2690000" />
       <workItem from="1677665443810" duration="2373000" />
       <workItem from="1677667834147" duration="710000" />
+      <workItem from="1677668561743" duration="35578000" />
     </task>
     <task id="LOCAL-00001" summary="chore: add sitemap and compress">
       <created>1677668329676</created>
@@ -89,7 +92,77 @@
       <option name="project" value="LOCAL" />
       <updated>1677668329676</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="chore: add sitemap and compress">
+      <created>1677668619752</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1677668619752</updated>
+    </task>
+    <task id="LOCAL-00003" summary="feat: add admin 404 page">
+      <created>1677711439836</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1677711439836</updated>
+    </task>
+    <task id="LOCAL-00004" summary="feat: add get query builder that uses token">
+      <created>1677711525126</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1677711525126</updated>
+    </task>
+    <task id="LOCAL-00005" summary="feat: add admin page">
+      <created>1677711552108</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1677711552108</updated>
+    </task>
+    <task id="LOCAL-00006" summary="feat: add types for profile and response">
+      <created>1677711651509</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1677711651509</updated>
+    </task>
+    <task id="LOCAL-00007" summary="feat: add admin layout">
+      <created>1677711683824</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1677711683824</updated>
+    </task>
+    <task id="LOCAL-00008" summary="chore: change lang of shop layout">
+      <created>1677711722050</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1677711722050</updated>
+    </task>
+    <task id="LOCAL-00009" summary="feat: add sidebar">
+      <created>1677711781443</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1677711781443</updated>
+    </task>
+    <task id="LOCAL-00010" summary="feat: add table component">
+      <created>1677711815991</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1677711815991</updated>
+    </task>
+    <task id="LOCAL-00011" summary="chore: remove unused import">
+      <created>1677711853517</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1677711853517</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -97,6 +170,16 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="chore: add sitemap and compress" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: add sitemap and compress" />
+    <MESSAGE value="feat: add admin 404 page" />
+    <MESSAGE value="feat: add get query builder that uses token" />
+    <MESSAGE value="feat: add admin page" />
+    <MESSAGE value="feat: add types for profile and response" />
+    <MESSAGE value="feat: add admin layout" />
+    <MESSAGE value="chore: change lang of shop layout" />
+    <MESSAGE value="feat: add sidebar" />
+    <MESSAGE value="feat: add table component" />
+    <MESSAGE value="chore: remove unused import" />
+    <MESSAGE value="feat:" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat:" />
   </component>
 </project>
