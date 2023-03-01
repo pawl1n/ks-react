@@ -1,22 +1,26 @@
 ---
-import Layout from "../layouts/Shop.astro";
+import ShopLayout from "../layouts/Shop.astro";
+import AdminLayout from "../layouts/Admin.astro";
+const currentPath = Astro.url.pathname;
 ---
 
-<Layout title="Сторінку не знайдено" description="Сторінку не знайдено">
-  <div
-    class="flex-1 flex h-full items-center justify-center pb-12 px-4 sm:px-6 lg:px-8"
-  >
-    <div class="w-full max-w-md gap-5 flex flex-col items-center">
-      <h2 class="text-center text-3xl font-bold tracking-tight text-gray-900">
-        Сторінку не знайдено
-      </h2>
-      <a href="/">
-        <button
-          class="flex w-full justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white hover:bg-black focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-        >
-          На головну
-        </button>
-      </a>
-    </div>
-  </div>
-</Layout>
+{
+  currentPath.includes("/admin") ? (
+    <AdminLayout>404</AdminLayout>
+  ) : (
+    <ShopLayout title="Сторінку не знайдено" description="Сторінку не знайдено">
+      <div class="flex-1 flex h-full items-center justify-center pb-12 px-4 sm:px-6 lg:px-8">
+        <div class="w-full max-w-md gap-5 flex flex-col items-center">
+          <h2 class="text-center text-3xl font-bold tracking-tight text-gray-900">
+            Сторінку не знайдено
+          </h2>
+          <a href="/">
+            <button class="flex w-full justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white hover:bg-black focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+              На головну
+            </button>
+          </a>
+        </div>
+      </div>
+    </ShopLayout>
+  )
+}
