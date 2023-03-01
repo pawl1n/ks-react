@@ -1,4 +1,4 @@
-import SidebarLink, { Props as SidebarLinkProps } from "./SidebarLink";
+import SidebarLink from "./SidebarLink";
 
 interface Props {
   currentPath: string;
