@@ -1,8 +1,13 @@
 import SidebarLink from "./SidebarLink";
 
+export interface Link {
+  name: string;
+  url: string;
+}
+
 interface Props {
   currentPath: string;
-  links: string[];
+  links: Link[];
 }
 
 const Sidebar = ({ currentPath, links }: Props) => {
@@ -18,13 +23,12 @@ const Sidebar = ({ currentPath, links }: Props) => {
         <ul class="mt-6">
           {links?.map((link) => (
             <SidebarLink
-              key={link}
-              name={link}
-              link={"/" + link ?? ""}
-              // icon={item}
+              key={link.url}
+              name={link.name}
+              link={link.url}
               selected={
-                currentPath === "/admin" + link ||
-                currentPath === "/admin" + link + "/"
+                currentPath === "/admin/" + link.url ||
+                currentPath === "/admin/" + link.url + "/"
               }
             />
           ))}

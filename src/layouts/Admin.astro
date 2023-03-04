@@ -1,20 +1,19 @@
 ---
-import Sidebar from "../components/admin/sidebar/Sidebar";
-import Profile from "../types/Profile";
+import Sidebar, { Link } from "../components/admin/sidebar/Sidebar";
 
 const { title } = Astro.props;
 const currentPath = Astro.url.pathname;
 
-const links: string[] = await fetch("http://localhost:8080/profile")
-  .then((res) => res.json() as Promise<Profile>)
-  .then((data) => {
-    const paths: string[] = [];
-    for (const key in data._links) {
-      if (key === "self") continue;
-      paths.push(key);
-    }
-    return paths;
-  });
+const links: Link[] = [
+  {
+    name: "Товари",
+    url: "products",
+  },
+  {
+    name: "Категорії",
+    url: "categories",
+  },
+];
 ---
 
 <html lang="uk" class="h-full">

@@ -8,7 +8,6 @@ interface LoginProps {
 
 interface Response {
   token: string;
-  authorities: string[];
 }
 
 const loginUser = async (credentials: LoginProps): Promise<Response> => {
@@ -41,17 +40,12 @@ const LoginForm = () => {
       password: formData.get("password") as string,
     }).catch((e: Error) => {
       setErrorMessage(e.message);
-      return { token: "", authorities: [] as string[] };
+      return { token: "" };
     });
 
     if (response.token) {
       setToken(response.token);
-
-      if (response.authorities.includes("ADMIN")) {
-        window.location.href = "/admin";
-      } else {
-        window.location.href = "/";
-      }
+      window.location.href = "/";
     }
   };
 

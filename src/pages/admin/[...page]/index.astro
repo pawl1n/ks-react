@@ -1,0 +1,59 @@
+---
+import Layout from "../../../layouts/Admin.astro";
+import Table, { Column } from "../../../components/admin/Table";
+
+interface Param {
+  params: { page: string };
+  props: {
+    title: string;
+    columns: Column[];
+  };
+}
+
+export function getStaticPaths() {
+  const paths: Param[] = [];
+
+  paths.push({
+    params: { page: "products" },
+    props: {
+      title: "Товари",
+      columns: [
+        {
+          name: "Назва",
+          field: "name",
+        },
+        {
+          name: "Категорія",
+          field: "category",
+        },
+        {
+          name: "Опис",
+          field: "description",
+        },
+      ],
+    },
+  });
+
+  paths.push({
+    params: { page: "categories" },
+    props: {
+      title: "Категорії",
+      columns: [
+        {
+          name: "Назва",
+          field: "name",
+        },
+      ],
+    },
+  });
+
+  return paths;
+}
+
+const { page } = Astro.params;
+const { title, columns } = Astro.props;
+---
+
+<Layout>
+  <Table client:load title={title} columns={columns} entity={page} />
+</Layout>

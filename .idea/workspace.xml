@@ -4,20 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2800331-6ce1-4cce-80be-da4d09fc01fd" name="Changes" comment="chore: remove unused import">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/admin/productsaaa.astro" afterDir="false" />
+    <list default="true" id="d2800331-6ce1-4cce-80be-da4d09fc01fd" name="Changes" comment="chore: rename Alps">
+      <change afterPath="$PROJECT_DIR$/src/components/admin/InputGroup.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/admin/ProductForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/admin/[...page]/index.astro" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/Get.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/Get.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/Table.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/Table.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/admin/sidebar/Sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/sidebar/Sidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/sidebar/SidebarLink.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/sidebar/SidebarLink.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layouts/Admin.astro" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/Admin.astro" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/admin/[...page].astro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stores/tokenStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/stores/tokenStore.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Astro Component" />
+        <option value="TypeScript JSX File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -40,7 +54,7 @@
     "SONARLINT_PRECOMMIT_ANALYSIS": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/andreypinchuk/Documents/Projects/ks-astro",
+    "last_opened_file_path": "/Users/andreypinchuk/Documents/Projects/ks-astro/src/pages/admin",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -53,7 +67,11 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/pages/admin" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/pages/admin/[...page]" />
       <recent name="$PROJECT_DIR$/src/pages/admin" />
       <recent name="$PROJECT_DIR$/src/components/admin/sidebar" />
       <recent name="$PROJECT_DIR$/src/components/admin" />
@@ -83,7 +101,8 @@
       <workItem from="1677661240820" duration="2690000" />
       <workItem from="1677665443810" duration="2373000" />
       <workItem from="1677667834147" duration="710000" />
-      <workItem from="1677668561743" duration="35578000" />
+      <workItem from="1677668561743" duration="36140000" />
+      <workItem from="1677840048962" duration="11150000" />
     </task>
     <task id="LOCAL-00001" summary="chore: add sitemap and compress">
       <created>1677668329676</created>
@@ -162,7 +181,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677711853517</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="chore: rename Alps">
+      <created>1677712367204</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1677712367204</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,6 +206,7 @@
     <MESSAGE value="feat: add table component" />
     <MESSAGE value="chore: remove unused import" />
     <MESSAGE value="feat:" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat:" />
+    <MESSAGE value="chore: rename Alps" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: rename Alps" />
   </component>
 </project>

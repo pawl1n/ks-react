@@ -1,9 +1,12 @@
 import type { ApiEntityArrayResponse } from "../../types/Response";
 import { useEffect, useState } from "preact/hooks";
 import { memo } from "preact/compat";
-import type { Column } from "../../types/Alps";
-import { Type } from "../../types/Alps";
 import get from "../../api/Get";
+
+export interface Column {
+  name: string;
+  field: string;
+}
 
 interface Props {
   title: string;
@@ -20,14 +23,7 @@ const Table = memo(({ title, columns, entity }: Props) => {
     setErrorMessage("");
     setLoading(true);
 
-    get("http://localhost:8080/" + entity)
-      .then((data) => {
-        if (data.ok) {
-          return data.json();
-        } else {
-          throw new Error("Failed to fetch data");
-        }
-      })
+    get("http://localhost:8080/api/v1/" + entity)
       .then(setData)
       .catch((e) => {
         setErrorMessage(e.message);
@@ -48,7 +44,7 @@ const Table = memo(({ title, columns, entity }: Props) => {
             <thead className="text-xs font-semibold uppercase text-slate-400 bg-slate-50 dark:bg-stone-900 dark:text-stone-200">
               <tr>
                 {columns.map((column) => (
-                  <th key={column.name} className="p-2 whitespace-nowrap">
+                  <th key={column.field} className="p-2 whitespace-nowrap">
                     <div className="font-semibold text-left">{column.name}</div>
                   </th>
                 ))}
@@ -58,10 +54,16 @@ const Table = memo(({ title, columns, entity }: Props) => {
               {loading
                 ? "loading"
                 : data?._embedded?.[entity]?.map((row) => (
-                    <tr key={row.id} className="h-12">
+                    <tr
+                      key={row.id}
+                      className="h-12 cursor-pointer hover:bg-stone-100 dark:hover:bg-stone-700"
+                      onClick={() => {
+                        window.location.href = `/admin/${entity}/${row.id}`;
+                      }}
+                    >
                       {columns.map((column) => (
                         <td key={column} className="p-2 whitespace-nowrap">
-                          {column.type === Type.SAFE && row[column.name] ? (
+                          {row._links[column.field] && row[column.field] ? (
                             <a
                               href={
                                 "/admin/" +
@@ -69,14 +71,16 @@ const Table = memo(({ title, columns, entity }: Props) => {
                                 "/" +
                                 row.id +
                                 "/" +
-                                column.name
+                                column.field
                               }
                               className="text-sm text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300"
                             >
-                              {row[column.name] && row[column.name]}
+                              {row[column.field] && row[column.field]}
                             </a>
                           ) : (
-                            <div className="text-left">{row[column.name]}</div>
+                            <div className="text-left">
+                              {row[column.field] && row[column.field]}
+                            </div>
                           )}
                         </td>
                       ))}
