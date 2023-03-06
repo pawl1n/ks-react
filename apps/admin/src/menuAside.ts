@@ -11,14 +11,40 @@ import {
   mdiResponsive,
   mdiPalette,
   mdiVuejs,
-} from '@mdi/js'
-import { MenuAsideItem } from './interfaces'
+  mdiTshirtCrew,
+  mdiPlus,
+} from '@mdi/js';
+import { MenuAsideItem } from './interfaces';
 
 const menuAside: MenuAsideItem[] = [
   {
     href: '/dashboard',
     icon: mdiMonitor,
-    label: 'Dashboard',
+    label: 'Огляд',
+  },
+  {
+    href: '/products',
+    label: 'Речі',
+    icon: mdiTshirtCrew,
+    menu: [
+      {
+        href: '/products/create',
+        label: 'Створити',
+        icon: mdiPlus,
+      },
+    ],
+  },
+  {
+    href: '/categories',
+    label: 'Категорії',
+    icon: mdiTshirtCrew,
+    menu: [
+      {
+        href: '/categories/create',
+        label: 'Створити',
+        icon: mdiPlus,
+      },
+    ],
   },
   {
     href: '/tables',
@@ -84,6 +110,6 @@ const menuAside: MenuAsideItem[] = [
     icon: mdiVuejs,
     target: '_blank',
   },
-]
+];
 
-export default menuAside
+export default menuAside;

@@ -3,7 +3,8 @@
   "pipeline": {
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts"]
     },
     "build": {
       "outputs": ["dist/**"]

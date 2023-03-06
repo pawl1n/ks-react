@@ -1,20 +1,26 @@
-import { mdiAccount, mdiBallotOutline, mdiGithub, mdiMail, mdiUpload } from '@mdi/js'
-import { Field, Form, Formik } from 'formik'
-import Head from 'next/head'
-import { ReactElement } from 'react'
-import BaseButton from '../components/BaseButton'
-import BaseButtons from '../components/BaseButtons'
-import BaseDivider from '../components/BaseDivider'
-import CardBox from '../components/CardBox'
-import FormCheckRadio from '../components/FormCheckRadio'
-import FormCheckRadioGroup from '../components/FormCheckRadioGroup'
-import FormField from '../components/FormField'
-import FormFilePicker from '../components/FormFilePicker'
-import LayoutAuthenticated from '../layouts/Authenticated'
-import SectionMain from '../components/SectionMain'
-import SectionTitle from '../components/SectionTitle'
-import SectionTitleLineWithButton from '../components/SectionTitleLineWithButton'
-import { getPageTitle } from '../config'
+import {
+  mdiAccount,
+  mdiBallotOutline,
+  mdiGithub,
+  mdiMail,
+  mdiUpload,
+} from '@mdi/js';
+import { Field, Form, Formik } from 'formik';
+import Head from 'next/head';
+import { ReactElement } from 'react';
+import BaseButton from '../components/BaseButton';
+import BaseButtons from '../components/BaseButtons';
+import BaseDivider from '../components/BaseDivider';
+import CardBox from '../components/CardBox';
+import FormCheckRadio from '../components/FormCheckRadio';
+import FormCheckRadioGroup from '../components/FormCheckRadioGroup';
+import FormField from '../components/FormField';
+import FormFilePicker from '../components/FormFilePicker';
+import LayoutAuthenticated from '../layouts/Authenticated';
+import SectionMain from '../components/SectionMain';
+import SectionTitle from '../components/SectionTitle';
+import SectionTitleLineWithButton from '../components/SectionTitleLineWithButton';
+import { getPageTitle } from '../config';
 
 const FormsPage = () => {
   return (
@@ -24,7 +30,11 @@ const FormsPage = () => {
       </Head>
 
       <SectionMain>
-        <SectionTitleLineWithButton icon={mdiBallotOutline} title="Formik forms example" main>
+        <SectionTitleLineWithButton
+          icon={mdiBallotOutline}
+          title="Formik forms example"
+          main
+        >
           <BaseButton
             href="https://github.com/justboil/admin-one-react-tailwind"
             target="_blank"
@@ -48,7 +58,10 @@ const FormsPage = () => {
             onSubmit={(values) => alert(JSON.stringify(values, null, 2))}
           >
             <Form>
-              <FormField label="Grouped with icons" icons={[mdiAccount, mdiMail]}>
+              <FormField
+                label="Grouped with icons"
+                icons={[mdiAccount, mdiMail]}
+              >
                 <Field name="fullname" placeholder="Full name" />
                 <Field type="email" name="email" placeholder="Email" />
               </FormField>
@@ -72,7 +85,11 @@ const FormsPage = () => {
               <BaseDivider />
 
               <FormField label="Textarea" hasTextareaHeight>
-                <Field name="textarea" as="textarea" placeholder="Your text here" />
+                <Field
+                  name="textarea"
+                  as="textarea"
+                  placeholder="Your text here"
+                />
               </FormField>
 
               <BaseDivider />
@@ -91,8 +108,12 @@ const FormsPage = () => {
       <SectionMain>
         <CardBox>
           <Formik
-            initialValues={{ checkboxes: ['lorem'], switches: ['lorem'], radio: 'lorem' }}
-            onSubmit={() => null}
+            initialValues={{
+              checkboxes: ['lorem'],
+              switches: ['lorem'],
+              radio: 'lorem',
+            }}
+            onSubmit={() => {}}
           >
             <Form>
               <FormField label="Checkbox">
@@ -143,11 +164,11 @@ const FormsPage = () => {
         </CardBox>
       </SectionMain>
     </>
-  )
-}
+  );
+};
 
 FormsPage.getLayout = function getLayout(page: ReactElement) {
-  return <LayoutAuthenticated>{page}</LayoutAuthenticated>
-}
+  return <LayoutAuthenticated>{page}</LayoutAuthenticated>;
+};
 
-export default FormsPage
+export default FormsPage;

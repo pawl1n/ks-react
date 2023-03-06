@@ -1,13 +1,12 @@
-import React, { ReactNode } from 'react'
-import { containerMaxW } from '../config'
-import JustboilLogo from './JustboilLogo'
+import React, { ReactNode } from 'react';
+import { containerMaxW } from '../config';
 
 type Props = {
-  children: ReactNode
-}
+  children?: ReactNode;
+};
 
 export default function FooterBar({ children }: Props) {
-  const year = new Date().getFullYear()
+  const year = new Date().getFullYear();
 
   return (
     <footer className={`py-2 px-6 ${containerMaxW}`}>
@@ -15,20 +14,19 @@ export default function FooterBar({ children }: Props) {
         <div className="text-center md:text-left mb-6 md:mb-0">
           <b>
             &copy;{year},{` `}
-            <a href="https://justboil.me/" rel="noreferrer" target="_blank">
-              JustBoil.me
+            <a
+              href="https://github.com/pawl1n/"
+              rel="noreferrer"
+              target="_blank"
+            >
+              popuga
             </a>
             .
           </b>
           {` `}
-          {children}
-        </div>
-        <div className="md:py-2">
-          <a href="https://justboil.me" rel="noreferrer" target="_blank">
-            <JustboilLogo className="w-auto h-8 md:h-6 mx-auto" />
-          </a>
+          {children && children}
         </div>
       </div>
     </footer>
-  )
+  );
 }
