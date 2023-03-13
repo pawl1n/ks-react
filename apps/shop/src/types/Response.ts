@@ -1,10 +1,3 @@
-export interface ApiEntityResponse<T extends Entity> {
-  _embedded: {
-    [key: string]: T;
-  };
-  _links: Links;
-}
-
 export interface ApiEntityArrayResponse<T extends Entity> {
   _embedded: {
     [key: string]: T[];

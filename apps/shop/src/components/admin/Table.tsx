@@ -23,7 +23,7 @@ const Table = memo(({ title, columns, entity }: Props) => {
     setErrorMessage("");
     setLoading(true);
 
-    get("http://localhost:8080/api/v1/" + entity)
+    get("http://localhost:8080/api/" + entity)
       .then(setData)
       .catch((e) => {
         setErrorMessage(e.message);

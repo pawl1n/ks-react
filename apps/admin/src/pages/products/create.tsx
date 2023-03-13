@@ -1,7 +1,7 @@
-import { mdiArrowLeft, mdiPlus } from '@mdi/js';
+import { mdiArrowLeft, mdiPlus, mdiUpload } from '@mdi/js';
 import { Field, Form, Formik } from 'formik';
 import Head from 'next/head';
-import { ReactElement, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import BaseButton from 'components/BaseButton';
 import BaseButtons from 'components/BaseButtons';
 import BaseDivider from 'components/BaseDivider';
@@ -11,61 +11,80 @@ import SectionMain from 'components/SectionMain';
 import SectionTitleLineWithButton from 'components/SectionTitleLineWithButton';
 import { getPageTitle } from '../../config';
 import Router from 'next/router';
-import { useCategories } from 'hooks/sampleData';
-import CardBoxModal from 'components/CardBoxModal';
 import LayoutAuthenticated from 'layouts/Authenticated';
-import { useAppSelector } from '../../stores/hooks';
-
-type ProductRequest = {
-  name: string;
-  description: string;
-  category?: number;
-};
+import FormFilePicker from 'components/FormFilePicker';
+import Image from 'next/image';
+import { ProductRequest } from 'interfaces/Product';
+import { useCreateProductMutation } from 'services/products';
+import { useGetCategoriesQuery } from 'services/categories';
+import ImagePicker from 'components/ImagePicker';
+import ImageType from 'interfaces/Image';
+import { useCreateImageMutation } from '../../services/images';
 
 const CreateProductPage = () => {
-  const response = useCategories();
-  const categories = response.data;
+  const response = useGetCategoriesQuery();
+  const categories = response.data ?? [];
 
-  const [errorMessage, setErrorMessage] = useState('');
-  const [isModalDangerActive, setIsModalDangerActive] = useState(false);
-  const token = useAppSelector((state) => state.token.token);
+  const [createProduct] = useCreateProductMutation();
+  const [createImage] = useCreateImageMutation();
 
-  const handleSubmit = async (product: ProductRequest) => {
-    console.log(product);
-    if (!product.category) {
-      setErrorMessage('Виберіть категорію');
-      setIsModalDangerActive(true);
+  const [imageFile, setImageFile] = useState(null as File | null);
+  const [selectedImage, setSelectedImage] = useState(null as ImageType | null);
+
+  const handleSelectImage = (image: ImageType | null) => {
+    setSelectedImage(image);
+    setImageFile(null);
+  };
+
+  const handleSelectImageFile = (file: File | null): void => {
+    if (file) {
+      setImageFile(file);
+      setSelectedImage(null);
+    } else {
+      setImageFile(null);
       return;
     }
-    fetch('http://localhost:8080/api/v1/products', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(product),
-    }).then((data) => {
-      if (data.status === 200) {
-        data.json().then(console.log);
-      } else {
-        setErrorMessage('Помилка при додаванні продукту');
-        setIsModalDangerActive(true);
-      }
-    });
+  };
+
+  const handleSubmit = async (product: ProductRequest) => {
+    if (imageFile) {
+      const reader = new FileReader();
+
+      reader.readAsDataURL(imageFile);
+
+      reader.onload = () => {
+        const result = reader.result as string;
+        const base64 = result.split(',')[1];
+
+        createImage({
+          base64Image: base64,
+          name: product.name,
+        })
+          .unwrap()
+          .then((data) => {
+            product.mainImage = data.url;
+            createProduct(product);
+
+            Router.back();
+          });
+      };
+
+      return;
+    }
+
+    if (selectedImage) {
+      product.mainImage = selectedImage.url;
+    }
+
+    createProduct(product)
+      .unwrap()
+      .then(() => {
+        Router.back();
+      });
   };
 
   return (
     <>
-      <CardBoxModal
-        title="Помилка"
-        buttonColor="danger"
-        buttonLabel="Ок"
-        isActive={isModalDangerActive}
-        onConfirm={() => setIsModalDangerActive(false)}
-      >
-        <p>{errorMessage}</p>
-      </CardBoxModal>
-
       <Head>
         <title>{getPageTitle('Додавання товару')}</title>
       </Head>
@@ -84,6 +103,40 @@ const CreateProductPage = () => {
             }}
           />
         </SectionTitleLineWithButton>
+
+        <CardBox className="mb-6">
+          <FormField label="Зображення">
+            <FormFilePicker
+              label="Завантажити"
+              color="info"
+              icon={mdiUpload}
+              handleChange={handleSelectImageFile}
+            />
+          </FormField>
+          <ImagePicker selectImage={handleSelectImage} />
+
+          {imageFile && (
+            <div className="relative h-[150px]">
+              <Image
+                src={URL.createObjectURL(imageFile)}
+                alt={imageFile.name}
+                fill
+                className="object-contain"
+              />
+            </div>
+          )}
+
+          {selectedImage && (
+            <div className="relative h-[150px]">
+              <Image
+                src={selectedImage.url}
+                alt={selectedImage.name}
+                fill
+                className="object-contain"
+              />
+            </div>
+          )}
+        </CardBox>
 
         <CardBox>
           <Formik

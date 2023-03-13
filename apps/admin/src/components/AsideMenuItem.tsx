@@ -5,8 +5,9 @@ import Link from 'next/link';
 import { getButtonColor } from '../colors';
 import AsideMenuList from './AsideMenuList';
 import { MenuAsideItem } from '../interfaces';
-import { useAppSelector } from '../stores/hooks';
+import { useAppDispatch, useAppSelector } from '../stores/hooks';
 import { useRouter } from 'next/router';
+import { setToken } from '../stores/tokenSlice';
 
 type Props = {
   item: MenuAsideItem;
@@ -16,6 +17,7 @@ type Props = {
 const AsideMenuItem = ({ item, isDropdownList = false }: Props) => {
   const [isLinkActive, setIsLinkActive] = useState(false);
   const [isDropdownActive, setIsDropdownActive] = useState(false);
+  const dispatch = useAppDispatch();
 
   const asideMenuItemStyle = useAppSelector(
     (state) => state.style.asideMenuItemStyle,
@@ -59,13 +61,6 @@ const AsideMenuItem = ({ item, isDropdownList = false }: Props) => {
       >
         {item.label}
       </span>
-      {item.menu && (
-        <BaseIcon
-          path={isDropdownActive ? mdiMinus : mdiPlus}
-          className={`flex-none ${activeClassAddon}`}
-          w="w-12"
-        />
-      )}
     </>
   );
 
@@ -79,31 +74,42 @@ const AsideMenuItem = ({ item, isDropdownList = false }: Props) => {
 
   return (
     <li>
+      {item.isLogout && (
+        <div
+          className={componentClass}
+          onClick={() => {
+            dispatch(setToken({ token: '' }));
+          }}
+        >
+          {asideMenuItemInnerContents}
+        </div>
+      )}
       {item.href && !item.menu && (
         <Link href={item.href} target={item.target} className={componentClass}>
           {asideMenuItemInnerContents}
         </Link>
       )}
       {item.href && item.menu && (
-        <div
-          className={componentClass}
-          onClick={() => setIsDropdownActive(!isDropdownActive)}
-        >
-          <Link
-            href={item.href}
-            target={item.target}
-            className={componentClass}
-          >
+        <div className={componentClass}>
+          <Link href={item.href} target={item.target} className="flex-1 flex">
             {asideMenuItemInnerContents}
           </Link>
+          <BaseIcon
+            onClick={() => setIsDropdownActive(!isDropdownActive)}
+            path={isDropdownActive ? mdiMinus : mdiPlus}
+            className={`flex-none mr-0 ml-auto ${activeClassAddon}`}
+            w="w-12"
+          />
         </div>
       )}
       {!item.href && item.menu && (
-        <div
-          className={componentClass}
-          onClick={() => setIsDropdownActive(!isDropdownActive)}
-        >
+        <div onClick={() => setIsDropdownActive(!isDropdownActive)}>
           {asideMenuItemInnerContents}
+          <BaseIcon
+            path={isDropdownActive ? mdiMinus : mdiPlus}
+            className={`flex-none ${activeClassAddon}`}
+            w="w-12"
+          />
         </div>
       )}
       {item.menu && (

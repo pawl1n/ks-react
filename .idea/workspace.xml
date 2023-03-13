@@ -4,37 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b735ee83-5b25-4850-9199-4acf63e4b60f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/apps/admin/src/api.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/admin/src/components/tables/TableCategories.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/admin/src/components/tables/TableProducts.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/admin/src/pages/categories/create.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/admin/src/pages/categories/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/admin/src/pages/products/create.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/admin/src/pages/products/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/admin/src/stores/tokenSlice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" beforeDir="false" />
+    <list default="true" id="d2800331-6ce1-4cce-80be-da4d09fc01fd" name="Changes" comment="refactor: use rtk.query">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/next.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/next.config.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/src/components/AsideMenuItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/components/AsideMenuItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/src/components/FooterBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/components/FooterBar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/src/components/SectionTitleLineWithButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/components/SectionTitleLineWithButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/src/hooks/sampleData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/hooks/sampleData.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/src/interfaces/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/interfaces/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/src/layouts/Authenticated.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/layouts/Authenticated.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/src/menuAside.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/menuAside.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/src/pages/forms.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/pages/forms.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/src/pages/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/pages/login.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/src/stores/mainSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/stores/mainSlice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/src/stores/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/stores/store.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/admin/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/turbo.json" beforeDir="false" afterPath="$PROJECT_DIR$/turbo.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/components/tables/TableProducts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/components/tables/TableProducts.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/shop/src/components/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/shop/src/components/Login.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,14 +17,22 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Astro Component" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="2MdNqie0ZJH6IDJ9m2vYXO4Litp" />
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectId" id="2MPF9YczIwJhfSYc6N1aa5vav0o" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -61,48 +42,44 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;feature-use-turborepo-add-admin-repo&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/popuga/WebstormProjects/ks-astro/apps/admin/src/components/tables&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;19.4.0&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;18.14.6&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/andreypinchuk/Documents/Projects/ks-astro/apps/admin/src/stores&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/home/popuga/WebstormProjects/ks-astro/node_modules/prettier&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/andreypinchuk/Documents/Projects/ks-astro/node_modules/prettier&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/home/popuga/WebstormProjects/ks-astro/node_modules/typescript/lib&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/andreypinchuk/Documents/Projects/ks-astro/node_modules/typescript/lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/apps/admin/src/components/tables" />
+      <recent name="$PROJECT_DIR$/apps/admin/src/stores" />
+      <recent name="$PROJECT_DIR$/apps/admin/src/interfaces" />
+      <recent name="$PROJECT_DIR$/apps/admin/src/services" />
       <recent name="$PROJECT_DIR$/apps/admin/src/pages" />
-      <recent name="$PROJECT_DIR$/apps/admin/src/components" />
+      <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/apps/admin/src/components/tables" />
-      <recent name="$PROJECT_DIR$/apps/admin/src/pages/products" />
+      <recent name="$PROJECT_DIR$/apps/shop" />
+      <recent name="$PROJECT_DIR$/src/pages/admin/[...page]" />
+      <recent name="$PROJECT_DIR$/src/pages/admin" />
+      <recent name="$PROJECT_DIR$/src/components/admin/sidebar" />
+      <recent name="$PROJECT_DIR$/src/components/admin" />
     </key>
   </component>
-  <component name="RunManager" selected="Shell Script.turbo dev">
-    <configuration name="turbo dev" type="ShConfigurationType">
-      <option name="SCRIPT_TEXT" value="npm run dev" />
-      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
-      <option name="SCRIPT_PATH" value="" />
-      <option name="SCRIPT_OPTIONS" value="" />
-      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
-      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
-      <option name="INTERPRETER_PATH" value="/usr/bin/zsh" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="EXECUTE_IN_TERMINAL" value="true" />
-      <option name="EXECUTE_SCRIPT_FILE" value="false" />
-      <envs />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager">
     <configuration name="dev" type="js.build_tools.npm" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -113,26 +90,173 @@
       <envs />
       <method v="2" />
     </configuration>
-    <list>
-      <item itemvalue="npm.dev" />
-      <item itemvalue="Shell Script.turbo dev" />
-    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="b735ee83-5b25-4850-9199-4acf63e4b60f" name="Changes" comment="" />
-      <created>1678093692554</created>
+      <changelist id="d2800331-6ce1-4cce-80be-da4d09fc01fd" name="Changes" comment="" />
+      <created>1677661159706</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1678093692554</updated>
-      <workItem from="1678093693958" duration="3374000" />
-      <workItem from="1678097077175" duration="18479000" />
-      <workItem from="1678128546445" duration="3350000" />
+      <updated>1677661159706</updated>
+      <workItem from="1677661160768" duration="70000" />
+      <workItem from="1677661240820" duration="2690000" />
+      <workItem from="1677665443810" duration="2373000" />
+      <workItem from="1677667834147" duration="710000" />
+      <workItem from="1677668561743" duration="36140000" />
+      <workItem from="1677840048962" duration="12670000" />
+      <workItem from="1677925890111" duration="12152000" />
+      <workItem from="1678016117001" duration="3001000" />
+      <workItem from="1678021890067" duration="3331000" />
+      <workItem from="1678084977479" duration="7869000" />
+      <workItem from="1678479975583" duration="6335000" />
+      <workItem from="1678523553057" duration="8319000" />
+      <workItem from="1678563695551" duration="253000" />
+      <workItem from="1678566935322" duration="6815000" />
+      <workItem from="1678620895869" duration="30701000" />
+      <workItem from="1678696612131" duration="15964000" />
     </task>
+    <task id="LOCAL-00001" summary="chore: add sitemap and compress">
+      <created>1677668329676</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1677668329676</updated>
+    </task>
+    <task id="LOCAL-00002" summary="chore: add sitemap and compress">
+      <created>1677668619752</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1677668619752</updated>
+    </task>
+    <task id="LOCAL-00003" summary="feat: add admin 404 page">
+      <created>1677711439836</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1677711439836</updated>
+    </task>
+    <task id="LOCAL-00004" summary="feat: add get query builder that uses token">
+      <created>1677711525126</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1677711525126</updated>
+    </task>
+    <task id="LOCAL-00005" summary="feat: add admin page">
+      <created>1677711552108</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1677711552108</updated>
+    </task>
+    <task id="LOCAL-00006" summary="feat: add types for profile and response">
+      <created>1677711651509</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1677711651509</updated>
+    </task>
+    <task id="LOCAL-00007" summary="feat: add admin layout">
+      <created>1677711683824</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1677711683824</updated>
+    </task>
+    <task id="LOCAL-00008" summary="chore: change lang of shop layout">
+      <created>1677711722050</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1677711722050</updated>
+    </task>
+    <task id="LOCAL-00009" summary="feat: add sidebar">
+      <created>1677711781443</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1677711781443</updated>
+    </task>
+    <task id="LOCAL-00010" summary="feat: add table component">
+      <created>1677711815991</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1677711815991</updated>
+    </task>
+    <task id="LOCAL-00011" summary="chore: remove unused import">
+      <created>1677711853517</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1677711853517</updated>
+    </task>
+    <task id="LOCAL-00012" summary="chore: rename Alps">
+      <created>1677712367204</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1677712367204</updated>
+    </task>
+    <task id="LOCAL-00013" summary="refactor: remove building pages from profile">
+      <created>1677924938846</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1677924938846</updated>
+    </task>
+    <task id="LOCAL-00014" summary="feat: add toasts">
+      <created>1678730029948</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1678730029948</updated>
+    </task>
+    <task id="LOCAL-00015" summary="refactor: use rtk.query">
+      <created>1678730105107</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1678730105107</updated>
+    </task>
+    <task id="LOCAL-00016" summary="refactor: use rtk.query">
+      <created>1678730140490</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1678730140490</updated>
+    </task>
+    <task id="LOCAL-00017" summary="refactor: use rtk.query">
+      <created>1678730560554</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1678730560554</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="chore: add sitemap and compress" />
+    <MESSAGE value="feat: add admin 404 page" />
+    <MESSAGE value="feat: add get query builder that uses token" />
+    <MESSAGE value="feat: add admin page" />
+    <MESSAGE value="feat: add types for profile and response" />
+    <MESSAGE value="feat: add admin layout" />
+    <MESSAGE value="chore: change lang of shop layout" />
+    <MESSAGE value="feat: add sidebar" />
+    <MESSAGE value="feat: add table component" />
+    <MESSAGE value="chore: remove unused import" />
+    <MESSAGE value="feat:" />
+    <MESSAGE value="chore: rename Alps" />
+    <MESSAGE value="refactor: remove building pages from profile" />
+    <MESSAGE value="feat: add toasts" />
+    <MESSAGE value="refactor: use rtk.query" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: use rtk.query" />
   </component>
 </project>

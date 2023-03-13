@@ -1,7 +1,7 @@
 import { mdiArrowLeft, mdiPlus } from '@mdi/js';
 import { Field, Form, Formik } from 'formik';
 import Head from 'next/head';
-import { ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
 import BaseButton from 'components/BaseButton';
 import BaseButtons from 'components/BaseButtons';
 import BaseDivider from 'components/BaseDivider';
@@ -11,55 +11,29 @@ import SectionMain from 'components/SectionMain';
 import SectionTitleLineWithButton from 'components/SectionTitleLineWithButton';
 import { getPageTitle } from '../../config';
 import Router from 'next/router';
-import { useCategories } from 'hooks/sampleData';
-import CardBoxModal from 'components/CardBoxModal';
 import LayoutAuthenticated from 'layouts/Authenticated';
-import { useAppSelector } from '../../stores/hooks';
-
-type CategoryRequest = {
-  name: string;
-  parentCategory?: number;
-};
+import { CategoryRequest } from '../../interfaces/Category';
+import {
+  useCreateCategoryMutation,
+  useGetCategoriesQuery,
+} from '../../services/categories';
 
 const CreateProductPage = () => {
-  const response = useCategories();
-  const categories = response.data;
+  const response = useGetCategoriesQuery();
+  const categories = response.data ?? [];
 
-  const [errorMessage, setErrorMessage] = useState('');
-  const [isModalDangerActive, setIsModalDangerActive] = useState(false);
-
-  const token = useAppSelector((state) => state.token.token);
+  const [createCategory] = useCreateCategoryMutation();
 
   const handleSubmit = async (category: CategoryRequest) => {
-    fetch('http://localhost:8080/api/v1/categories', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(category),
-    }).then((data) => {
-      if (data.status === 200) {
-        data.json().then(console.log);
-      } else {
-        setErrorMessage('Помилка при додаванні категорії');
-        setIsModalDangerActive(true);
-      }
-    });
+    createCategory(category)
+      .unwrap()
+      .then(() => {
+        Router.back();
+      });
   };
 
   return (
     <>
-      <CardBoxModal
-        title="Помилка"
-        buttonColor="danger"
-        buttonLabel="Ок"
-        isActive={isModalDangerActive}
-        onConfirm={() => setIsModalDangerActive(false)}
-      >
-        <p>{errorMessage}</p>
-      </CardBoxModal>
-
       <Head>
         <title>{getPageTitle('Додавання товару')}</title>
       </Head>
@@ -102,6 +76,7 @@ const CreateProductPage = () => {
                   id="parentCategory"
                   component="select"
                 >
+                  <option value={undefined}>Відсутня</option>
                   {categories.map((category) => (
                     <option key={category.id} value={category.id}>
                       {category.name}

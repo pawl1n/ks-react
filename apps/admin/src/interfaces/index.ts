@@ -1,11 +1,8 @@
+import { ApiResponseEntity } from './apiResponse';
+
 export type UserPayloadObject = {
   name: string;
   email: string;
-  avatar: string;
-};
-
-export type TokenPayloadObject = {
-  token: string;
 };
 
 export type MenuAsideItem = {
@@ -87,54 +84,25 @@ export type Client = {
 
 export type StyleKey = 'white' | 'basic';
 
-export type UserForm = {
-  name: string;
-  email: string;
-};
-
-export interface Category extends ApiResponseEntity {
+export type UpdateRequestProps<T> = {
   id: number;
-  name: string;
-  parentCategory?: Category;
-  _links: {
-    self: Link;
-    parentCategory: Link;
-    childrenCategories: Link;
-  };
+  data: T;
+};
+
+export type Pageable<T extends ApiResponseEntity> = {
+  page: number;
+  size: number;
+  sort?: Sort<T>;
+};
+
+export type Sort<T extends ApiResponseEntity> =
+  | SortKey<T>
+  | `${SortKey<T> & string},${SortDirection}`
+  | undefined;
+
+export type SortKey<T extends ApiResponseEntity> = Exclude<keyof T, '_links'>;
+
+export enum SortDirection {
+  ASC = 'asc',
+  DESC = 'desc',
 }
-
-export interface Product extends ApiResponseEntity {
-  id: number;
-  name: string;
-  description: string;
-  category: string;
-  _links: {
-    self: Link;
-    category: Link;
-  };
-}
-
-export type Link = {
-  href: string;
-};
-
-export type ApiResponseEntity = {
-  _links: {
-    self: Link;
-  };
-};
-
-export type ApiResponse<Entity extends ApiResponseEntity> = {
-  _embedded?: {
-    [key: string]: Entity[];
-  };
-  _links: {
-    self: Link;
-  };
-};
-
-export type SWRResponse<Entity extends ApiResponseEntity> = {
-  data: Entity[];
-  isLoading: boolean;
-  isError: boolean;
-};

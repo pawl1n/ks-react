@@ -11,7 +11,7 @@ interface Response {
 }
 
 const loginUser = async (credentials: LoginProps): Promise<Response> => {
-  return fetch("http://localhost:8080/api/v1/auth/login", {
+  return fetch("http://localhost:8080/api/auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -54,28 +54,28 @@ const LoginForm = () => {
       <input type="hidden" name="remember" defaultValue="true" />
       <div className="-space-y-px rounded-md shadow-sm">
         <div>
-          <label for="email-address" className="sr-only">
+          <label htmlFor="email-address" className="sr-only">
             Email address
           </label>
           <input
             id="email-address"
             name="email"
             type="email"
-            autocomplete="email"
+            autoComplete="email"
             required
             className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
             placeholder="Email"
           />
         </div>
         <div>
-          <label for="password" className="sr-only">
+          <label htmlFor="password" className="sr-only">
             Password
           </label>
           <input
             id="password"
             name="password"
             type="password"
-            autocomplete="current-password"
+            autoComplete="current-password"
             required
             className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
             placeholder="Пароль"
@@ -92,7 +92,10 @@ const LoginForm = () => {
             className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary transition-all"
             checked
           />
-          <label for="remember-me" className="ml-2 block text-sm text-gray-900">
+          <label
+            htmlFor="remember-me"
+            className="ml-2 block text-sm text-gray-900"
+          >
             Запамʼятати мене
           </label>
         </div>

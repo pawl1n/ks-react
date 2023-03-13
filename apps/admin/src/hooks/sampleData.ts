@@ -3,10 +3,7 @@ import { Category, Product, SWRResponse } from '../interfaces';
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export const useProducts = (): SWRResponse<Product> => {
-  const { data, error } = useSWR(
-    'http://localhost:8080/api/v1/products',
-    fetcher,
-  );
+  const { data, error } = useSWR('http://localhost:8080/api/products', fetcher);
 
   return {
     data: data?._embedded ? data._embedded['products'] : [],
@@ -17,7 +14,7 @@ export const useProducts = (): SWRResponse<Product> => {
 
 export const useCategories = (): SWRResponse<Category> => {
   const { data, error } = useSWR(
-    'http://localhost:8080/api/v1/categories',
+    'http://localhost:8080/api/categories',
     fetcher,
   );
 

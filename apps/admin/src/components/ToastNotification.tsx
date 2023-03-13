@@ -1,7 +1,6 @@
 import Toast, { ToastType } from '../interfaces/Toast';
 import { useAppDispatch } from '../stores/hooks';
 import { removeToast } from '../stores/toastSlice';
-import { useState } from 'react';
 
 const ToastNotification = ({ type, message, id, delay }: Toast) => {
   const dispatch = useAppDispatch();

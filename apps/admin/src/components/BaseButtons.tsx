@@ -1,14 +1,13 @@
-import { Children, cloneElement, ReactElement } from 'react'
-import type { ReactNode } from 'react'
+import { Children, cloneElement, ReactElement } from 'react';
 
 type Props = {
-  type?: string
-  mb?: string
-  noWrap?: boolean
-  classAddon?: string
-  children: ReactNode
-  className?: string
-}
+  type?: string;
+  mb?: string;
+  noWrap?: boolean;
+  classAddon?: string;
+  children: ReactElement[] | ReactElement;
+  className?: string;
+};
 
 const BaseButtons = ({
   type = 'justify-start',
@@ -25,10 +24,14 @@ const BaseButtons = ({
       }`}
     >
       {Children.map(children, (child: ReactElement) =>
-        child ? cloneElement(child, { className: `${classAddon} ${child.props.className}` }) : null
+        child
+          ? cloneElement(child, {
+              className: `${classAddon} ${child.props.className}`,
+            })
+          : null,
       )}
     </div>
-  )
-}
+  );
+};
 
-export default BaseButtons
+export default BaseButtons;

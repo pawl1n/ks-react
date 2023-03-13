@@ -1,25 +1,28 @@
 import { mdiEye, mdiTrashCan } from '@mdi/js';
 import { useState } from 'react';
-import { useCategories } from 'hooks/sampleData';
-import { Category } from 'interfaces';
+import Category from 'interfaces/Category';
 import BaseButton from 'components/BaseButton';
 import BaseButtons from 'components/BaseButtons';
 import CardBoxModal from 'components/CardBoxModal';
-import UserAvatar from 'components/UserAvatar';
+import {
+  useDeleteCategoryMutation,
+  useGetCategoriesQuery,
+} from '../../services/categories';
 
 const TableCategories = () => {
-  const { data } = useCategories();
+  const { data } = useGetCategoriesQuery();
+  const [deleteCategory] = useDeleteCategoryMutation();
 
   const perPage = 5;
 
   const [currentPage, setCurrentPage] = useState(0);
 
-  const categoriesPaginated = data.slice(
+  const categoriesPaginated = data?.slice(
     perPage * currentPage,
     perPage * (currentPage + 1),
   );
 
-  const numPages = data.length / perPage;
+  const numPages = data ? Math.ceil(data.length / perPage) : 0;
 
   const pagesList = [];
 
@@ -29,10 +32,27 @@ const TableCategories = () => {
 
   const [isModalInfoActive, setIsModalInfoActive] = useState(false);
   const [isModalTrashActive, setIsModalTrashActive] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const handleModalAction = () => {
     setIsModalInfoActive(false);
     setIsModalTrashActive(false);
+  };
+
+  const handleDelete = () => {
+    if (!selectedCategory) {
+      return;
+    }
+
+    deleteCategory(selectedCategory);
+    setSelectedCategory(null);
+    setIsModalTrashActive(false);
+  };
+
+  const deleteItem = (href: string) => {
+    setSelectedCategory(href);
+    setIsModalTrashActive(true);
+    handleDelete();
   };
 
   return (
@@ -51,39 +71,30 @@ const TableCategories = () => {
         <p>This is sample modal</p>
       </CardBoxModal>
       <CardBoxModal
-        title="Please confirm"
+        title="Ви впевнені?"
         buttonColor="danger"
-        buttonLabel="Confirm"
+        buttonLabel="Підтвердити"
         isActive={isModalTrashActive}
-        onConfirm={handleModalAction}
+        onConfirm={handleDelete}
         onCancel={handleModalAction}
       >
-        <p>
-          Lorem ipsum dolor sit amet <b>adipiscing elit</b>
-        </p>
-        <p>This is sample modal</p>
+        <p>Ви впевнені що бажаєте видалити категорію?</p>
       </CardBoxModal>
       <table>
         <thead>
           <tr>
-            <th />
             <th>Назва</th>
-            <th>Опис</th>
-            <th>Категорія</th>
+            <th>Батьківська категорія</th>
             <th />
           </tr>
         </thead>
         <tbody>
           {categoriesPaginated?.map((category: Category) => (
             <tr key={category.id}>
-              <td className="border-b-0 before:hidden lg:w-6">
-                <UserAvatar
-                  username={category.name}
-                  className="mx-auto h-24 w-24 lg:h-6 lg:w-6"
-                />
-              </td>
               <td data-label="Назва">{category.name}</td>
-              <td data-label="Категорія">{category.parentCategory?.name}</td>
+              <td data-label="Батьтківська категорія">
+                {category.parentCategory}
+              </td>
               <td className="whitespace-nowrap before:hidden lg:w-1">
                 <BaseButtons type="justify-start lg:justify-end" noWrap>
                   <BaseButton
@@ -95,7 +106,7 @@ const TableCategories = () => {
                   <BaseButton
                     color="danger"
                     icon={mdiTrashCan}
-                    onClick={() => setIsModalTrashActive(true)}
+                    onClick={() => deleteItem(category._links.self.href)}
                     small
                   />
                 </BaseButtons>

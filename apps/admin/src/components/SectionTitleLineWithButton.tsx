@@ -1,6 +1,4 @@
-import { mdiCog } from '@mdi/js';
 import React, { ReactNode } from 'react';
-import BaseButton from './BaseButton';
 import BaseIcon from './BaseIcon';
 import IconRounded from './IconRounded';
 
@@ -17,8 +15,6 @@ export default function SectionTitleLineWithButton({
   main = false,
   children,
 }: Props) {
-  const hasChildren = children !== undefined;
-
   return (
     <section
       className={`${main ? '' : 'pt-6'} mb-6 flex items-center justify-between`}
@@ -33,7 +29,6 @@ export default function SectionTitleLineWithButton({
         </h1>
       </div>
       {children}
-      {!hasChildren && <BaseButton icon={mdiCog} color="whiteDark" />}
     </section>
   );
 }

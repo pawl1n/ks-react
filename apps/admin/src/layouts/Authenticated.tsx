@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useState } from 'react';
-import { mdiForwardburger, mdiBackburger, mdiMenu } from '@mdi/js';
+import { mdiBackburger, mdiForwardburger, mdiMenu } from '@mdi/js';
 import menuAside from '../menuAside';
 import menuNavBar from '../menuNavBar';
 import BaseIcon from '../components/BaseIcon';
@@ -7,11 +7,11 @@ import NavBar from '../components/NavBar';
 import NavBarItemPlain from '../components/NavBarItemPlain';
 import AsideMenu from '../components/AsideMenu';
 import FooterBar from '../components/FooterBar';
-import { setUser } from '../stores/mainSlice';
 import { useAppDispatch, useAppSelector } from '../stores/hooks';
-import FormField from '../components/FormField';
-import { Field, Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
+import { setDarkMode } from '../stores/styleSlice';
+import { useGetMeQuery } from '../services/users';
+import ToastContainer from '../components/ToastContainer';
 
 type Props = {
   children: ReactNode;
@@ -20,16 +20,7 @@ type Props = {
 export default function LayoutAuthenticated({ children }: Props) {
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(
-      setUser({
-        name: 'John Doe',
-        email: 'john@example.com',
-        avatar:
-          'https://avatars.dicebear.com/api/avataaars/example.svg?options[top][]=shortHair&options[accessoriesChance]=93',
-      }),
-    );
-  });
+  const { isLoading } = useGetMeQuery();
 
   const darkMode = useAppSelector((state) => state.style.darkMode);
 
@@ -39,6 +30,18 @@ export default function LayoutAuthenticated({ children }: Props) {
   const router = useRouter();
 
   useEffect(() => {
+    const preferredColorScheme = window.matchMedia(
+      '(prefers-color-scheme: dark)',
+    );
+
+    const handleDarkModeChange = () => {
+      dispatch(setDarkMode(preferredColorScheme.matches));
+    };
+
+    handleDarkModeChange();
+
+    preferredColorScheme.addEventListener('change', handleDarkModeChange);
+
     const handleRouteChangeStart = () => {
       setIsAsideMobileExpanded(false);
       setIsAsideLgActive(false);
@@ -46,10 +49,9 @@ export default function LayoutAuthenticated({ children }: Props) {
 
     router.events.on('routeChangeStart', handleRouteChangeStart);
 
-    // If the component is unmounted, unsubscribe
-    // from the event with the `off` method:
     return () => {
       router.events.off('routeChangeStart', handleRouteChangeStart);
+      preferredColorScheme.removeEventListener('change', handleDarkModeChange);
     };
   }, [router.events, dispatch]);
 
@@ -61,56 +63,49 @@ export default function LayoutAuthenticated({ children }: Props) {
         darkMode ? 'dark' : ''
       } overflow-hidden lg:overflow-visible`}
     >
-      <div
-        className={`${layoutAsidePadding} ${
-          isAsideMobileExpanded ? 'ml-60 lg:ml-0' : ''
-        } min-h-screen w-screen bg-gray-50 transition-position dark:bg-slate-800 dark:text-slate-100 lg:w-auto`}
-      >
-        <NavBar
-          menu={menuNavBar}
+      {isLoading ? (
+        <div className="flex items-center justify-center h-screen">
+          <BaseIcon path={mdiBackburger} className="animate-spin" />
+        </div>
+      ) : (
+        <div
           className={`${layoutAsidePadding} ${
             isAsideMobileExpanded ? 'ml-60 lg:ml-0' : ''
-          }`}
+          } min-h-screen w-screen bg-gray-50 transition-position dark:bg-slate-800 dark:text-slate-100 lg:w-auto`}
         >
-          <NavBarItemPlain
-            display="flex lg:hidden"
-            onClick={() => setIsAsideMobileExpanded(!isAsideMobileExpanded)}
+          <NavBar
+            menu={menuNavBar}
+            className={`${layoutAsidePadding} ${
+              isAsideMobileExpanded ? 'lg:ml-0' : ''
+            }`}
           >
-            <BaseIcon
-              path={isAsideMobileExpanded ? mdiBackburger : mdiForwardburger}
-              size="24"
-            />
-          </NavBarItemPlain>
-          <NavBarItemPlain
-            display="hidden lg:flex xl:hidden"
-            onClick={() => setIsAsideLgActive(true)}
-          >
-            <BaseIcon path={mdiMenu} size="24" />
-          </NavBarItemPlain>
-          <NavBarItemPlain useMargin>
-            <Formik
-              initialValues={{
-                search: '',
-              }}
-              onSubmit={(values) => alert(JSON.stringify(values, null, 2))}
+            <NavBarItemPlain
+              display="flex lg:hidden"
+              onClick={() => setIsAsideMobileExpanded(!isAsideMobileExpanded)}
             >
-              <Form>
-                <FormField isBorderless isTransparent>
-                  <Field name="search" placeholder="Search" />
-                </FormField>
-              </Form>
-            </Formik>
-          </NavBarItemPlain>
-        </NavBar>
-        <AsideMenu
-          isAsideMobileExpanded={isAsideMobileExpanded}
-          isAsideLgActive={isAsideLgActive}
-          menu={menuAside}
-          onAsideLgClose={() => setIsAsideLgActive(false)}
-        />
-        {children}
-        <FooterBar />
-      </div>
+              <BaseIcon
+                path={isAsideMobileExpanded ? mdiBackburger : mdiForwardburger}
+                size="24"
+              />
+            </NavBarItemPlain>
+            <NavBarItemPlain
+              display="hidden lg:flex xl:hidden"
+              onClick={() => setIsAsideLgActive(true)}
+            >
+              <BaseIcon path={mdiMenu} size="24" />
+            </NavBarItemPlain>
+          </NavBar>
+          <AsideMenu
+            isAsideMobileExpanded={isAsideMobileExpanded}
+            isAsideLgActive={isAsideLgActive}
+            menu={menuAside}
+            onAsideLgClose={() => setIsAsideLgActive(false)}
+          />
+          {children}
+          <FooterBar />
+        </div>
+      )}
+      <ToastContainer />
     </div>
   );
 }

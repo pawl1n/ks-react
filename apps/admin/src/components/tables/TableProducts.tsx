@@ -1,25 +1,33 @@
 import { mdiEye, mdiTrashCan } from '@mdi/js';
 import { useState } from 'react';
-import { useProducts } from 'hooks/sampleData';
-import { Product } from 'interfaces';
+import Product from 'interfaces/Product';
 import BaseButton from 'components/BaseButton';
 import BaseButtons from 'components/BaseButtons';
 import CardBoxModal from 'components/CardBoxModal';
-import UserAvatar from 'components/UserAvatar';
+import {
+  useDeleteProductMutation,
+  useGetProductsQuery,
+} from '../../services/products';
+import { Pageable, Sort } from '../../interfaces';
 
 const TableProducts = () => {
-  const { data } = useProducts();
-
-  const perPage = 5;
-
   const [currentPage, setCurrentPage] = useState(0);
+  const perPage = 5;
+  const [sort, setSort] = useState<Sort<Product>>(undefined);
 
-  const productsPaginated = data.slice(
-    perPage * currentPage,
-    perPage * (currentPage + 1),
-  );
+  const { data } = useGetProductsQuery({
+    page: currentPage,
+    size: perPage,
+    sort: sort,
+  } as Pageable<Product>);
 
-  const numPages = data.length / perPage;
+  setSort('id');
+
+  const [deleteProduct] = useDeleteProductMutation();
+
+  const productsPaginated = data?._embedded?.products ?? [];
+
+  const numPages = data?.page?.totalPages ?? 0;
 
   const pagesList = [];
 
@@ -29,10 +37,26 @@ const TableProducts = () => {
 
   const [isModalInfoActive, setIsModalInfoActive] = useState(false);
   const [isModalTrashActive, setIsModalTrashActive] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
 
   const handleModalAction = () => {
     setIsModalInfoActive(false);
     setIsModalTrashActive(false);
+  };
+
+  const handleDelete = () => {
+    if (!selectedProduct) {
+      return;
+    }
+
+    deleteProduct(selectedProduct);
+    setSelectedProduct(null);
+    setIsModalTrashActive(false);
+  };
+
+  const deleteItem = (href: string) => {
+    setSelectedProduct(href);
+    setIsModalTrashActive(true);
   };
 
   return (
@@ -45,28 +69,21 @@ const TableProducts = () => {
         onConfirm={handleModalAction}
         onCancel={handleModalAction}
       >
-        <p>
-          Lorem ipsum dolor sit amet <b>adipiscing elit</b>
-        </p>
         <p>This is sample modal</p>
       </CardBoxModal>
       <CardBoxModal
-        title="Please confirm"
+        title="Ви впевнені?"
         buttonColor="danger"
-        buttonLabel="Confirm"
+        buttonLabel="Підтвердити"
         isActive={isModalTrashActive}
-        onConfirm={handleModalAction}
+        onConfirm={handleDelete}
         onCancel={handleModalAction}
       >
-        <p>
-          Lorem ipsum dolor sit amet <b>adipiscing elit</b>
-        </p>
-        <p>This is sample modal</p>
+        <p>Ви впевнені що бажаєте видалити продукт?</p>
       </CardBoxModal>
       <table>
         <thead>
           <tr>
-            <th />
             <th>Назва</th>
             <th>Опис</th>
             <th>Категорія</th>
@@ -76,12 +93,6 @@ const TableProducts = () => {
         <tbody>
           {productsPaginated?.map((product: Product) => (
             <tr key={product.id}>
-              <td className="border-b-0 before:hidden lg:w-6">
-                <UserAvatar
-                  username={product.name}
-                  className="mx-auto h-24 w-24 lg:h-6 lg:w-6"
-                />
-              </td>
               <td data-label="Назва">{product.name}</td>
               <td data-label="Опис">{product.description}</td>
               <td data-label="Категорія">{product.category}</td>
@@ -96,7 +107,7 @@ const TableProducts = () => {
                   <BaseButton
                     color="danger"
                     icon={mdiTrashCan}
-                    onClick={() => setIsModalTrashActive(true)}
+                    onClick={() => deleteItem(product._links.self.href)}
                     small
                   />
                 </BaseButtons>
