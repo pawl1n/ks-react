@@ -1,0 +1,20 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts"]
+    },
+    "build": {
+      "outputs": ["dist/**"]
+    },
+    "lint": {
+
+    }
+  },
+  "globalDependencies": [
+    ".env",
+    "tsconfig.json"
+  ]
+}

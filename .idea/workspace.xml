@@ -4,23 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2800331-6ce1-4cce-80be-da4d09fc01fd" name="Changes" comment="chore: remove unused import">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/admin/productsaaa.astro" afterDir="false" />
+    <list default="true" id="d2800331-6ce1-4cce-80be-da4d09fc01fd" name="Changes" comment="refactor: use rtk.query">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/sidebar/Sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/admin/sidebar/Sidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/components/tables/TableProducts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/components/tables/TableProducts.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/shop/src/components/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/shop/src/components/Login.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Astro Component" />
+        <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2MPF9YczIwJhfSYc6N1aa5vav0o" />
   <component name="ProjectLevelVcsManager">
@@ -30,30 +40,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/andreypinchuk/Documents/Projects/ks-astro",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "prettierjs.PrettierConfiguration.Package": "/Users/andreypinchuk/Documents/Projects/ks-astro/node_modules/prettier",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "/Users/andreypinchuk/Library/Application Support/JetBrains/Toolbox/apps/WebStorm/ch-1/231.7665.25/WebStorm 2023.1 EAP.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature-use-turborepo-add-admin-repo&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;19.4.0&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;18.14.6&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/andreypinchuk/Documents/Projects/ks-astro/apps/admin/src/stores&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/andreypinchuk/Documents/Projects/ks-astro/node_modules/prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/andreypinchuk/Documents/Projects/ks-astro/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/apps/admin/src/stores" />
+      <recent name="$PROJECT_DIR$/apps/admin/src/interfaces" />
+      <recent name="$PROJECT_DIR$/apps/admin/src/services" />
+      <recent name="$PROJECT_DIR$/apps/admin/src/pages" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/apps/shop" />
+      <recent name="$PROJECT_DIR$/src/pages/admin/[...page]" />
       <recent name="$PROJECT_DIR$/src/pages/admin" />
       <recent name="$PROJECT_DIR$/src/components/admin/sidebar" />
       <recent name="$PROJECT_DIR$/src/components/admin" />
@@ -83,7 +103,18 @@
       <workItem from="1677661240820" duration="2690000" />
       <workItem from="1677665443810" duration="2373000" />
       <workItem from="1677667834147" duration="710000" />
-      <workItem from="1677668561743" duration="35578000" />
+      <workItem from="1677668561743" duration="36140000" />
+      <workItem from="1677840048962" duration="12670000" />
+      <workItem from="1677925890111" duration="12152000" />
+      <workItem from="1678016117001" duration="3001000" />
+      <workItem from="1678021890067" duration="3331000" />
+      <workItem from="1678084977479" duration="7869000" />
+      <workItem from="1678479975583" duration="6335000" />
+      <workItem from="1678523553057" duration="8319000" />
+      <workItem from="1678563695551" duration="253000" />
+      <workItem from="1678566935322" duration="6815000" />
+      <workItem from="1678620895869" duration="30701000" />
+      <workItem from="1678696612131" duration="15964000" />
     </task>
     <task id="LOCAL-00001" summary="chore: add sitemap and compress">
       <created>1677668329676</created>
@@ -162,7 +193,49 @@
       <option name="project" value="LOCAL" />
       <updated>1677711853517</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="chore: rename Alps">
+      <created>1677712367204</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1677712367204</updated>
+    </task>
+    <task id="LOCAL-00013" summary="refactor: remove building pages from profile">
+      <created>1677924938846</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1677924938846</updated>
+    </task>
+    <task id="LOCAL-00014" summary="feat: add toasts">
+      <created>1678730029948</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1678730029948</updated>
+    </task>
+    <task id="LOCAL-00015" summary="refactor: use rtk.query">
+      <created>1678730105107</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1678730105107</updated>
+    </task>
+    <task id="LOCAL-00016" summary="refactor: use rtk.query">
+      <created>1678730140490</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1678730140490</updated>
+    </task>
+    <task id="LOCAL-00017" summary="refactor: use rtk.query">
+      <created>1678730560554</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1678730560554</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,6 +253,10 @@
     <MESSAGE value="feat: add table component" />
     <MESSAGE value="chore: remove unused import" />
     <MESSAGE value="feat:" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat:" />
+    <MESSAGE value="chore: rename Alps" />
+    <MESSAGE value="refactor: remove building pages from profile" />
+    <MESSAGE value="feat: add toasts" />
+    <MESSAGE value="refactor: use rtk.query" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: use rtk.query" />
   </component>
 </project>
