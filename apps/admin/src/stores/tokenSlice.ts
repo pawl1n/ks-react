@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TokenPayloadObject } from '../interfaces';
+import { TokenPayloadObject } from '../interfaces/auth';
+import Router from 'next/router';
 
 interface TokenState {
   token: string | null;
@@ -21,14 +22,18 @@ export const tokenSlice = createSlice({
   initialState,
   reducers: {
     setToken: (state, action: PayloadAction<TokenPayloadObject>) => {
-      console.log(action);
       state.token = action.payload.token;
-      localStorage.setItem('token', state.token);
+
+      if (state.token) {
+        localStorage.setItem('token', state.token);
+      } else {
+        localStorage.removeItem('token');
+        Router.push('/login');
+      }
     },
   },
 });
 
-// Action creators are generated for each case reducer function
 export const { setToken } = tokenSlice.actions;
 
 export default tokenSlice.reducer;
