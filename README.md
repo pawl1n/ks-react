@@ -8,7 +8,7 @@ This is monorepo for shop and admin parts of the site.
 
 # Shop
 
-Written in [Astro](https://astro.build/) for lightweight look-and-feel.
+Written with [Astro](https://astro.build/) for lightweight look-and-feel.
 
 # Admin
 
