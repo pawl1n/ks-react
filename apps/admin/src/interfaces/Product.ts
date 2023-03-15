@@ -1,4 +1,5 @@
 import { ApiResponseEntity, Link } from './apiResponse';
+import { VariationOption } from './Variation';
 
 export type ProductRequest = {
   name: string;
@@ -7,14 +8,37 @@ export type ProductRequest = {
   mainImage?: string;
 };
 
+export interface ProductItem extends ApiResponseEntity {
+  id: number;
+  sku: string;
+  price: number;
+  stock: number;
+  variationOptions?: VariationOption[];
+}
+
+export type ProductItemRequest = {
+  sku: string;
+  price: number;
+  stock: number;
+  variationOptions?: VariationOption[];
+};
+
+export type ProductItemRequestParams = {
+  product: Product;
+  productItem: ProductItemRequest;
+};
+
 interface Product extends ApiResponseEntity {
   id: number;
   name: string;
   description: string;
   category: string;
+  mainImage: string;
   _links: {
     self: Link;
     category: Link;
+    mainImage: Link;
+    variations: Link;
   };
 }
 

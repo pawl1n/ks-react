@@ -64,6 +64,7 @@ export const toastMiddleware: Middleware = (api) => (next) => (action) => {
         }),
       );
     }
+    return next(action);
   }
 
   return next(action);

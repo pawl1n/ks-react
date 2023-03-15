@@ -1,7 +1,7 @@
 import { mdiArrowLeft, mdiPlus } from '@mdi/js';
 import { Field, Form, Formik } from 'formik';
 import Head from 'next/head';
-import { ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import BaseButton from 'components/BaseButton';
 import BaseButtons from 'components/BaseButtons';
 import BaseDivider from 'components/BaseDivider';
@@ -12,36 +12,49 @@ import SectionTitleLineWithButton from 'components/SectionTitleLineWithButton';
 import { getPageTitle } from '../../config';
 import Router from 'next/router';
 import LayoutAuthenticated from 'layouts/Authenticated';
-import { CategoryRequest } from '../../interfaces/Category';
+import { VariationRequest } from 'interfaces/Variation';
 import {
-  useCreateCategoryMutation,
-  useGetCategoriesQuery,
-} from '../../services/categories';
+  useGetVariationByIdQuery,
+  useUpdateVariationMutation,
+} from 'services/variations';
+import Variations from '../../components/Variations';
 
-const CreateProductPage = () => {
-  const response = useGetCategoriesQuery();
-  const categories = response?.data?._embedded?.categories ?? [];
+const CreateVariationPage = () => {
+  const id = Router.query.id as string;
+  if (!parseInt(id)) {
+    return <></>;
+  }
 
-  const [createCategory] = useCreateCategoryMutation();
+  const variationResponse = useGetVariationByIdQuery(parseInt(id));
+  const variation = variationResponse?.data;
 
-  const handleSubmit = async (category: CategoryRequest) => {
-    createCategory(category)
-      .unwrap()
-      .then(() => {
-        Router.back();
-      });
+  const [updateVariation] = useUpdateVariationMutation();
+
+  const handleSubmit = async (changed: VariationRequest) => {
+    if (!variation) {
+      return;
+    }
+
+    updateVariation({
+      entity: variation,
+      data: changed,
+    });
   };
+
+  if (!variation) {
+    return <>Завантаження...</>;
+  }
 
   return (
     <>
       <Head>
-        <title>{getPageTitle('Додавання товару')}</title>
+        <title>{getPageTitle('Редагування варіації')}</title>
       </Head>
 
       <SectionMain>
         <SectionTitleLineWithButton
           icon={mdiPlus}
-          title="Додавання товару"
+          title="Редагування варіації"
           main
         >
           <BaseButton
@@ -57,32 +70,14 @@ const CreateProductPage = () => {
           <Formik
             initialValues={
               {
-                name: '',
-              } as CategoryRequest
+                name: variation?.name,
+              } as VariationRequest
             }
             onSubmit={handleSubmit}
           >
             <Form>
               <FormField label="Назва">
                 <Field name="name" placeholder="Назва" />
-              </FormField>
-
-              <FormField
-                label="Батьківська категорія"
-                labelFor="parentCategory"
-              >
-                <Field
-                  name="parentCategory"
-                  id="parentCategory"
-                  component="select"
-                >
-                  <option value={undefined}>Відсутня</option>
-                  {categories.map((category) => (
-                    <option key={category.id} value={category.id}>
-                      {category.name}
-                    </option>
-                  ))}
-                </Field>
               </FormField>
 
               <BaseDivider />
@@ -100,12 +95,14 @@ const CreateProductPage = () => {
           </Formik>
         </CardBox>
       </SectionMain>
+
+      <Variations variation={variation} />
     </>
   );
 };
 
-CreateProductPage.getLayout = function getLayout(page: ReactElement) {
+CreateVariationPage.getLayout = function getLayout(page: ReactElement) {
   return <LayoutAuthenticated>{page}</LayoutAuthenticated>;
 };
 
-export default CreateProductPage;
+export default CreateVariationPage;

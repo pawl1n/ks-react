@@ -9,33 +9,33 @@ import SectionTitleLineWithButton from 'components/SectionTitleLineWithButton';
 import { getPageTitle } from '../../config';
 import Table from '../../components/tables/Table';
 import {
-  useDeleteProductMutation,
-  useGetProductsQuery,
-} from '../../services/products';
-import Product from '../../interfaces/Product';
+  useDeleteVariationMutation,
+  useGetVariationsQuery,
+} from '../../services/variations';
+import Variation from '../../interfaces/Variation';
 
 const TablesPage = () => {
-  const [deleteProduct] = useDeleteProductMutation();
+  const [deleteVariation] = useDeleteVariationMutation();
 
   return (
     <>
       <Head>
-        <title>{getPageTitle('Речі')}</title>
+        <title>{getPageTitle('Варіації')}</title>
       </Head>
       <SectionMain>
-        <SectionTitleLineWithButton icon={mdiTshirtCrew} title="Речі" main>
-          <BaseButton icon={mdiPlus} color="contrast" href="/products/create" />
+        <SectionTitleLineWithButton icon={mdiTshirtCrew} title="Варіації" main>
+          <BaseButton
+            icon={mdiPlus}
+            color="contrast"
+            href="/variations/create"
+          />
         </SectionTitleLineWithButton>
         <CardBox className="mb-6" hasTable>
-          <Table<Product>
-            columns={[
-              { key: 'name', label: 'Назва' },
-              { key: 'description', label: 'Опис' },
-              { key: 'category', label: 'Категорія' },
-            ]}
-            useGetAll={useGetProductsQuery}
-            dataKey={'products'}
-            deleteItem={deleteProduct}
+          <Table<Variation>
+            columns={[{ key: 'name', label: 'Назва' }]}
+            useGetAll={useGetVariationsQuery}
+            dataKey={'variations'}
+            deleteItem={deleteVariation}
           />
         </CardBox>
       </SectionMain>

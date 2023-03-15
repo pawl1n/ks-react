@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from '../stores/store';
-import User from '../interfaces/User';
+import User, { PasswordChangeRequest } from '../interfaces/User';
 import { Middleware } from '@reduxjs/toolkit';
 import { setUser } from '../stores/mainSlice';
 
@@ -35,11 +35,20 @@ export const usersApi = createApi({
       }),
       invalidatesTags: [{ type: 'Users', id: 'ME' }],
     }),
+    changePassword: builder.mutation<User, PasswordChangeRequest>({
+      query: (password) => ({
+        url: '/me/password',
+        method: 'PUT',
+        body: password,
+      }),
+      invalidatesTags: [{ type: 'Users', id: 'ME' }],
+    }),
   }),
   refetchOnReconnect: true,
 });
 
-export const { useGetMeQuery, useUpdateMeMutation } = usersApi;
+export const { useGetMeQuery, useUpdateMeMutation, useChangePasswordMutation } =
+  usersApi;
 
 export const usersMiddleware: Middleware = (api) => (next) => (action) => {
   if (usersApi.endpoints.getMe.matchFulfilled(action)) {

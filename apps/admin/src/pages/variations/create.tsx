@@ -1,7 +1,7 @@
 import { mdiArrowLeft, mdiPlus } from '@mdi/js';
 import { Field, Form, Formik } from 'formik';
 import Head from 'next/head';
-import { ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import BaseButton from 'components/BaseButton';
 import BaseButtons from 'components/BaseButtons';
 import BaseDivider from 'components/BaseDivider';
@@ -12,20 +12,14 @@ import SectionTitleLineWithButton from 'components/SectionTitleLineWithButton';
 import { getPageTitle } from '../../config';
 import Router from 'next/router';
 import LayoutAuthenticated from 'layouts/Authenticated';
-import { CategoryRequest } from '../../interfaces/Category';
-import {
-  useCreateCategoryMutation,
-  useGetCategoriesQuery,
-} from '../../services/categories';
+import { VariationRequest } from 'interfaces/Variation';
+import { useCreateVariationMutation } from 'services/variations';
 
-const CreateProductPage = () => {
-  const response = useGetCategoriesQuery();
-  const categories = response?.data?._embedded?.categories ?? [];
+const CreateVariationPage = () => {
+  const [createVariation] = useCreateVariationMutation();
 
-  const [createCategory] = useCreateCategoryMutation();
-
-  const handleSubmit = async (category: CategoryRequest) => {
-    createCategory(category)
+  const handleSubmit = async (variation: VariationRequest) => {
+    createVariation(variation)
       .unwrap()
       .then(() => {
         Router.back();
@@ -35,13 +29,13 @@ const CreateProductPage = () => {
   return (
     <>
       <Head>
-        <title>{getPageTitle('Додавання товару')}</title>
+        <title>{getPageTitle('Додавання варіації')}</title>
       </Head>
 
       <SectionMain>
         <SectionTitleLineWithButton
           icon={mdiPlus}
-          title="Додавання товару"
+          title="Додавання варіації"
           main
         >
           <BaseButton
@@ -58,31 +52,13 @@ const CreateProductPage = () => {
             initialValues={
               {
                 name: '',
-              } as CategoryRequest
+              } as VariationRequest
             }
             onSubmit={handleSubmit}
           >
             <Form>
               <FormField label="Назва">
                 <Field name="name" placeholder="Назва" />
-              </FormField>
-
-              <FormField
-                label="Батьківська категорія"
-                labelFor="parentCategory"
-              >
-                <Field
-                  name="parentCategory"
-                  id="parentCategory"
-                  component="select"
-                >
-                  <option value={undefined}>Відсутня</option>
-                  {categories.map((category) => (
-                    <option key={category.id} value={category.id}>
-                      {category.name}
-                    </option>
-                  ))}
-                </Field>
               </FormField>
 
               <BaseDivider />
@@ -104,8 +80,8 @@ const CreateProductPage = () => {
   );
 };
 
-CreateProductPage.getLayout = function getLayout(page: ReactElement) {
+CreateVariationPage.getLayout = function getLayout(page: ReactElement) {
   return <LayoutAuthenticated>{page}</LayoutAuthenticated>;
 };
 
-export default CreateProductPage;
+export default CreateVariationPage;

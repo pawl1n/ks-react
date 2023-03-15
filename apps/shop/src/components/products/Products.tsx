@@ -1,19 +1,17 @@
-import { memo, useState } from "preact/compat";
+import { memo } from "preact/compat";
 import Product from "./Product";
 import type ProductType from "../../types/Product";
 
 let isLoading = false;
 
 const products: ProductType[] = await fetch(
-  "https://fakestoreapi.com/products/"
+  "http://localhost:8080/api/products"
 )
   .then((response) => response.json())
   .then((data) => {
     isLoading = false;
 
-    return data.filter((product: ProductType) =>
-      product.category.includes("clothing")
-    );
+    return data?._embedded?.products ?? [];
   })
   .catch(() => {
     isLoading = false;

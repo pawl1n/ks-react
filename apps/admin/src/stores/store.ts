@@ -14,6 +14,7 @@ import { usersApi, usersMiddleware } from '../services/users';
 import { categoriesApi } from '../services/categories';
 import { imagesApi } from '../services/images';
 import toastSlice, { toastMiddleware } from './toastSlice';
+import { variationsApi } from '../services/variations';
 
 export const store: ToolkitStore = configureStore({
   reducer: {
@@ -26,6 +27,7 @@ export const store: ToolkitStore = configureStore({
     [usersApi.reducerPath]: usersApi.reducer,
     [categoriesApi.reducerPath]: categoriesApi.reducer,
     [imagesApi.reducerPath]: imagesApi.reducer,
+    [variationsApi.reducerPath]: variationsApi.reducer,
   },
 
   middleware: (getDefaultMiddleware) =>
@@ -35,6 +37,7 @@ export const store: ToolkitStore = configureStore({
       .concat(usersApi.middleware)
       .concat(categoriesApi.middleware)
       .concat(imagesApi.middleware)
+      .concat(variationsApi.middleware)
       .concat(toastMiddleware)
       .concat(authMiddleware)
       .concat(usersMiddleware)

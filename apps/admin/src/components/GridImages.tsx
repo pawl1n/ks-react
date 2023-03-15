@@ -33,7 +33,7 @@ const GridImages = ({ onImageClick }: Props) => {
   }
 
   const [isModalTrashActive, setIsModalTrashActive] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<ImageType | null>(null);
 
   const handleModalAction = () => {
     setIsModalTrashActive(false);
@@ -48,14 +48,13 @@ const GridImages = ({ onImageClick }: Props) => {
     setIsModalTrashActive(false);
   };
 
-  const deleteItem = (href: string) => {
-    setSelectedImage(href);
+  const deleteItem = (image: ImageType) => {
+    setSelectedImage(image);
     setIsModalTrashActive(true);
   };
 
   const isSelected = (image: ImageType) => {
-    console.log(selectedImage === image._links.self.href);
-    return selectedImage === image._links.self.href;
+    return selectedImage === image;
   };
 
   return (
@@ -71,21 +70,27 @@ const GridImages = ({ onImageClick }: Props) => {
         <p>Ви впевнені що бажаєте видалити продукт?</p>
       </CardBoxModal>
       <div
-        className={`grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 `}
+        className={`grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4`}
       >
         {imagesPaginated?.map((image) => (
           <CardBox
             key={image.id}
             onClick={() => {
               if (onImageClick) {
-                console.log('select');
-                setSelectedImage(image._links.self.href);
+                setSelectedImage(image);
                 onImageClick(image);
               }
             }}
-            className={`${onImageClick && 'cursor-pointer'} ${
-              isSelected(image) && '!bg-gray-200'
+            className={`${
+              onImageClick
+                ? 'cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700/70'
+                : ''
             }`}
+            bgColor={
+              onImageClick && isSelected(image)
+                ? 'bg-gray-100 dark:bg-slate-700/70'
+                : undefined
+            }
           >
             <div className="relative h-[150px] m-2">
               <Image
@@ -105,7 +110,7 @@ const GridImages = ({ onImageClick }: Props) => {
                   color="danger"
                   icon={mdiTrashCan}
                   onClick={() => {
-                    deleteItem(image._links.self.href);
+                    deleteItem(image);
                   }}
                   small
                 />
@@ -129,7 +134,7 @@ const GridImages = ({ onImageClick }: Props) => {
             ))}
           </BaseButtons>
           <small className="mt-6 md:mt-0">
-            Page {currentPage + 1} of {numPages}
+            Сторінка {currentPage + 1} із {numPages}
           </small>
         </div>
       </div>

@@ -84,8 +84,8 @@ export type Client = {
 
 export type StyleKey = 'white' | 'basic';
 
-export type UpdateRequestProps<T> = {
-  id: number;
+export type UpdateRequestProps<Entity extends ApiResponseEntity, T> = {
+  entity: Entity;
   data: T;
 };
 

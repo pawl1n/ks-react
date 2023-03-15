@@ -47,20 +47,25 @@ export const imagesApi = createApi({
       }),
       invalidatesTags: [{ type: 'Images', id: 'LIST' }],
     }),
-    updateImage: builder.mutation<Image, UpdateRequestProps<ImageRequest>>({
-      query: (props) => ({
-        url: `/${props.id}`,
+    updateImage: builder.mutation<
+      Image,
+      UpdateRequestProps<Image, ImageRequest>
+    >({
+      query: ({ entity, data }) => ({
+        url: entity._links.self.href,
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: props.data,
+        body: data,
       }),
-      invalidatesTags: (result, error, { id }) => [{ type: 'Images', id }],
+      invalidatesTags: (result, error, { entity }) => [
+        { type: 'Images', id: entity.id },
+      ],
     }),
-    deleteImage: builder.mutation<ApiArrayResponse<Image>, string>({
-      query: (url) => ({
-        url: url,
+    deleteImage: builder.mutation<void, Image>({
+      query: (image) => ({
+        url: image._links.self.href,
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

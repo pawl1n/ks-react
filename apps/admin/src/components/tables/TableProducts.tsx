@@ -8,20 +8,25 @@ import {
   useDeleteProductMutation,
   useGetProductsQuery,
 } from '../../services/products';
-import { Pageable, Sort } from '../../interfaces';
+import { Pageable, SortDirection, SortKey } from '../../interfaces';
+
+type SortInfo =
+  | {
+      key: SortKey<Product>;
+      direction: SortDirection;
+    }
+  | undefined;
 
 const TableProducts = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const perPage = 5;
-  const [sort, setSort] = useState<Sort<Product>>(undefined);
+  const [sort, setSort] = useState<SortInfo>(undefined);
 
   const { data } = useGetProductsQuery({
     page: currentPage,
     size: perPage,
-    sort: sort,
+    sort: sort && `${sort?.key},${sort?.direction}`,
   } as Pageable<Product>);
-
-  setSort('id');
 
   const [deleteProduct] = useDeleteProductMutation();
 
@@ -59,6 +64,29 @@ const TableProducts = () => {
     setIsModalTrashActive(true);
   };
 
+  const handleHeaderClick = (col: SortKey<Product>) => {
+    if (col === sort?.key) {
+      toggleDirection();
+    } else {
+      setSort({
+        key: col,
+        direction: SortDirection.ASC,
+      });
+    }
+  };
+
+  const toggleDirection = () => {
+    if (!sort) {
+      return;
+    }
+
+    if (sort.direction === SortDirection.ASC) {
+      setSort({ key: sort.key, direction: SortDirection.DESC });
+    } else {
+      setSort({ key: sort.key, direction: SortDirection.ASC });
+    }
+  };
+
   return (
     <>
       <CardBoxModal
@@ -84,9 +112,9 @@ const TableProducts = () => {
       <table>
         <thead>
           <tr>
-            <th>Назва</th>
-            <th>Опис</th>
-            <th>Категорія</th>
+            <th onClick={() => handleHeaderClick('name')}>Назва</th>
+            <th onClick={() => handleHeaderClick('description')}>Опис</th>
+            <th onClick={() => handleHeaderClick('category')}>Категорія</th>
             <th />
           </tr>
         </thead>

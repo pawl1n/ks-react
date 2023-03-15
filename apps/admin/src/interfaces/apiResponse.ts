@@ -3,6 +3,7 @@ export type Link = {
 };
 
 export type ApiResponseEntity = {
+  id: number;
   _links: {
     self: Link;
   };

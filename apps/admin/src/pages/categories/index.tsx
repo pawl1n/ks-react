@@ -7,9 +7,16 @@ import LayoutAuthenticated from 'layouts/Authenticated';
 import SectionMain from 'components/SectionMain';
 import SectionTitleLineWithButton from 'components/SectionTitleLineWithButton';
 import { getPageTitle } from '../../config';
-import TableCategories from '../../components/tables/TableCategories';
+import Table from '../../components/tables/Table';
+import Category from '../../interfaces/Category';
+import {
+  useDeleteCategoryMutation,
+  useGetCategoriesQuery,
+} from '../../services/categories';
 
 const TablesPage = () => {
+  const [deleteCategory] = useDeleteCategoryMutation();
+
   return (
     <>
       <Head>
@@ -24,7 +31,15 @@ const TablesPage = () => {
           />
         </SectionTitleLineWithButton>
         <CardBox className="mb-6" hasTable>
-          <TableCategories />
+          <Table<Category>
+            columns={[
+              { key: 'name', label: 'Назва' },
+              { key: 'parentCategory', label: 'Батьківська категорія' },
+            ]}
+            useGetAll={useGetCategoriesQuery}
+            dataKey={'categories'}
+            deleteItem={deleteCategory}
+          />
         </CardBox>
       </SectionMain>
     </>

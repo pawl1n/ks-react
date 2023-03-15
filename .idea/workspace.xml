@@ -5,9 +5,47 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d2800331-6ce1-4cce-80be-da4d09fc01fd" name="Changes" comment="refactor: use rtk.query">
+      <change afterPath="$PROJECT_DIR$/apps/admin/src/components/ProductItem.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/admin/src/components/ProductItems.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/admin/src/components/Variations.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/admin/src/components/tables/Table.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/admin/src/interfaces/Variation.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/admin/src/pages/products/[id].tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/admin/src/pages/variations/[id].tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/admin/src/pages/variations/create.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/admin/src/pages/variations/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/admin/src/services/variations.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/components/CardBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/components/CardBox.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/components/CardBoxComponentBody.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/components/CardBoxComponentBody.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/components/CardBoxModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/components/CardBoxModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/components/GridImages.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/components/GridImages.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/components/ToastNotification.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/components/ToastNotification.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/admin/src/components/tables/TableProducts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/components/tables/TableProducts.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/shop/src/components/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/shop/src/components/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/css/tailwind/_base.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/css/tailwind/_components.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/css/tailwind/_utilities.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/interfaces/Product.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/interfaces/Product.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/interfaces/User.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/interfaces/User.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/interfaces/apiResponse.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/interfaces/apiResponse.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/interfaces/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/interfaces/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/menuAside.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/menuAside.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/pages/categories/create.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/pages/categories/create.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/pages/categories/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/pages/categories/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/pages/products/create.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/pages/products/create.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/pages/products/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/pages/products/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/pages/profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/pages/profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/services/categories.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/services/categories.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/services/images.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/services/images.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/services/products.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/services/products.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/services/users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/services/users.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/stores/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/stores/store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/admin/src/stores/toastSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/admin/src/stores/toastSlice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/shop/src/components/products/Product.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/shop/src/components/products/Product.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/shop/src/components/products/Products.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/apps/shop/src/components/products/Products.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/shop/src/pages/404.astro" beforeDir="false" afterPath="$PROJECT_DIR$/apps/shop/src/pages/404.astro" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/shop/src/types/Product.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/shop/src/types/Product.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,19 +56,13 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Astro Component" />
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2MPF9YczIwJhfSYc6N1aa5vav0o" />
   <component name="ProjectLevelVcsManager">
@@ -46,12 +78,11 @@
     &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature-use-turborepo-add-admin-repo&quot;,
-    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;19.4.0&quot;,
-    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;18.14.6&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/andreypinchuk/Documents/Projects/ks-astro/apps/admin/src/stores&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/andreypinchuk/Documents/Projects/ks-astro/apps/admin/src/components&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -65,14 +96,13 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/apps/admin/src/stores" />
+      <recent name="$PROJECT_DIR$/apps/admin/src/components" />
+      <recent name="$PROJECT_DIR$/apps/admin/src/pages/variations" />
       <recent name="$PROJECT_DIR$/apps/admin/src/interfaces" />
       <recent name="$PROJECT_DIR$/apps/admin/src/services" />
       <recent name="$PROJECT_DIR$/apps/admin/src/pages" />
-      <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/apps/shop" />
       <recent name="$PROJECT_DIR$/src/pages/admin/[...page]" />
       <recent name="$PROJECT_DIR$/src/pages/admin" />
       <recent name="$PROJECT_DIR$/src/components/admin/sidebar" />
@@ -104,17 +134,11 @@
       <workItem from="1677665443810" duration="2373000" />
       <workItem from="1677667834147" duration="710000" />
       <workItem from="1677668561743" duration="36140000" />
-      <workItem from="1677840048962" duration="12670000" />
-      <workItem from="1677925890111" duration="12152000" />
-      <workItem from="1678016117001" duration="3001000" />
-      <workItem from="1678021890067" duration="3331000" />
-      <workItem from="1678084977479" duration="7869000" />
-      <workItem from="1678479975583" duration="6335000" />
-      <workItem from="1678523553057" duration="8319000" />
-      <workItem from="1678563695551" duration="253000" />
-      <workItem from="1678566935322" duration="6815000" />
-      <workItem from="1678620895869" duration="30701000" />
-      <workItem from="1678696612131" duration="15964000" />
+      <workItem from="1677840048962" duration="11150000" />
+      <workItem from="1678733326765" duration="14233000" />
+      <workItem from="1678796138386" duration="825000" />
+      <workItem from="1678867759567" duration="18190000" />
+      <workItem from="1678890244936" duration="4688000" />
     </task>
     <task id="LOCAL-00001" summary="chore: add sitemap and compress">
       <created>1677668329676</created>
@@ -200,42 +224,7 @@
       <option name="project" value="LOCAL" />
       <updated>1677712367204</updated>
     </task>
-    <task id="LOCAL-00013" summary="refactor: remove building pages from profile">
-      <created>1677924938846</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1677924938846</updated>
-    </task>
-    <task id="LOCAL-00014" summary="feat: add toasts">
-      <created>1678730029948</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1678730029948</updated>
-    </task>
-    <task id="LOCAL-00015" summary="refactor: use rtk.query">
-      <created>1678730105107</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1678730105107</updated>
-    </task>
-    <task id="LOCAL-00016" summary="refactor: use rtk.query">
-      <created>1678730140490</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1678730140490</updated>
-    </task>
-    <task id="LOCAL-00017" summary="refactor: use rtk.query">
-      <created>1678730560554</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1678730560554</updated>
-    </task>
-    <option name="localTasksCounter" value="18" />
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -254,9 +243,6 @@
     <MESSAGE value="chore: remove unused import" />
     <MESSAGE value="feat:" />
     <MESSAGE value="chore: rename Alps" />
-    <MESSAGE value="refactor: remove building pages from profile" />
-    <MESSAGE value="feat: add toasts" />
-    <MESSAGE value="refactor: use rtk.query" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: use rtk.query" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: rename Alps" />
   </component>
 </project>

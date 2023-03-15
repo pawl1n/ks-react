@@ -3,7 +3,7 @@ import { RootState } from '../stores/store';
 
 import Category, { CategoryRequest } from '../interfaces/Category';
 import { ApiArrayResponse } from 'interfaces/apiResponse';
-import { UpdateRequestProps } from '../interfaces';
+import { Pageable, UpdateRequestProps } from '../interfaces';
 
 const baseUrl = 'http://localhost:8080/api/categories';
 
@@ -21,14 +21,20 @@ export const categoriesApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    getCategories: builder.query<Category[], void>({
-      query: () => ``,
-      transformResponse: (response: ApiArrayResponse<Category>) =>
-        response._embedded?.categories ?? [],
+    getCategories: builder.query<
+      ApiArrayResponse<Category>,
+      Pageable<Category> | void
+    >({
+      query: (pageable?: Pageable<Category>) => ({
+        url: '',
+        params: pageable,
+      }),
       providesTags: (result) =>
         result
           ? [
-              ...result.map(({ id }) => ({ type: 'Categories', id } as const)),
+              ...(result?._embedded?.categories ?? []).map(
+                ({ id }) => ({ type: 'Categories', id } as const),
+              ),
               { type: 'Categories', id: 'LIST' },
             ]
           : [{ type: 'Categories', id: 'LIST' }],
@@ -52,21 +58,23 @@ export const categoriesApi = createApi({
     }),
     updateCategory: builder.mutation<
       Category,
-      UpdateRequestProps<CategoryRequest>
+      UpdateRequestProps<Category, CategoryRequest>
     >({
-      query: (props) => ({
-        url: `/${props.id}`,
+      query: ({ entity, data }) => ({
+        url: entity._links.self.href,
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: props.data,
+        body: data,
       }),
-      invalidatesTags: (result, error, { id }) => [{ type: 'Categories', id }],
+      invalidatesTags: (result, error, { entity }) => [
+        { type: 'Categories', id: entity.id },
+      ],
     }),
-    deleteCategory: builder.mutation<ApiArrayResponse<Category>, string>({
-      query: (url) => ({
-        url: url,
+    deleteCategory: builder.mutation<void, Category>({
+      query: (category) => ({
+        url: category._links.self.href,
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

@@ -19,13 +19,64 @@ import LayoutAuthenticated from '../layouts/Authenticated';
 import SectionMain from '../components/SectionMain';
 import SectionTitleLineWithButton from '../components/SectionTitleLineWithButton';
 import { getPageTitle } from '../config';
-import { useGetMeQuery, useUpdateMeMutation } from '../services/users';
+import {
+  useChangePasswordMutation,
+  useGetMeQuery,
+  useUpdateMeMutation,
+} from '../services/users';
+import { useAppDispatch } from '../stores/hooks';
+import { addToast } from '../stores/toastSlice';
+import { ToastType } from '../interfaces/Toast';
+
+type ChangePasswordFormValues = {
+  currentPassword: string;
+  newPassword: string;
+  newPasswordConfirmation: string;
+};
 
 const ProfilePage = () => {
   const result = useGetMeQuery();
   const user = result.data;
 
   const [updateUser] = useUpdateMeMutation();
+  const [changePassword] = useChangePasswordMutation();
+
+  const dispatch = useAppDispatch();
+
+  const handleChangePassword = ({
+    currentPassword,
+    newPassword,
+    newPasswordConfirmation,
+  }: ChangePasswordFormValues) => {
+    if (newPassword !== newPasswordConfirmation) {
+      dispatch(
+        addToast({
+          toast: {
+            type: ToastType.danger,
+            message: 'Паролі не співпадають',
+          },
+        }),
+      );
+
+      return;
+    }
+
+    changePassword({
+      currentPassword,
+      newPassword,
+    })
+      .unwrap()
+      .then(() => {
+        dispatch(
+          addToast({
+            toast: {
+              type: ToastType.success,
+              message: 'Пароль успішно змінено',
+            },
+          }),
+        );
+      });
+  };
 
   return (
     <>
@@ -129,18 +180,20 @@ const ProfilePage = () => {
 
           <CardBox hasComponentLayout>
             <Formik
-              initialValues={{
-                currentPassword: '',
-                newPassword: '',
-                newPasswordConfirmation: '',
-              }}
-              onSubmit={(values) => alert(JSON.stringify(values, null, 2))}
+              initialValues={
+                {
+                  currentPassword: '',
+                  newPassword: '',
+                  newPasswordConfirmation: '',
+                } as ChangePasswordFormValues
+              }
+              onSubmit={handleChangePassword}
             >
               <Form className="flex flex-col flex-1">
                 <CardBoxComponentBody>
                   <FormField
-                    label="Current password"
-                    help="Required. Your current password"
+                    label="Поточний пароль"
+                    help="Обовʼязкове поле. Ваш поточний пароль"
                     labelFor="currentPassword"
                     icons={[mdiAsterisk]}
                   >
@@ -155,8 +208,8 @@ const ProfilePage = () => {
                   <BaseDivider />
 
                   <FormField
-                    label="New password"
-                    help="Required. New password"
+                    label="Новий пароль"
+                    help="Обовʼязкове поле. Ваш новий пароль"
                     labelFor="newPassword"
                     icons={[mdiFormTextboxPassword]}
                   >
@@ -169,8 +222,8 @@ const ProfilePage = () => {
                   </FormField>
 
                   <FormField
-                    label="Confirm password"
-                    help="Required. New password one more time"
+                    label="Підтвердіть новий пароль"
+                    help="Обовʼязкове поле. Ваш новий пароль ще один раз"
                     labelFor="newPasswordConfirmation"
                     icons={[mdiFormTextboxPassword]}
                   >
@@ -185,8 +238,11 @@ const ProfilePage = () => {
 
                 <CardBoxComponentFooter>
                   <BaseButtons>
-                    <BaseButton color="info" type="submit" label="Submit" />
-                    <BaseButton color="info" label="Options" outline />
+                    <BaseButton
+                      color="info"
+                      type="submit"
+                      label="Підтвердити"
+                    />
                   </BaseButtons>
                 </CardBoxComponentFooter>
               </Form>

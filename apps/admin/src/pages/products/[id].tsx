@@ -15,17 +15,29 @@ import LayoutAuthenticated from 'layouts/Authenticated';
 import FormFilePicker from 'components/FormFilePicker';
 import Image from 'next/image';
 import { ProductRequest } from 'interfaces/Product';
-import { useCreateProductMutation } from 'services/products';
+import {
+  useGetProductByIdQuery,
+  useUpdateProductMutation,
+} from 'services/products';
 import { useGetCategoriesQuery } from 'services/categories';
 import ImagePicker from 'components/ImagePicker';
 import ImageType from 'interfaces/Image';
 import { useCreateImageMutation } from '../../services/images';
+import ProductItems from '../../components/ProductItems';
 
-const CreateProductPage = () => {
+const EditProductPage = () => {
+  const id = Router.query.id as string;
+  if (!parseInt(id)) {
+    return <></>;
+  }
+
+  const productResponse = useGetProductByIdQuery(parseInt(id));
+  const product = productResponse?.data;
+
   const response = useGetCategoriesQuery();
   const categories = response.data?._embedded?.categories ?? [];
 
-  const [createProduct] = useCreateProductMutation();
+  const [updateProduct] = useUpdateProductMutation();
   const [createImage] = useCreateImageMutation();
 
   const [imageFile, setImageFile] = useState(null as File | null);
@@ -46,7 +58,11 @@ const CreateProductPage = () => {
     }
   };
 
-  const handleSubmit = async (product: ProductRequest) => {
+  const handleSubmit = async (changed: ProductRequest) => {
+    if (!product) {
+      return;
+    }
+
     if (imageFile) {
       const reader = new FileReader();
 
@@ -58,12 +74,15 @@ const CreateProductPage = () => {
 
         createImage({
           base64Image: base64,
-          name: product.name,
+          name: changed.name,
         })
           .unwrap()
           .then((data) => {
-            product.mainImage = data.url;
-            createProduct(product);
+            changed.mainImage = data.url;
+            updateProduct({
+              entity: product,
+              data: changed,
+            });
 
             Router.back();
           });
@@ -73,26 +92,33 @@ const CreateProductPage = () => {
     }
 
     if (selectedImage) {
-      product.mainImage = selectedImage.url;
+      changed.mainImage = selectedImage.url;
     }
 
-    createProduct(product)
+    updateProduct({
+      entity: product,
+      data: changed,
+    })
       .unwrap()
       .then(() => {
         Router.back();
       });
   };
 
+  if (!product) {
+    return <>Не знайдено</>;
+  }
+
   return (
     <>
       <Head>
-        <title>{getPageTitle('Додавання товару')}</title>
+        <title>{getPageTitle('Редагування товару')}</title>
       </Head>
 
       <SectionMain>
         <SectionTitleLineWithButton
           icon={mdiPlus}
-          title="Додавання товару"
+          title="Редагування товару"
           main
         >
           <BaseButton
@@ -136,15 +162,29 @@ const CreateProductPage = () => {
               />
             </div>
           )}
+
+          {!imageFile && !selectedImage && product.mainImage && (
+            <div className="relative h-[150px]">
+              <Image
+                src={product.mainImage}
+                alt={product.name}
+                fill
+                className="object-contain"
+              />
+            </div>
+          )}
         </CardBox>
 
         <CardBox>
           <Formik
             initialValues={
               {
-                name: '',
-                description: '',
-                category: categories[0]?.id ?? undefined,
+                name: product.name,
+                description: product.description,
+                category: categories.find(
+                  (category) =>
+                    category._links.self.href === product._links.category.href,
+                )?.id,
               } as ProductRequest
             }
             onSubmit={handleSubmit}
@@ -183,12 +223,13 @@ const CreateProductPage = () => {
           </Formik>
         </CardBox>
       </SectionMain>
+      <ProductItems product={product} />
     </>
   );
 };
 
-CreateProductPage.getLayout = function getLayout(page: ReactElement) {
+EditProductPage.getLayout = function getLayout(page: ReactElement) {
   return <LayoutAuthenticated>{page}</LayoutAuthenticated>;
 };
 
-export default CreateProductPage;
+export default EditProductPage;

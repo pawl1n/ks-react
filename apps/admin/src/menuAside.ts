@@ -4,6 +4,7 @@ import {
   mdiPlus,
   mdiTshirtCrew,
   mdiTshirtCrewOutline,
+  mdiVariable,
 } from '@mdi/js';
 import { MenuAsideItem } from './interfaces';
 
@@ -44,6 +45,18 @@ const menuAside: MenuAsideItem[] = [
     menu: [
       {
         href: '/images/create',
+        label: 'Створити',
+        icon: mdiPlus,
+      },
+    ],
+  },
+  {
+    href: '/variations',
+    label: 'Варіації',
+    icon: mdiVariable,
+    menu: [
+      {
+        href: '/variations/create',
         label: 'Створити',
         icon: mdiPlus,
       },
