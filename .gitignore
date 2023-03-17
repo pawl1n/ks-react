@@ -22,3 +22,4 @@ pnpm-debug.log*
 
 .idea/sonarlint
 .idea
+.idea/workspace.xml
