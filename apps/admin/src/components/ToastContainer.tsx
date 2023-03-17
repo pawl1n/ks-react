@@ -6,7 +6,7 @@ const ToastContainer = () => {
   const toasts: Toast[] = useAppSelector((state) => state.toasts.toasts);
 
   return (
-    <div className="absolute bottom-10 z-50 right-0">
+    <div className="fixed bottom-10 z-50 right-0">
       <div className="max-w-xl mx-auto">
         {toasts &&
           toasts?.map((toast) => (
