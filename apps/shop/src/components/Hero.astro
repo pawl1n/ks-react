@@ -9,9 +9,18 @@ import { Image } from "@astrojs/image/components";
       <h1 class="text-5xl leading-[1.1] font-light">
         <span>Лише оригінальні речі</span>
       </h1>
+      <a href="/products" class="m-5 bg-primary px-5 py-2 text-white mx-auto">
+        Перейти до каталогу
+      </a>
     </div>
     <div class="ml-auto">
-      <Image src={HeroImg} alt="hero" width={447} height={559} class="hidden md:block" />
+      <Image
+        src={HeroImg}
+        alt="hero"
+        width={447}
+        height={559}
+        class="hidden md:block"
+      />
     </div>
   </div>
 </section>

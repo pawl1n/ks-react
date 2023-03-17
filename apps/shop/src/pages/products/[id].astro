@@ -1,0 +1,38 @@
+---
+import Layout from "../../layouts/Shop.astro";
+import { getProduct, getProductVariations } from "../../api/products";
+import ProductType, { ProductVariation } from "../../types/Product";
+import ProductDetails from "../../components/products/ProductDetails";
+
+const productId = Astro.params.id;
+
+let product = undefined as undefined | ProductType;
+let productVariations = undefined as undefined | ProductVariation[];
+if (productId) {
+  product = await getProduct(productId);
+  if (product) {
+    productVariations = await getProductVariations(product).then(
+      (data) => data?._embedded?.productItems ?? []
+    );
+  }
+}
+---
+
+<Layout
+  title="Товари – Кішка Стрибає"
+  description="Перелік наявних товарів в Інтернет-магазині брендового одягу Puma"
+>
+  <div class="py-16 mx-auto">
+    {
+      product ? (
+        <ProductDetails
+          client:visible
+          product={product}
+          variations={productVariations}
+        />
+      ) : (
+        <div>Товар не знайдений</div>
+      )
+    }
+  </div>
+</Layout>

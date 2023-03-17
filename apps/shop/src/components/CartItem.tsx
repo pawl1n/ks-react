@@ -15,7 +15,11 @@ const CartItem = memo(({ item }: Props) => {
     <div className="flex gap-x-4 py-2 xl:px-6 border-b border-gray-200 w-full font-light text-gray-500">
       <div className="w-full min-h-[150px] flex items-center gap-x-4">
         <a href={`/product/${item.id}`}>
-          <img src={item.image} alt={item.title} className="max-w-[80px]" />
+          <img
+            src={item.mainImage}
+            alt={item.mainImage}
+            className="max-w-[80px]"
+          />
         </a>
         <div className="w-full flex flex-col">
           <div className="flex justify-between mb-2 items-center">
@@ -23,21 +27,21 @@ const CartItem = memo(({ item }: Props) => {
               href={`/product/${item.id}`}
               className="tet-sm uppercase font-medium max-w-[240px] text-primary hover:underline"
             >
-              <span>{item.title}</span>
+              <span>{item.name}</span>
             </a>
             <div className="text-xl cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1.5"
+                strokeWidth="1.5"
                 stroke="currentColor"
-                class="w-6 h-6 text-gray-500 hover:text-red-500 transition"
+                className="w-6 h-6 text-gray-500 hover:text-red-500 transition"
                 onClick={() => removeCartItem(item.id)}
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M6 18L18 6M6 6l12 12"
                 />
               </svg>

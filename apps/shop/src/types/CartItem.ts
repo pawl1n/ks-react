@@ -1,9 +1,9 @@
 export default interface CartItemType {
   id: number;
-  title: string;
-  price: number;
+  name: string;
   description: string;
   category: string;
-  image: string;
+  price: number;
+  mainImage: string;
   quantity: number;
 }

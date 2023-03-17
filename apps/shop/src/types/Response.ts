@@ -7,13 +7,15 @@ export interface ApiEntityArrayResponse<T extends Entity> {
 
 export interface Entity {
   id: number;
-  [key: string]: string | number | Links | URL;
+  [key: string]: any;
   _links: Links;
 }
 
 interface Links {
-  self: {
-    href: string;
-  };
-  [key: string]: {};
+  self: Link;
+  [key: string]: Link;
+}
+
+export interface Link {
+  href: string;
 }

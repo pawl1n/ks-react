@@ -2,6 +2,7 @@ import { atom } from "nanostores";
 import type CartItem from "../types/CartItem";
 import { persistentAtom } from "@nanostores/persistent";
 import type Product from "../types/Product";
+import type { ProductVariation } from "../types/Product";
 
 export const isCartOpen = atom(false);
 
@@ -11,7 +12,8 @@ export const shoppingCart = persistentAtom<CartItem[]>("cart", [], {
     try {
       const cart = JSON.parse(value);
       if (!Array.isArray(cart)) {
-        throw new Error("Cart is not an array");
+        shoppingCart.set([]);
+        return [];
       }
 
       return cart;
@@ -22,15 +24,15 @@ export const shoppingCart = persistentAtom<CartItem[]>("cart", [], {
   },
 });
 
-export const addCartItem = (cartItem: Product) => {
+export const addCartItem = (cartItem: Product, variation: ProductVariation) => {
   const existingEntry = shoppingCart
     .get()
-    .find((item) => item.id === cartItem.id);
+    .find((item) => item.id === variation.id);
 
   if (existingEntry) {
     shoppingCart.set([
       ...shoppingCart.get().map((item) => {
-        if (item.id === cartItem.id) {
+        if (item.id === variation.id) {
           return {
             ...item,
             quantity: item.quantity + 1,
@@ -40,7 +42,10 @@ export const addCartItem = (cartItem: Product) => {
       }),
     ]);
   } else {
-    shoppingCart.set([...shoppingCart.get(), { ...cartItem, quantity: 1 }]);
+    shoppingCart.set([
+      ...shoppingCart.get(),
+      { ...cartItem, ...variation, quantity: 1 },
+    ]);
   }
 };
 
