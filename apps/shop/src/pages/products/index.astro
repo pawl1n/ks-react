@@ -1,0 +1,13 @@
+---
+import Layout from "../../layouts/Shop.astro";
+import Products from "../../components/products/Products";
+---
+
+<Layout
+  title="Товари – Кішка Стрибає"
+  description="Перелік наявних товарів в Інтернет-магазині брендового одягу Puma"
+>
+  <div>
+    <Products client:visible />
+  </div>
+</Layout>

@@ -6,6 +6,11 @@ const Sidebar = () => {
   const $isCartOpen = useStore(isCartOpen);
   const $cartItems = useStore(shoppingCart);
 
+  const handleRemoveAll = () => {
+    shoppingCart.set([]);
+    isCartOpen.set(false);
+  };
+
   return (
     <div
       className={`${
@@ -27,13 +32,13 @@ md:w-[40vw] xl:max-w-[45vw] transition-all duration-300 ease-in-out z-20 px-4 lg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            stroke-width="1.5"
+            strokeWidth="1.5"
             stroke="currentColor"
-            class="w-6 h-6"
+            className="w-6 h-6"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
             />
           </svg>
@@ -48,11 +53,14 @@ md:w-[40vw] xl:max-w-[45vw] transition-all duration-300 ease-in-out z-20 px-4 lg
         <div className="flex w-full justify-between items-center">
           <div className="uppercase font-semibold">
             <span className="mr-2">Загальна сума: </span>
-            {(10).toFixed(2)} ₴
+            {$cartItems
+              .reduce((acc, item) => acc + item.price * item.quantity, 0)
+              .toFixed(2)}{" "}
+            ₴
           </div>
           <div
             className="cursor-pointer py-4 bg-red-500 text-white w-12 h-12 flex justify-center items-center text-xl"
-            onClick={() => isCartOpen.set(false)}
+            onClick={() => handleRemoveAll()}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
