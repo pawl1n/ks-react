@@ -22,7 +22,7 @@ const CartItem = memo(({ item }: Props) => {
           />
         </a>
         <div className="w-full flex flex-col">
-          <div className="flex justify-between mb-2 items-center">
+          <div className="flex justify-between items-center">
             <a
               href={`/product/${item.id}`}
               className="tet-sm uppercase font-medium max-w-[240px] text-primary hover:underline"
@@ -46,6 +46,9 @@ const CartItem = memo(({ item }: Props) => {
                 />
               </svg>
             </div>
+          </div>
+          <div>
+            {item.variationOptions.map((option) => option.value).join(", ")}
           </div>
           <div className="flex gap-x-2 h-[36px] text-sm">
             <div className="flex items-center flex-1 max-w-[100px] h-full border text-primary font-medium">
