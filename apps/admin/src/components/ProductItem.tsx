@@ -43,12 +43,6 @@ const ProductItemForm = ({ productItem, product, setAddNew }: Props) => {
       ),
   );
 
-  // useEffect(() => {
-  //   if (productItem?.variationOptions) {
-  //     setProductVariationOptions(productItem.variationOptions);
-  //   }
-  // }, [productItem]);
-
   const handleCreate = (productItem: ProductItemRequest) => {
     if (!product) {
       return;
@@ -91,7 +85,9 @@ const ProductItemForm = ({ productItem, product, setAddNew }: Props) => {
   ) => {
     setProductVariationOptions(
       productVariationOptions.filter(
-        (option) => option.id !== variationOption.id,
+        (option) =>
+          option.value !== variationOption.value ||
+          option.variationId !== variationOption.variationId,
       ),
     );
   };
@@ -116,7 +112,7 @@ const ProductItemForm = ({ productItem, product, setAddNew }: Props) => {
     setProductVariationOptions([
       ...productVariationOptions.filter(
         (value) =>
-          value.id !== selectedOption.id &&
+          value.value !== selectedOption.value ||
           value.variationId !== selectedOption.variationId,
       ),
       selectedOption,
@@ -188,7 +184,7 @@ const ProductItemForm = ({ productItem, product, setAddNew }: Props) => {
           </FormField>
           {productVariationOptions.map((option) => (
             <div
-              key={option.value}
+              key={`${option.variationId}-${option.value}`}
               className="flex my-5 px-5 py-2 rounded bg-gray-50 dark:bg-slate-800 dark:text-slate-100"
             >
               <p className="flex-1">{option.value}</p>
