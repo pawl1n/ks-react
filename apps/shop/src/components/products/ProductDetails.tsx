@@ -11,7 +11,7 @@ interface ProductProps {
 const ProductDetails = ({ product, variations }: ProductProps) => {
   const [selectedVariation, setSelectedVariation] = useState<
     ProductVariation | undefined
-  >(undefined);
+  >(variations.length == 1 ? variations[0] : undefined);
 
   const handleAddToCart = () => {
     if (!selectedVariation) {
@@ -45,32 +45,37 @@ const ProductDetails = ({ product, variations }: ProductProps) => {
         <div className="text-sm capitalize text-gray-500">
           {product.category}
         </div>
-        <div className="mt-5">
-          <h2 className="font-bold text-xl mb-5">Варіації</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-10">
-            {variations?.map((variation) => {
-              return (
-                <section key={variation.id}>
-                  <div
-                    onClick={() => setSelectedVariation(variation)}
-                    className={`border border-[#e4e4e4] cursor-pointer rounded mb-4 relative overflow-hidden group transition px-5 py-2 hover:bg-stone-200
+        {variations.length > 1 && (
+          <div className="mt-5">
+            <h2 className="font-bold text-xl mb-5">Варіації</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-x-5 gap-y-2">
+              {variations?.map((variation) => {
+                return (
+                  <section key={variation.id}>
+                    <div
+                      onClick={() => setSelectedVariation(variation)}
+                      className={`border border-[#e4e4e4] cursor-pointer rounded relative overflow-hidden group transition px-5 py-2 hover:bg-stone-200 text-center
                     ${selectedVariation === variation ? "bg-stone-200" : ""}`}
-                  >
-                    {variation.variationOptions
-                      .map((option) => option.value)
-                      .concat(" ")}
-                  </div>
-                </section>
-              );
-            })}
+                    >
+                      {variation.variationOptions
+                        .map((option) => option.value)
+                        .join(", ")}
+                    </div>
+                  </section>
+                );
+              })}
+            </div>
           </div>
-          <div>
-            <button onClick={() => handleAddToCart()}>
-              <div className="flex justify-center items-center text-white px-5 py-2 bg-primary">
-                <span>Додати до кошика</span>
-              </div>
-            </button>
-          </div>
+        )}
+        <div>
+          <button
+            onClick={() => handleAddToCart()}
+            className="flex justify-center items-center text-white px-5 py-2 bg-primary rounded mt-5"
+          >
+            <div>
+              <span>Додати до кошика</span>
+            </div>
+          </button>
         </div>
       </section>
     </section>
