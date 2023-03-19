@@ -11,7 +11,7 @@ export interface Entity {
   _links: Links;
 }
 
-interface Links {
+export interface Links {
   self: Link;
   [key: string]: Link;
 }

@@ -2,9 +2,13 @@ import { getToken, setToken } from "../stores/tokenStore";
 import type { ApiEntityArrayResponse, Entity } from "../types/Response";
 
 const baseUrl = "http://localhost:8080/api";
-const get = (path: string, authorize: boolean = false) => {
+const get = (
+  path: string,
+  authorize: boolean = false,
+  params?: URLSearchParams
+) => {
   return fetch(
-    `${baseUrl}/${path}`,
+    `${baseUrl}/${path}${params ? "?" + params : ""}`,
     authorize
       ? {
           method: "GET",
@@ -33,9 +37,10 @@ const get = (path: string, authorize: boolean = false) => {
 
 export function getAll<T extends Entity>(
   path: string,
+  params?: URLSearchParams,
   authorize: boolean = false
 ): Promise<ApiEntityArrayResponse<T>> {
-  return get(path, authorize);
+  return get(path, authorize, params);
 }
 
 export function getOne<T extends Entity>(

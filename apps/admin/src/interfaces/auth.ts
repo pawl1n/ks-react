@@ -1,5 +1,6 @@
 export type AuthResponse = {
-  token: string;
+  accessToken: string;
+  refreshToken: string;
 };
 
 export type LoginRequest = {
@@ -8,5 +9,6 @@ export type LoginRequest = {
 };
 
 export type TokenPayloadObject = {
-  token: string | null;
+  accessToken: string | null;
+  refreshToken: string | null;
 };

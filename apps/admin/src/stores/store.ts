@@ -42,6 +42,7 @@ export const store: ToolkitStore = configureStore({
       .concat(authMiddleware)
       .concat(usersMiddleware)
       .concat(unauthenticatedErrorMiddleware),
+  devTools: true,
 });
 
 export type RootState = ReturnType<typeof store.getState>;

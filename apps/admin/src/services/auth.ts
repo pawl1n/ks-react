@@ -18,7 +18,7 @@ export const authApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: baseUrl,
     prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).token.token;
+      const token = (getState() as RootState).token.accessToken;
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
       }
@@ -50,7 +50,7 @@ export const authMiddleware =
         if (window.history.length > 1) {
           Router.back();
         } else {
-          Router.push('/');
+          Router.push('/').then();
         }
       }
     }
@@ -61,17 +61,15 @@ export const authMiddleware =
 export const unauthenticatedErrorMiddleware: Middleware =
   (api) => (next) => (action) => {
     if (isRejectedWithValue(action)) {
-      if (action.payload.status === 401) {
-        api.dispatch(setToken({ token: null }));
+      if (action.payload.status === 403) {
         api.dispatch(
           addToast({
             toast: {
               type: ToastType.danger,
-              message: 'Необхідно авторизуватись',
+              message: 'Відсутні необхідні привілеї',
             },
           }),
         );
-        Router.push('/login').catch(console.log);
       }
     }
 

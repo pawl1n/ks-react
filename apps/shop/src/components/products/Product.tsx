@@ -25,24 +25,6 @@ const Product = ({ product }: ProductProps) => {
                 items-center justify-center
                 gap-y-2 opacity-0 group-hover:opacity-100 transition-all duration-300"
         >
-          {/*<button onClick={() => addCartItem(product)}>*/}
-          {/*  <div className="flex justify-center items-center text-white w-12 h-12 bg-red-500">*/}
-          {/*    <svg*/}
-          {/*      xmlns="http://www.w3.org/2000/svg"*/}
-          {/*      fill="none"*/}
-          {/*      viewBox="0 0 24 24"*/}
-          {/*      strokeWidth={1.5}*/}
-          {/*      stroke="currentColor"*/}
-          {/*      className="w-6 h-6"*/}
-          {/*    >*/}
-          {/*      <path*/}
-          {/*        strokeLinecap="round"*/}
-          {/*        strokeLinejoin="round"*/}
-          {/*        d="M12 4.5v15m7.5-7.5h-15"*/}
-          {/*      />*/}
-          {/*    </svg>*/}
-          {/*  </div>*/}
-          {/*</button>*/}
           <a
             href={`/products/${product.id}`}
             className="w-12 h-12 bg-white flex justify-center items-center text-primary

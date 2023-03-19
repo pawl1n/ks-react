@@ -1,32 +1,21 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { RootState } from '../stores/store';
+import { createApi } from '@reduxjs/toolkit/query/react';
 
 import Category, { CategoryRequest } from '../interfaces/Category';
 import { ApiArrayResponse } from 'interfaces/apiResponse';
 import { Pageable, UpdateRequestProps } from '../interfaces';
-
-const baseUrl = 'http://localhost:8080/api/categories';
+import { baseQueryWithReauthorization } from './baseQueryWithReauthorization';
 
 export const categoriesApi = createApi({
   reducerPath: 'categoriesApi',
   tagTypes: ['Categories'],
-  baseQuery: fetchBaseQuery({
-    baseUrl: baseUrl,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).token.token;
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
-      }
-      return headers;
-    },
-  }),
+  baseQuery: baseQueryWithReauthorization,
   endpoints: (builder) => ({
     getCategories: builder.query<
       ApiArrayResponse<Category>,
       Pageable<Category> | void
     >({
       query: (pageable?: Pageable<Category>) => ({
-        url: '',
+        url: '/categories',
         params: pageable,
       }),
       providesTags: (result) =>
@@ -40,14 +29,15 @@ export const categoriesApi = createApi({
           : [{ type: 'Categories', id: 'LIST' }],
     }),
     getCategoryById: builder.query<Category, number>({
-      query: (id: number) => `/${id}`,
+      query: (id: number) => `/categories/${id}`,
+      providesTags: (result) => [{ type: 'Categories', id: result?.id }],
     }),
     createCategory: builder.mutation<
       ApiArrayResponse<Category>,
       CategoryRequest
     >({
       query: (category) => ({
-        url: '',
+        url: '/categories',
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

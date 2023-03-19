@@ -1,5 +1,4 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { RootState } from '../stores/store';
+import { createApi } from '@reduxjs/toolkit/query/react';
 
 import Product, {
   ProductItem,
@@ -10,47 +9,39 @@ import Product, {
 import { ApiArrayResponse } from 'interfaces/apiResponse';
 import { Pageable, UpdateRequestProps } from '../interfaces';
 import Image from '../interfaces/Image';
-
-const baseUrl = 'http://localhost:8080/api/products';
+import { baseQueryWithReauthorization } from './baseQueryWithReauthorization';
 
 export const productsApi = createApi({
   reducerPath: 'productsApi',
   tagTypes: ['Products', 'ProductItems'],
-  baseQuery: fetchBaseQuery({
-    baseUrl: baseUrl,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).token.token;
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
-      }
-      return headers;
-    },
-  }),
+  baseQuery: baseQueryWithReauthorization,
   endpoints: (builder) => ({
     getProducts: builder.query<
       ApiArrayResponse<Product>,
       Pageable<Product> | void
     >({
       query: (pageable?: Pageable<Product>) => ({
-        url: '',
+        url: '/products',
         params: pageable,
       }),
       providesTags: (result) =>
         result
           ? [
-              ...(result?._embedded?.products ?? []).map(
-                ({ id }) => ({ type: 'Products', id } as const),
-              ),
+              ...(result?._embedded?.products ?? []).map(({ id }) => {
+                console.log({ type: 'Products', id } as const);
+                return { type: 'Products', id } as const;
+              }),
               { type: 'Products', id: 'LIST' },
             ]
           : [{ type: 'Products', id: 'LIST' }],
     }),
     getProductById: builder.query<Product, number>({
-      query: (id: number) => `/${id}`,
+      query: (id: number) => `/products/${id}`,
+      providesTags: (result) => [{ type: 'Products', id: result?.id }],
     }),
     createProduct: builder.mutation<ApiArrayResponse<Product>, ProductRequest>({
       query: (product) => ({
-        url: '',
+        url: '/products',
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -71,9 +62,10 @@ export const productsApi = createApi({
         },
         body: data,
       }),
-      invalidatesTags: (result, error, { entity }) => [
-        { type: 'Products', id: entity.id },
-      ],
+      invalidatesTags: (result, error, { entity }) => {
+        console.log([{ type: 'Products', id: entity.id }]);
+        return [{ type: 'Products', id: entity.id }];
+      },
     }),
     deleteProduct: builder.mutation<void, Product>({
       query: (product) => ({
@@ -93,6 +85,7 @@ export const productsApi = createApi({
           'Content-Type': 'application/json',
         },
       }),
+      providesTags: (result) => [{ type: 'ProductItems', id: result?.id }],
     }),
     getProductItems: builder.query<ApiArrayResponse<ProductItem>, Product>({
       query: (product) => ({

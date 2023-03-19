@@ -89,9 +89,7 @@ const EditProductPage = () => {
       };
 
       return;
-    }
-
-    if (selectedImage) {
+    } else if (selectedImage) {
       changed.mainImage = selectedImage.url;
     }
 
@@ -181,6 +179,7 @@ const EditProductPage = () => {
               {
                 name: product.name,
                 description: product.description,
+                mainImage: product.mainImage,
                 category: categories.find(
                   (category) =>
                     category._links.self.href === product._links.category.href,

@@ -1,28 +1,17 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { RootState } from '../stores/store';
+import { createApi } from '@reduxjs/toolkit/query/react';
 
 import Image, { ImageRequest } from '../interfaces/Image';
 import { ApiArrayResponse } from 'interfaces/apiResponse';
 import { UpdateRequestProps } from '../interfaces';
-
-const baseUrl = 'http://localhost:8080/api/images';
+import { baseQueryWithReauthorization } from './baseQueryWithReauthorization';
 
 export const imagesApi = createApi({
   reducerPath: 'imagesApi',
   tagTypes: ['Images'],
-  baseQuery: fetchBaseQuery({
-    baseUrl: baseUrl,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).token.token;
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
-      }
-      return headers;
-    },
-  }),
+  baseQuery: baseQueryWithReauthorization,
   endpoints: (builder) => ({
     getImages: builder.query<Image[], void>({
-      query: () => ``,
+      query: () => `/images`,
       transformResponse: (response: ApiArrayResponse<Image>) =>
         response._embedded?.images ?? [],
       providesTags: (result) =>
@@ -35,10 +24,11 @@ export const imagesApi = createApi({
     }),
     getImageById: builder.query<Image, number>({
       query: (id: number) => `/${id}`,
+      providesTags: (result) => [{ type: 'Images', id: result?.id }],
     }),
     createImage: builder.mutation<Image, ImageRequest>({
       query: (image) => ({
-        url: '',
+        url: '/images',
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

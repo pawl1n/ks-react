@@ -1,5 +1,4 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { RootState } from '../stores/store';
+import { createApi } from '@reduxjs/toolkit/query/react';
 
 import Variation, {
   VariationOption,
@@ -8,29 +7,19 @@ import Variation, {
 } from '../interfaces/Variation';
 import { ApiArrayResponse } from 'interfaces/apiResponse';
 import { Pageable, UpdateRequestProps } from '../interfaces';
-
-const baseUrl = 'http://localhost:8080/api/variations';
+import { baseQueryWithReauthorization } from './baseQueryWithReauthorization';
 
 export const variationsApi = createApi({
   reducerPath: 'variationsApi',
   tagTypes: ['Variations', 'VariationOptions'],
-  baseQuery: fetchBaseQuery({
-    baseUrl: baseUrl,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).token.token;
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
-      }
-      return headers;
-    },
-  }),
+  baseQuery: baseQueryWithReauthorization,
   endpoints: (builder) => ({
     getVariations: builder.query<
       ApiArrayResponse<Variation>,
       Pageable<Variation> | void
     >({
       query: (pageable?: Pageable<Variation>) => ({
-        url: '',
+        url: '/variations',
         params: pageable,
       }),
       providesTags: (result) =>
@@ -44,14 +33,15 @@ export const variationsApi = createApi({
           : [{ type: 'Variations', id: 'LIST' }],
     }),
     getVariationById: builder.query<Variation, number>({
-      query: (id: number) => `/${id}`,
+      query: (id: number) => `/variations/${id}`,
+      providesTags: (result) => [{ type: 'Variations', id: result?.id }],
     }),
     createVariation: builder.mutation<
       ApiArrayResponse<Variation>,
       VariationRequest
     >({
       query: (variation) => ({
-        url: '',
+        url: '/variations',
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

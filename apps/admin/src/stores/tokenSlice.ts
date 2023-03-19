@@ -3,18 +3,20 @@ import { TokenPayloadObject } from '../interfaces/auth';
 import Router from 'next/router';
 
 interface TokenState {
-  token: string | null;
+  accessToken: string | null;
+  refreshToken: string | null;
 }
 
 const getToken = () => {
   if (typeof window !== 'undefined') {
-    return localStorage.getItem('token');
+    return localStorage.getItem('refreshToken');
   }
   return null;
 };
 
 const initialState: TokenState = {
-  token: getToken(),
+  accessToken: null,
+  refreshToken: getToken(),
 };
 
 export const tokenSlice = createSlice({
@@ -22,13 +24,17 @@ export const tokenSlice = createSlice({
   initialState,
   reducers: {
     setToken: (state, action: PayloadAction<TokenPayloadObject>) => {
-      state.token = action.payload.token;
+      state.accessToken = action.payload.accessToken;
+      state.refreshToken = action.payload.refreshToken;
 
-      if (state.token) {
-        localStorage.setItem('token', state.token);
+      if (state.refreshToken) {
+        localStorage.setItem('refreshToken', state.refreshToken);
       } else {
-        localStorage.removeItem('token');
-        Router.push('/login');
+        localStorage.removeItem('refreshToken');
+      }
+
+      if (!state.accessToken) {
+        Router.push('/login').then();
       }
     },
   },
