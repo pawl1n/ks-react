@@ -1,7 +1,7 @@
 import Product from "./Product";
 import type ProductType from "../../types/Product";
 import { useEffect, useState } from "preact/hooks";
-import { getAll } from "../../api/Get";
+import { getAll } from "../../api/products";
 
 let isLoading = false;
 
@@ -16,12 +16,12 @@ const Products = () => {
   });
 
   useEffect(() => {
-    getAll<ProductType>("products", params).then((data) => {
-      if (!data?._embedded?.products) {
+    getAll(params).then((res) => {
+      if (!res.data?._embedded?.products) {
         setIsLastPage(true);
         return;
       }
-      setProducts([...products, ...data._embedded.products]);
+      setProducts([...products, ...res.data._embedded.products]);
     });
   }, [page]);
 

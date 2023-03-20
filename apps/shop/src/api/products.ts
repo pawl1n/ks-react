@@ -1,18 +1,20 @@
-import get, { getAll, getOne } from "./Get";
 import type Product from "../types/Product";
 import type { ProductVariation } from "../types/Product";
 import type { ApiArrayResponse } from "ks-react-admin/src/interfaces/apiResponse";
+import { get } from "./baseApi";
+import type { ApiResponse } from "../types/Response";
 
-export const getProducts = (): Promise<Product[]> => {
-  return get("products").then((data) => data._embedded.products);
+const productsApi = {
+  getAll: (
+    searchParams?: URLSearchParams
+  ): Promise<ApiResponse<ApiArrayResponse<Product>>> =>
+    get("products", false, searchParams),
+  getOne: (id: string): Promise<ApiResponse<Product>> =>
+    get(`products/${id}`, false),
+  getVariations: (
+    product: Product
+  ): Promise<ApiResponse<ApiArrayResponse<ProductVariation>>> =>
+    get(product._links.variations.href, false),
 };
 
-export const getProduct = (id: string) => {
-  return getOne<Product>("products", parseInt(id));
-};
-
-export const getProductVariations = (
-  product: Product
-): Promise<ApiArrayResponse<ProductVariation>> => {
-  return getAll<ProductVariation>(`products/${product.id}/variations`);
-};
+export const { getAll, getOne, getVariations } = productsApi;

@@ -1,9 +1,23 @@
-import { persistentAtom } from "@nanostores/persistent";
+import { persistentMap } from "@nanostores/persistent";
 
-const token = persistentAtom<string>("token", "", {});
+const token = persistentMap(
+  "token",
+  {
+    accessToken: "",
+    refreshToken: "",
+  },
+  {}
+);
 
-export const setToken = (value: string) => {
+type TokenProps = {
+  accessToken: string;
+  refreshToken: string;
+};
+
+export const setToken = (value: TokenProps) => {
   token.set(value);
 };
 
-export const getToken = () => token.get();
+export const getAccessToken = () => token.get().accessToken;
+
+export const getRefreshToken = () => token.get().refreshToken;

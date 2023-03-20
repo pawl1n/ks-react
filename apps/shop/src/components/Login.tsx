@@ -1,28 +1,6 @@
 import { useState } from "preact/hooks";
 import { setToken } from "../stores/tokenStore";
-
-interface LoginProps {
-  email: string;
-  password: string;
-}
-
-interface Response {
-  token: string;
-}
-
-const loginUser = async (credentials: LoginProps): Promise<Response> => {
-  return fetch("http://localhost:8080/api/auth/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  })
-    .then((data) => data.json())
-    .catch(() => {
-      throw new Error("Неправильний логін або пароль");
-    });
-};
+import { login } from "../api/authApi";
 
 const LoginForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -35,18 +13,17 @@ const LoginForm = () => {
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
 
-    const response = await loginUser({
+    await login({
       email: formData.get("email") as string,
       password: formData.get("password") as string,
-    }).catch((e: Error) => {
-      setErrorMessage(e.message);
-      return { token: "" };
+    }).then((res) => {
+      if (res.data) {
+        setToken(res.data);
+        window.location.href = "/";
+      } else {
+        setErrorMessage("Неправильний логін або пароль");
+      }
     });
-
-    if (response.token) {
-      setToken(response.token);
-      window.location.href = "/";
-    }
   };
 
   return (
@@ -55,7 +32,7 @@ const LoginForm = () => {
       <div className="-space-y-px rounded-md shadow-sm">
         <div>
           <label htmlFor="email-address" className="sr-only">
-            Email address
+            Email
           </label>
           <input
             id="email-address"
@@ -69,7 +46,7 @@ const LoginForm = () => {
         </div>
         <div>
           <label htmlFor="password" className="sr-only">
-            Password
+            Пароль
           </label>
           <input
             id="password"
@@ -100,14 +77,14 @@ const LoginForm = () => {
           </label>
         </div>
 
-        {/*<div className="text-sm">*/}
-        {/*  <a*/}
-        {/*    href="#"*/}
-        {/*    className="font-medium text-indigo-600 hover:text-indigo-500"*/}
-        {/*  >*/}
-        {/*    Забули пароль?*/}
-        {/*  </a>*/}
-        {/*</div>*/}
+        <div className="text-sm">
+          <a
+            href="/register"
+            className="font-medium text-primary hover:text-black"
+          >
+            Зареєструватись
+          </a>
+        </div>
       </div>
 
       <div>

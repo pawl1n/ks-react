@@ -1,18 +1,19 @@
 ---
 import Layout from "../../layouts/Shop.astro";
-import { getProduct, getProductVariations } from "../../api/products";
 import ProductType, { ProductVariation } from "../../types/Product";
 import ProductDetails from "../../components/products/ProductDetails";
+import { getOne, getVariations } from "../../api/products";
 
 const productId = Astro.params.id;
 
 let product = undefined as undefined | ProductType;
 let productVariations = undefined as undefined | ProductVariation[];
 if (productId) {
-  product = await getProduct(productId);
-  if (product) {
-    productVariations = await getProductVariations(product).then(
-      (data) => data?._embedded?.productItems ?? []
+  const response = await getOne(productId);
+  if (response.data) {
+    product = response.data;
+    productVariations = await getVariations(product).then(
+      ({ data }) => data?._embedded?.productItems ?? []
     );
   }
 }

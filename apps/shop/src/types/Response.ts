@@ -19,3 +19,9 @@ export interface Links {
 export interface Link {
   href: string;
 }
+
+export interface ApiResponse<T> {
+  data: T | undefined;
+  error: any | undefined;
+  status: number;
+}
