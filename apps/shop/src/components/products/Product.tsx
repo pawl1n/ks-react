@@ -1,4 +1,4 @@
-import type ProductType from "../../types/Product";
+import type ProductType from "ks-react-admin/src/interfaces/Product";
 
 interface ProductProps {
   product: ProductType;
@@ -52,7 +52,9 @@ const Product = ({ product }: ProductProps) => {
           </a>
         </div>
       </div>
-      <div className="text-sm capitalize text-gray-500">{product.category}</div>
+      <div className="text-sm capitalize text-gray-500">
+        {product.category.name}
+      </div>
       <a href={`/products/${product.id}`}>
         <h2 className="font-semibold mb-1">{product.name}</h2>
       </a>

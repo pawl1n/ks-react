@@ -138,11 +138,18 @@ function Table<T extends ApiResponseEntity>({
         <tbody>
           {items.map((item: T) => (
             <tr key={item.id}>
-              {columns.map((col) => (
-                <td key={col.key as string} data-label={col.label}>
-                  {(item[col.key] as string) ?? ''}
-                </td>
-              ))}
+              {columns.map((col) =>
+                typeof item[col.key] === 'object' ? (
+                  <td key={col.key as string} data-label={col.label}>
+                    {(((item[col.key] as any)['name'] ??
+                      (item[col.key] as any)['id']) as string) ?? ''}
+                  </td>
+                ) : (
+                  <td key={col.key as string} data-label={col.label}>
+                    {(item[col.key] as string) ?? ''}
+                  </td>
+                ),
+              )}
               <td className="whitespace-nowrap before:hidden lg:w-1">
                 <BaseButtons type="justify-start lg:justify-end" noWrap>
                   <Link href={`${Router.asPath}/${item.id}`}>

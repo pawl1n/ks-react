@@ -28,7 +28,7 @@ import ProductItems from '../../components/ProductItems';
 const EditProductPage = () => {
   const id = Router.query.id as string;
   if (!parseInt(id)) {
-    return <></>;
+    throw new Error('Invalid id');
   }
 
   const productResponse = useGetProductByIdQuery(parseInt(id));
@@ -54,7 +54,6 @@ const EditProductPage = () => {
       setSelectedImage(null);
     } else {
       setImageFile(null);
-      return;
     }
   };
 
@@ -134,6 +133,7 @@ const EditProductPage = () => {
               label="Завантажити"
               color="info"
               icon={mdiUpload}
+              accept="image/*"
               handleChange={handleSelectImageFile}
             />
           </FormField>
@@ -180,10 +180,7 @@ const EditProductPage = () => {
                 name: product.name,
                 description: product.description,
                 mainImage: product.mainImage,
-                category: categories.find(
-                  (category) =>
-                    category._links.self.href === product._links.category.href,
-                )?.id,
+                category: product.category.id,
               } as ProductRequest
             }
             onSubmit={handleSubmit}
@@ -199,6 +196,7 @@ const EditProductPage = () => {
 
               <FormField label="Категорія" labelFor="category">
                 <Field name="category" id="category" component="select">
+                  <option>Виберіть категорію</option>
                   {categories.map((category) => (
                     <option key={category.id} value={category.id}>
                       {category.name}

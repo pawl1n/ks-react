@@ -1,5 +1,6 @@
 import { ApiResponseEntity, Link } from './apiResponse';
 import { VariationOption } from './Variation';
+import Category from './Category';
 
 export type ProductRequest = {
   name: string;
@@ -32,7 +33,7 @@ interface Product extends ApiResponseEntity {
   id: number;
   name: string;
   description: string;
-  category: string;
+  category: Category;
   mainImage: string;
   _links: {
     self: Link;

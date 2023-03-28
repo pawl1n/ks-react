@@ -1,7 +1,7 @@
 import { mdiArrowLeft, mdiPlus } from '@mdi/js';
 import { Field, Form, Formik } from 'formik';
 import Head from 'next/head';
-import { ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import BaseButton from 'components/BaseButton';
 import BaseButtons from 'components/BaseButtons';
 import BaseDivider from 'components/BaseDivider';
@@ -14,23 +14,43 @@ import Router from 'next/router';
 import LayoutAuthenticated from 'layouts/Authenticated';
 import { CategoryRequest } from '../../interfaces/Category';
 import {
-  useCreateCategoryMutation,
   useGetCategoriesQuery,
+  useGetCategoryByIdQuery,
+  useUpdateCategoryMutation,
 } from '../../services/categories';
 
 const CreateProductPage = () => {
+  const id = Router.query.id as string;
+  if (!parseInt(id)) {
+    throw new Error('Invalid id');
+  }
+
+  const categoryResponse = useGetCategoryByIdQuery(parseInt(id));
+  const category = categoryResponse?.data;
+
   const response = useGetCategoriesQuery();
   const categories = response?.data?._embedded?.categories ?? [];
 
-  const [createCategory] = useCreateCategoryMutation();
+  const [updateCategory] = useUpdateCategoryMutation();
 
-  const handleSubmit = async (category: CategoryRequest) => {
-    createCategory(category)
+  const handleSubmit = async (categoryRequest: CategoryRequest) => {
+    if (!category) {
+      return;
+    }
+
+    updateCategory({
+      entity: category,
+      data: categoryRequest,
+    })
       .unwrap()
       .then(() => {
         Router.back();
       });
   };
+
+  if (!category) {
+    return <>Не знайдено</>;
+  }
 
   return (
     <>
@@ -57,7 +77,8 @@ const CreateProductPage = () => {
           <Formik
             initialValues={
               {
-                name: '',
+                name: category.name,
+                parentCategory: category.parentCategory,
               } as CategoryRequest
             }
             onSubmit={handleSubmit}
@@ -77,11 +98,13 @@ const CreateProductPage = () => {
                   component="select"
                 >
                   <option>Відсутня</option>
-                  {categories.map((category) => (
-                    <option key={category.id} value={category.id}>
-                      {category.name}
-                    </option>
-                  ))}
+                  {categories
+                    .filter((cat) => cat.id !== category.id)
+                    .map((category) => (
+                      <option key={category.id} value={category.id}>
+                        {category.name}
+                      </option>
+                    ))}
                 </Field>
               </FormField>
 

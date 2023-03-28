@@ -1,12 +1,12 @@
 import type { Entity, Link } from "./Response";
+import type Category from "ks-react-admin/src/interfaces/Category";
 
 export default interface Product extends Entity {
   id: number;
   name: string;
   description: string;
-  category: string;
+  category: Category;
   mainImage: string;
-
   _links: {
     self: Link;
     category: Link;

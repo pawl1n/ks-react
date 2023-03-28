@@ -43,7 +43,7 @@ const ProductDetails = ({ product, variations }: ProductProps) => {
         <h1 className="font-bold text-xl mb-5">{product.name}</h1>
         <div className="text-sm">{product.description}</div>
         <div className="text-sm capitalize text-gray-500">
-          {product.category}
+          {product.category.name}
         </div>
         {variations.length > 1 && (
           <div className="mt-5">

@@ -42,7 +42,6 @@ const CreateProductPage = () => {
       setSelectedImage(null);
     } else {
       setImageFile(null);
-      return;
     }
   };
 
@@ -110,6 +109,7 @@ const CreateProductPage = () => {
               label="Завантажити"
               color="info"
               icon={mdiUpload}
+              accept="image/*"
               handleChange={handleSelectImageFile}
             />
           </FormField>
@@ -144,7 +144,7 @@ const CreateProductPage = () => {
               {
                 name: '',
                 description: '',
-                category: categories[0]?.id ?? undefined,
+                category: undefined,
               } as ProductRequest
             }
             onSubmit={handleSubmit}
@@ -160,6 +160,7 @@ const CreateProductPage = () => {
 
               <FormField label="Категорія" labelFor="category">
                 <Field name="category" id="category" component="select">
+                  <option>Виберіть категорію</option>
                   {categories.map((category) => (
                     <option key={category.id} value={category.id}>
                       {category.name}

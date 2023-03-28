@@ -27,10 +27,9 @@ export const productsApi = createApi({
       providesTags: (result) =>
         result
           ? [
-              ...(result?._embedded?.products ?? []).map(({ id }) => {
-                console.log({ type: 'Products', id } as const);
-                return { type: 'Products', id } as const;
-              }),
+              ...(result?._embedded?.products ?? []).map(
+                ({ id }) => ({ type: 'Products', id } as const),
+              ),
               { type: 'Products', id: 'LIST' },
             ]
           : [{ type: 'Products', id: 'LIST' }],
