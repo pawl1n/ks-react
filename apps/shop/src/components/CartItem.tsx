@@ -14,7 +14,7 @@ const CartItem = memo(({ item }: Props) => {
   return (
     <div className="flex gap-x-4 py-2 xl:px-6 border-b border-gray-200 w-full font-light text-gray-500">
       <div className="w-full min-h-[150px] flex items-center gap-x-4">
-        <a href={`/product/${item.id}`}>
+        <a href={`/products/${item.id}`}>
           <img
             src={item.mainImage}
             alt={item.mainImage}

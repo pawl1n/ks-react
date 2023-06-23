@@ -2,6 +2,7 @@
 import Navbar from "../components/Navbar.astro";
 import CartIcon from "../components/CartIcon";
 import Sidebar from "../components/Sidebar";
+import Footer from "../components/Footer";
 
 const { title, description } = Astro.props;
 ---
@@ -24,7 +25,7 @@ const { title, description } = Astro.props;
       <div class="container flex mx-auto items-center justify-between h-full">
         <Navbar />
         <div class="flex gap-2">
-          <a href="/login">
+          <a href="/profile">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -46,5 +47,6 @@ const { title, description } = Astro.props;
     </header>
     <slot />
     <Sidebar client:idle />
+    <Footer />
   </body>
 </html>

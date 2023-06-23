@@ -81,9 +81,14 @@ const EditProductPage = () => {
             updateProduct({
               entity: product,
               data: changed,
+            }).catch(() => {
+              console.log('error');
             });
 
             Router.back();
+          })
+          .catch(() => {
+            console.log('error');
           });
       };
 
@@ -99,6 +104,9 @@ const EditProductPage = () => {
       .unwrap()
       .then(() => {
         Router.back();
+      })
+      .catch(() => {
+        console.log('error');
       });
   };
 

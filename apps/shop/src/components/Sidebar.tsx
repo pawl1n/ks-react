@@ -15,7 +15,7 @@ const Sidebar = () => {
     <div
       className={`${
         $isCartOpen ? "right-0" : "-right-full"
-      } w-full bg-white fixed top-0 h-full shadow-2xl
+      } w-full bg-white fixed top-0 h-full shadow-2xl select-none
 md:w-[40vw] xl:max-w-[45vw] transition-all duration-300 ease-in-out z-20 px-4 lg:px-[35px] flex flex-col`}
     >
       <div className="flex items-center justify-between py-6 border-b">

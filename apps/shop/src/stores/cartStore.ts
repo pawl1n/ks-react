@@ -44,7 +44,12 @@ export const addCartItem = (cartItem: Product, variation: ProductVariation) => {
   } else {
     shoppingCart.set([
       ...shoppingCart.get(),
-      { ...cartItem, ...variation, quantity: 1, id: variation.id },
+      {
+        ...cartItem,
+        ...variation,
+        quantity: 1,
+        category: cartItem.category.name,
+      },
     ]);
   }
 };
