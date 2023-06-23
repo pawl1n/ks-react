@@ -27,12 +27,18 @@ export const shoppingCart = persistentAtom<CartItem[]>("cart", [], {
 export const addCartItem = (cartItem: Product, variation: ProductVariation) => {
   const existingEntry = shoppingCart
     .get()
-    .find((item) => item.id === variation.id);
+    .find(
+      (item) =>
+        item.variationId === variation.id && item.productId === cartItem.id
+    );
 
   if (existingEntry) {
     shoppingCart.set([
       ...shoppingCart.get().map((item) => {
-        if (item.id === variation.id) {
+        if (
+          item.variationId === variation.id &&
+          item.productId === cartItem.id
+        ) {
           return {
             ...item,
             quantity: item.quantity + 1,
@@ -49,14 +55,21 @@ export const addCartItem = (cartItem: Product, variation: ProductVariation) => {
         ...variation,
         quantity: 1,
         category: cartItem.category.name,
+        productId: cartItem.id,
+        variationId: variation.id,
       },
     ]);
   }
 };
 
-export const removeCartItem = (cartItemId: number) => {
+export const removeCartItem = (cartItemId: number, variationId: number) => {
   shoppingCart.set([
-    ...shoppingCart.get().filter((item) => item.id !== cartItemId),
+    ...shoppingCart
+      .get()
+      .filter(
+        (item) =>
+          !(item.variationId === variationId && item.productId === cartItemId)
+      ),
   ]);
 };
 
@@ -64,10 +77,13 @@ export const removeAllCartItems = () => {
   shoppingCart.set([]);
 };
 
-export const incremenetCartItemQuantity = (cartItemId: number) => {
+export const incrementCartItemQuantity = (
+  cartItemId: number,
+  variationId: number
+) => {
   shoppingCart.set([
     ...shoppingCart.get().map((item) => {
-      if (item.id === cartItemId) {
+      if (item.variationId === variationId && item.productId === cartItemId) {
         return {
           ...item,
           quantity: item.quantity + 1,
@@ -78,10 +94,13 @@ export const incremenetCartItemQuantity = (cartItemId: number) => {
   ]);
 };
 
-export const decrementCartItemQuantity = (cartItemId: number) => {
+export const decrementCartItemQuantity = (
+  cartItemId: number,
+  variationId: number
+) => {
   shoppingCart.set([
     ...shoppingCart.get().map((item) => {
-      if (item.id === cartItemId) {
+      if (item.variationId === variationId && item.productId == cartItemId) {
         return {
           ...item,
           quantity: item.quantity === 1 ? item.quantity : item.quantity - 1,

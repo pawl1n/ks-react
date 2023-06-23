@@ -1,13 +1,17 @@
 import { useStore } from "@nanostores/preact";
 import CartItem from "../components/CartItem";
-import { shoppingCart, isCartOpen } from "../stores/cartStore";
+import {
+  shoppingCart,
+  isCartOpen,
+  removeAllCartItems,
+} from "../stores/cartStore";
 
 const Sidebar = () => {
   const $isCartOpen = useStore(isCartOpen);
   const $cartItems = useStore(shoppingCart);
 
   const handleRemoveAll = () => {
-    shoppingCart.set([]);
+    removeAllCartItems();
     isCartOpen.set(false);
   };
 
@@ -46,7 +50,12 @@ md:w-[40vw] xl:max-w-[45vw] transition-all duration-300 ease-in-out z-20 px-4 lg
       </div>
       <div className="flex flex-col gap-y-2 lg:h[640px] overflow-y-auto overflow-x-hidden border-b">
         {$cartItems?.map((item) => {
-          return <CartItem key={item.id} item={item} />;
+          return (
+            <CartItem
+              key={item.productId + "-" + item.variationId}
+              item={item}
+            />
+          );
         })}
       </div>
       <div className="mt-auto flex flex-col gap-y-3 py-4 mb-0">

@@ -2,7 +2,7 @@ import { memo } from "preact/compat";
 import type CartItemType from "../types/CartItem";
 import {
   removeCartItem,
-  incremenetCartItemQuantity,
+  incrementCartItemQuantity,
   decrementCartItemQuantity,
 } from "../stores/cartStore";
 
@@ -14,7 +14,7 @@ const CartItem = memo(({ item }: Props) => {
   return (
     <div className="flex gap-x-4 py-2 xl:px-6 border-b border-gray-200 w-full font-light text-gray-500">
       <div className="w-full min-h-[150px] flex items-center gap-x-4">
-        <a href={`/products/${item.id}`}>
+        <a href={`/products/${item.productId}`}>
           <img
             src={item.mainImage}
             alt={item.mainImage}
@@ -24,7 +24,7 @@ const CartItem = memo(({ item }: Props) => {
         <div className="w-full flex flex-col">
           <div className="flex justify-between items-center">
             <a
-              href={`/product/${item.id}`}
+              href={`/products/${item.productId}`}
               className="tet-sm uppercase font-medium max-w-[240px] text-primary hover:underline"
             >
               <span>{item.name}</span>
@@ -37,7 +37,7 @@ const CartItem = memo(({ item }: Props) => {
                 strokeWidth="1.5"
                 stroke="currentColor"
                 className="w-6 h-6 text-gray-500 hover:text-red-500 transition"
-                onClick={() => removeCartItem(item.id)}
+                onClick={() => removeCartItem(item.productId, item.variationId)}
               >
                 <path
                   strokeLinecap="round"
@@ -62,7 +62,8 @@ const CartItem = memo(({ item }: Props) => {
                   item.quantity > 1 ? `cursor-pointer` : `cursor-not-allowed`
                 } w-6 h-6 flex-1 flex justify-center items-center`}
                 onClick={() => {
-                  if (item.quantity > 1) decrementCartItemQuantity(item.id);
+                  if (item.quantity > 1)
+                    decrementCartItemQuantity(item.productId, item.variationId);
                 }}
               >
                 <path
@@ -83,7 +84,9 @@ const CartItem = memo(({ item }: Props) => {
                 strokeWidth={1.5}
                 stroke="currentColor"
                 className="w-6 h-6 flex-1 flex justify-center items-center cursor-pointer"
-                onClick={() => incremenetCartItemQuantity(item.id)}
+                onClick={() =>
+                  incrementCartItemQuantity(item.productId, item.variationId)
+                }
               >
                 <path
                   strokeLinecap="round"
