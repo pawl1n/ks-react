@@ -23,7 +23,7 @@ const RegisterForm = () => {
 
     if (response.data) {
       setToken(response.data);
-      window.location.href = "/";
+      window.location.href = "/profile";
     } else {
       if (response.error.message) {
         setErrorMessage(`Деякі поля вказано невірно`);

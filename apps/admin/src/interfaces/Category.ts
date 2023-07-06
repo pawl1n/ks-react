@@ -10,10 +10,12 @@ interface Category extends ApiResponseEntity {
   id: number;
   name: string;
   parentCategory?: string;
+  path: string;
+  descendants: Category[];
   _links: {
     self: Link;
     parentCategory: Link;
-    childrenCategories: Link;
+    descendants: Link;
   };
 }
 

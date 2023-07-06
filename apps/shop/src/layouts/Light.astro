@@ -1,7 +1,7 @@
 ---
-import Sidebar from "../components/cart/Sidebar";
 import Footer from "../components/Footer";
 import Header from "../components/header/Header.astro";
+import Logo from "../components/header/Logo.astro";
 
 const { title, description } = Astro.props;
 ---
@@ -18,9 +18,14 @@ const { title, description } = Astro.props;
     <title>{title} – Кішка Стрибає</title>
   </head>
   <body class="flex flex-col min-h-screen">
-    <Header />
+    <header
+      class="sticky bg-primary text-white w-full z-10 transition-all py-5 top-0 left-0 right-0"
+    >
+      <div class="container flex mx-auto items-center justify-between h-full">
+        <Logo />
+      </div>
+    </header>
     <slot />
     <Footer />
-    <Sidebar client:idle />
   </body>
 </html>

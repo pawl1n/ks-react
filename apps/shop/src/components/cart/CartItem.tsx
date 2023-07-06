@@ -1,10 +1,10 @@
 import { memo } from "preact/compat";
-import type CartItemType from "../types/CartItem";
+import type CartItemType from "../../types/CartItem";
 import {
   removeCartItem,
   incrementCartItemQuantity,
   decrementCartItemQuantity,
-} from "../stores/cartStore";
+} from "../../stores/cartStore";
 
 interface Props {
   item: CartItemType;

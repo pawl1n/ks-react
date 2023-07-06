@@ -1,10 +1,10 @@
 import { useStore } from "@nanostores/preact";
-import CartItem from "../components/CartItem";
+import CartItem from "./CartItem";
 import {
   shoppingCart,
   isCartOpen,
   removeAllCartItems,
-} from "../stores/cartStore";
+} from "../../stores/cartStore";
 
 const Sidebar = () => {
   const $isCartOpen = useStore(isCartOpen);

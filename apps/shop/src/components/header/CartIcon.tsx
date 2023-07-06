@@ -1,5 +1,5 @@
 import { useStore } from "@nanostores/preact";
-import { isCartOpen, shoppingCart } from "../stores/cartStore";
+import { isCartOpen, shoppingCart } from "../../stores/cartStore";
 
 const CartIcon = () => {
   const $shoppingCart = useStore(shoppingCart);

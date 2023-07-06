@@ -1,0 +1,17 @@
+---
+import Logo from "../../assets/logo.png";
+import { Image } from "@astrojs/image/components";
+---
+
+<>
+  <a href="/" class="flex items-center gap-5 text-md sm:text-2xl">
+    <Image
+      src={Logo}
+      alt="Кішка стрибає - логотип"
+      width={80}
+      height={80}
+      class="w-10"
+    />
+    <h1 class="font-semibold whitespace-nowrap">Кішка стрибає</h1>
+  </a>
+</>

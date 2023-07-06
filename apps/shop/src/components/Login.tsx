@@ -19,7 +19,7 @@ const LoginForm = () => {
     }).then((res) => {
       if (res.data) {
         setToken(res.data);
-        window.location.href = "/";
+        window.location.href = "/profile";
       } else {
         setErrorMessage("Неправильний логін або пароль");
       }
