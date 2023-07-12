@@ -18,11 +18,24 @@ import {
   useUpdateVariationMutation,
 } from 'services/variations';
 import Variations from '../../components/Variations';
+import { useAppDispatch } from '../../stores/hooks';
+import { addToast } from '../../stores/toastSlice';
+import { ToastType } from '../../types/toast';
 
 const CreateVariationPage = () => {
   const id = Router.query.id as string;
+  const dispatch = useAppDispatch();
+
   if (!parseInt(id)) {
-    return <></>;
+    dispatch(
+      addToast({
+        toast: {
+          type: ToastType.danger,
+          message: 'Варіацію не знайдено',
+        },
+      }),
+    );
+    Router.back();
   }
 
   const variationResponse = useGetVariationByIdQuery(parseInt(id));

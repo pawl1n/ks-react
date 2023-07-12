@@ -2,7 +2,7 @@
   "name": "ks-react-admin",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo --show-all",
+    "dev": "next dev --show-all",
     "build": "next build",
     "export": "next export",
     "start": "next start",
@@ -31,8 +31,7 @@
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.2",
-    "@tailwindcss/line-clamp": "^0.4.0",
-    "@types/node": "18.7.16",
+    "@types/node": "^18.7.16",
     "@types/numeral": "^2.0.2",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",

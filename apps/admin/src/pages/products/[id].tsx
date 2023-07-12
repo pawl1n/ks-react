@@ -9,7 +9,7 @@ import CardBox from 'components/CardBox';
 import FormField from 'components/FormField';
 import SectionMain from 'components/SectionMain';
 import SectionTitleLineWithButton from 'components/SectionTitleLineWithButton';
-import { getPageTitle } from '../../config';
+import { getPageTitle } from 'config';
 import Router from 'next/router';
 import LayoutAuthenticated from 'layouts/Authenticated';
 import FormFilePicker from 'components/FormFilePicker';

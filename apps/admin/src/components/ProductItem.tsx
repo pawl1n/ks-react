@@ -159,10 +159,12 @@ const ProductItemForm = ({ productItem, product, setAddNew }: Props) => {
         isActive={isPickerActive}
         onConfirm={handleSelectedOption}
       >
-        <Variations
-          variation={selectedVariation}
-          onSelect={setSelectedOption}
-        />
+        {selectedVariation && (
+          <Variations
+            variation={selectedVariation}
+            onSelect={setSelectedOption}
+          />
+        )}
       </CardBoxModal>
       <Formik
         initialValues={productItem}

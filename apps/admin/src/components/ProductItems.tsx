@@ -10,14 +10,10 @@ import SectionMain from './SectionMain';
 import ProductItemForm from './ProductItem';
 
 type Props = {
-  product?: Product;
+  product: Product;
 };
 
 const ProductItems = ({ product }: Props) => {
-  if (!product) {
-    return <></>;
-  }
-
   const { data } = useGetProductItemsQuery(product);
   const productItems: ProductItem[] = data?._embedded?.productItems ?? [];
   const [addOption, setAddOption] = useState(false);

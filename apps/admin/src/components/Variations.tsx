@@ -16,15 +16,11 @@ import SectionTitleLineWithButton from './SectionTitleLineWithButton';
 import SectionMain from './SectionMain';
 
 type Props = {
-  variation?: Variation;
+  variation: Variation;
   onSelect?: (option: VariationOption) => void;
 };
 
 const Variations = ({ variation, onSelect }: Props) => {
-  if (!variation) {
-    return <></>;
-  }
-
   const { data } = useGetVariationOptionsQuery(variation);
   const options: VariationOption[] = data?._embedded?.options ?? [];
   const [addOption, setAddOption] = useState(false);
