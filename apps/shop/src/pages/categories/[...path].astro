@@ -1,0 +1,34 @@
+---
+import Layout from "../../layouts/Shop.astro";
+import { Category as CategoryType } from "shared/types/category";
+import Products from "../../components/products/Products";
+//
+const categoryPath = Astro.params.path;
+//
+let category = undefined as undefined | CategoryType;
+// let productVariations = undefined as undefined | ProductItem[];
+// if (productId) {
+//   const response = await getOne(productId);
+//   if (response.data) {
+//     product = response.data;
+//     productVariations = await getVariations(product).then(
+//       ({ data }) => data?._embedded?.productItems ?? []
+//     );
+//   }
+// }
+---
+
+<Layout
+  title={category?.name ?? "Категорію не знайдено"}
+  description="Перелік наявних товарів в Інтернет-магазині брендового одягу Puma"
+>
+  <div class="py-16 mx-auto">
+    {
+      categoryPath ? (
+        <Products client:visible categoryPath={categoryPath} />
+      ) : (
+        <div>Категорію не знайдено</div>
+      )
+    }
+  </div>
+</Layout>

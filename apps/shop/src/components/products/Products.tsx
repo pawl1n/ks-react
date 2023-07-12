@@ -1,11 +1,17 @@
 import Product from "./Product";
 import type { Product as ProductType } from "shared/types/product";
 import { useEffect, useState } from "preact/hooks";
-import { getAll } from "../../api/products";
+import { getAll, getByCategoryPath } from "../../api/products";
+import type { ApiArrayResponse } from "shared/types/response";
+import type { ApiResponse } from "../../types/apiResponse";
 
 let isLoading = false;
 
-const Products = () => {
+type Props = {
+  categoryPath?: string;
+};
+
+const Products = ({ categoryPath }: Props) => {
   const [products, setProducts] = useState([] as ProductType[]);
   const [page, setPage] = useState(0);
   const [isLastPage, setIsLastPage] = useState(false);
@@ -15,14 +21,22 @@ const Products = () => {
     page: String(page),
   });
 
-  useEffect(() => {
-    getAll(params).then((res) => {
-      if (!res.data?._embedded?.products) {
-        setIsLastPage(true);
-        return;
-      }
+  const processResponse = (res: ApiResponse<ApiArrayResponse<ProductType>>) => {
+    if (page == res.data?.page?.totalPages) {
+      setIsLastPage(true);
+      return;
+    }
+    if (res.data?._embedded?.products) {
       setProducts([...products, ...res.data._embedded.products]);
-    });
+    }
+  };
+
+  useEffect(() => {
+    if (categoryPath) {
+      getByCategoryPath(categoryPath, params).then(processResponse);
+    } else {
+      getAll(params).then(processResponse);
+    }
   }, [page]);
 
   useEffect(() => {

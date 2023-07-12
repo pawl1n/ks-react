@@ -2,14 +2,14 @@
 import Layout from "../../layouts/Shop.astro";
 import { Product as ProductType, ProductItem } from "shared/types/product";
 import ProductDetails from "../../components/products/ProductDetails";
-import { getOne, getVariations } from "../../api/products";
+import { getOneBySlug, getVariations } from "../../api/products";
 
-const productId = Astro.params.id;
+const slug = Astro.params.slug;
 
 let product = undefined as undefined | ProductType;
 let productVariations = undefined as undefined | ProductItem[];
-if (productId) {
-  const response = await getOne(productId);
+if (slug) {
+  const response = await getOneBySlug(slug);
   if (response.data) {
     product = response.data;
     productVariations = await getVariations(product).then(

@@ -23,12 +23,12 @@ export const shoppingCart = persistentAtom<CartItem[]>("cart", [], {
   },
 });
 
-export const addCartItem = (cartItem: Product, variation: ProductItem) => {
+export const addCartItem = (product: Product, variation: ProductItem) => {
   const existingEntry = shoppingCart
     .get()
     .find(
       (item) =>
-        item.variationId === variation.id && item.productId === cartItem.id
+        item.variationId === variation.id && item.productId === product.id
     );
 
   if (existingEntry) {
@@ -36,7 +36,7 @@ export const addCartItem = (cartItem: Product, variation: ProductItem) => {
       ...shoppingCart.get().map((item) => {
         if (
           item.variationId === variation.id &&
-          item.productId === cartItem.id
+          item.productId === product.id
         ) {
           return {
             ...item,
@@ -50,11 +50,12 @@ export const addCartItem = (cartItem: Product, variation: ProductItem) => {
     shoppingCart.set([
       ...shoppingCart.get(),
       {
-        ...cartItem,
+        ...product,
         ...variation,
+        productSlug: product.slug,
         quantity: 1,
-        category: cartItem.category.name,
-        productId: cartItem.id,
+        category: product.category.name,
+        productId: product.id,
         variationId: variation.id,
       },
     ]);

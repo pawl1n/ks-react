@@ -35,6 +35,7 @@ export interface Product extends ApiResponseEntity {
   description: string;
   category: Category;
   mainImage: string;
+  slug: string;
   _links: {
     self: Link;
     category: Link;

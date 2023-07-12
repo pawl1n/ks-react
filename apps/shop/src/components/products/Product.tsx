@@ -26,7 +26,7 @@ const Product = ({ product }: ProductProps) => {
                 gap-y-2 opacity-0 group-hover:opacity-100 transition-all duration-300"
         >
           <a
-            href={`/products/${product.id}`}
+            href={`/products/${product.slug}`}
             className="w-12 h-12 bg-white flex justify-center items-center text-primary
                       drop-shadow-x1"
           >
@@ -55,7 +55,7 @@ const Product = ({ product }: ProductProps) => {
       <div className="text-sm capitalize text-gray-500">
         {product.category.name}
       </div>
-      <a href={`/products/${product.id}`}>
+      <a href={`/products/${product.slug}`}>
         <h2 className="font-semibold mb-1">{product.name}</h2>
       </a>
     </div>

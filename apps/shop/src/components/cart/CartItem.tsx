@@ -14,7 +14,7 @@ const CartItem = memo(({ item }: Props) => {
   return (
     <div className="flex gap-x-4 py-2 xl:px-6 border-b border-gray-200 w-full font-light text-gray-500">
       <div className="w-full min-h-[150px] flex items-center gap-x-4">
-        <a href={`/products/${item.productId}`}>
+        <a href={`/products/${item.productSlug}`}>
           <img
             src={item.mainImage}
             alt={item.mainImage}
@@ -24,7 +24,7 @@ const CartItem = memo(({ item }: Props) => {
         <div className="w-full flex flex-col">
           <div className="flex justify-between items-center">
             <a
-              href={`/products/${item.productId}`}
+              href={`/products/${item.productSlug}`}
               className="tet-sm uppercase font-medium max-w-[240px] text-primary hover:underline"
             >
               <span>{item.name}</span>
@@ -48,7 +48,7 @@ const CartItem = memo(({ item }: Props) => {
             </div>
           </div>
           <div>
-            {item.variationOptions.map((option) => option.value).join(", ")}
+            {item.variationOptions?.map((option) => option.value).join(", ")}
           </div>
           <div className="flex gap-x-2 h-[36px] text-sm">
             <div className="flex items-center flex-1 max-w-[100px] h-full border text-primary font-medium">
