@@ -13,8 +13,5 @@ import cloudflare from "@astrojs/cloudflare";
 export default defineConfig({
   output: "server",
   adapter: cloudflare(),
-  integrations: [tailwind(), preact(), image(), compress(), sitemap({
-    // filter **/admin/** pages
-    filter: page => page.match(/\/admin\//)
-  })]
+  integrations: [tailwind(), preact(), image(), compress(), sitemap()]
 });

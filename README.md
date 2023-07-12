@@ -4,11 +4,11 @@ Frontend for [ks-java](https://github.com/pawl1n/ks-java).
 
 This is monorepo for shop and admin parts of the site.
 
-[Turborepo](https://turbo.build/) is choosen as monorepo.
+[Turborepo](https://turbo.build/) is chosen as monorepo.
 
 # Shop
 
-Written with [Astro](https://astro.build/) for lightweight look-and-feel.
+Written with [Astro](https://astro.build/) for fast page loading.
 
 # Admin
 
