@@ -1,11 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { UserPayloadObject } from '../interfaces';
 
 interface MainState {
   userName: string;
   userEmail: string;
   isFieldFocusRegistered: boolean;
 }
+
+type UserPayloadObject = {
+  name: string;
+  email: string;
+};
 
 const initialState: MainState = {
   /* User */

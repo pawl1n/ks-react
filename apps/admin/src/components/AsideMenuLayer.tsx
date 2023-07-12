@@ -3,7 +3,7 @@ import { mdiLogout, mdiClose } from '@mdi/js';
 import BaseIcon from './BaseIcon';
 import AsideMenuItem from './AsideMenuItem';
 import AsideMenuList from './AsideMenuList';
-import { MenuAsideItem } from '../interfaces';
+import { MenuAsideItem } from 'types/style';
 import { useAppSelector } from '../stores/hooks';
 
 type Props = {

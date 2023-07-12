@@ -1,8 +1,7 @@
-import type Product from "../types/Product";
-import type { ProductVariation } from "../types/Product";
-import type { ApiArrayResponse } from "ks-react-admin/src/interfaces/apiResponse";
+import type { Product, ProductItem } from "shared/types/product";
+import type { ApiArrayResponse } from "shared/types/response";
 import { get } from "./baseApi";
-import type { ApiResponse } from "../types/Response";
+import type { ApiResponse } from "../types/apiResponse";
 
 const productsApi = {
   getAll: (
@@ -13,7 +12,7 @@ const productsApi = {
     get(`products/${id}`, false),
   getVariations: (
     product: Product
-  ): Promise<ApiResponse<ApiArrayResponse<ProductVariation>>> =>
+  ): Promise<ApiResponse<ApiArrayResponse<ProductItem>>> =>
     get(product._links.variations.href, false),
 };
 

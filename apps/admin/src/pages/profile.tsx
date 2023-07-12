@@ -26,7 +26,7 @@ import {
 } from '../services/users';
 import { useAppDispatch } from '../stores/hooks';
 import { addToast } from '../stores/toastSlice';
-import { ToastType } from '../interfaces/Toast';
+import { ToastType } from 'types/toast';
 
 type ChangePasswordFormValues = {
   currentPassword: string;

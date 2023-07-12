@@ -1,8 +1,7 @@
 import { atom } from "nanostores";
 import type CartItem from "../types/CartItem";
 import { persistentAtom } from "@nanostores/persistent";
-import type Product from "../types/Product";
-import type { ProductVariation } from "../types/Product";
+import type { Product, ProductItem } from "shared/types/product";
 
 export const isCartOpen = atom(false);
 
@@ -24,7 +23,7 @@ export const shoppingCart = persistentAtom<CartItem[]>("cart", [], {
   },
 });
 
-export const addCartItem = (cartItem: Product, variation: ProductVariation) => {
+export const addCartItem = (cartItem: Product, variation: ProductItem) => {
   const existingEntry = shoppingCart
     .get()
     .find(

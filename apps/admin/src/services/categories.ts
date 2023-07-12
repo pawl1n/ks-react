@@ -1,8 +1,9 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
-import Category, { CategoryRequest } from '../interfaces/Category';
-import { ApiArrayResponse } from 'interfaces/apiResponse';
-import { Pageable, UpdateRequestProps } from '../interfaces';
+import { Category } from 'shared/types/category';
+import { CategoryRequest, UpdateRequestProps } from 'types/request';
+import { ApiArrayResponse } from 'shared/types/response';
+import { Pageable } from 'shared/types/pageable';
 import { baseQueryWithReauthorization } from './baseQueryWithReauthorization';
 
 export const categoriesApi = createApi({

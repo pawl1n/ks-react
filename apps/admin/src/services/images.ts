@@ -1,8 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
-import Image, { ImageRequest } from '../interfaces/Image';
-import { ApiArrayResponse } from 'interfaces/apiResponse';
-import { UpdateRequestProps } from '../interfaces';
+import { Image, ImageRequest, UpdateRequestProps } from 'types/request';
+import { ApiArrayResponse } from 'shared/types/response';
 import { baseQueryWithReauthorization } from './baseQueryWithReauthorization';
 
 export const imagesApi = createApi({

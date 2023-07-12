@@ -1,4 +1,4 @@
-type Toast = {
+export type Toast = {
   id: string;
   type: 'success' | 'danger' | 'warning' | 'info';
   message: string;
@@ -19,5 +19,3 @@ export enum ToastType {
   warning = 'warning',
   info = 'info',
 }
-
-export default Toast;

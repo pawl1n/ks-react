@@ -4,10 +4,10 @@ import BaseIcon from './BaseIcon';
 import Link from 'next/link';
 import { getButtonColor } from '../colors';
 import AsideMenuList from './AsideMenuList';
-import { MenuAsideItem } from '../interfaces';
+import { MenuAsideItem } from 'types/style';
 import { useAppDispatch, useAppSelector } from '../stores/hooks';
 import { useRouter } from 'next/router';
-import { setToken } from '../stores/tokenSlice';
+import { logout } from '../stores/tokenSlice';
 
 type Props = {
   item: MenuAsideItem;
@@ -78,7 +78,7 @@ const AsideMenuItem = ({ item, isDropdownList = false }: Props) => {
         <div
           className={componentClass}
           onClick={() => {
-            dispatch(setToken({ token: '' }));
+            dispatch(logout());
           }}
         >
           {asideMenuItemInnerContents}

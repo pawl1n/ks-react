@@ -8,7 +8,7 @@ import SectionMain from 'components/SectionMain';
 import SectionTitleLineWithButton from 'components/SectionTitleLineWithButton';
 import { getPageTitle } from '../../config';
 import Table from '../../components/tables/Table';
-import Category from '../../interfaces/Category';
+import { Category } from 'shared/types/category';
 import {
   useDeleteCategoryMutation,
   useGetCategoriesQuery,

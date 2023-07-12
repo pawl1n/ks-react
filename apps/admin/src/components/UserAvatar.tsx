@@ -3,15 +3,15 @@
 // avatars.dicebear.com provides svg avatars
 // next/image needs dangerouslyAllowSVG option for that
 
-import React, { ReactNode } from 'react'
+import React, { ReactNode } from 'react';
 
 type Props = {
-  username: string
-  avatar?: string | null
-  api?: string
-  className?: string
-  children?: ReactNode
-}
+  username: string;
+  avatar?: string | null;
+  api?: string;
+  className?: string;
+  children?: ReactNode;
+};
 
 export default function UserAvatar({
   username,
@@ -21,7 +21,11 @@ export default function UserAvatar({
   children,
 }: Props) {
   const avatarImage =
-    avatar ?? `https://avatars.dicebear.com/api/${api}/${username.replace(/[^a-z0-9]+/i, '-')}.svg`
+    avatar ??
+    `https://avatars.dicebear.com/api/${api}/${username.replace(
+      /[^a-z0-9]+/i,
+      '-',
+    )}.svg`;
 
   return (
     <div className={className}>
@@ -32,5 +36,5 @@ export default function UserAvatar({
       />
       {children}
     </div>
-  )
+  );
 }

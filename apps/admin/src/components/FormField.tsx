@@ -1,28 +1,28 @@
-import { Children, cloneElement, ReactElement, ReactNode } from 'react'
-import BaseIcon from './BaseIcon'
+import { Children, cloneElement, ReactElement } from 'react';
+import BaseIcon from './BaseIcon';
 
 type Props = {
-  label?: string
-  labelFor?: string
-  help?: string
-  icons?: string[] | null[]
-  isBorderless?: boolean
-  isTransparent?: boolean
-  hasTextareaHeight?: boolean
-  children: ReactNode
-}
+  label?: string;
+  labelFor?: string;
+  help?: string;
+  icons?: string[] | null[];
+  isBorderless?: boolean;
+  isTransparent?: boolean;
+  hasTextareaHeight?: boolean;
+  children: ReactElement[] | ReactElement;
+};
 
 const FormField = ({ icons = [], ...props }: Props) => {
-  const childrenCount = Children.count(props.children)
+  const childrenCount = Children.count(props.children);
 
-  let elementWrapperClass = ''
+  let elementWrapperClass = '';
 
   switch (childrenCount) {
     case 2:
-      elementWrapperClass = 'grid grid-cols-1 gap-3 md:grid-cols-2'
-      break
+      elementWrapperClass = 'grid grid-cols-1 gap-3 md:grid-cols-2';
+      break;
     case 3:
-      elementWrapperClass = 'grid grid-cols-1 gap-3 md:grid-cols-3'
+      elementWrapperClass = 'grid grid-cols-1 gap-3 md:grid-cols-3';
   }
 
   const controlClassName = [
@@ -31,14 +31,16 @@ const FormField = ({ icons = [], ...props }: Props) => {
     props.hasTextareaHeight ? 'h-24' : 'h-12',
     props.isBorderless ? 'border-0' : 'border',
     props.isTransparent ? 'bg-transparent' : 'bg-white dark:bg-slate-800',
-  ].join(' ')
+  ].join(' ');
 
   return (
     <div className="mb-6 last:mb-0">
       {props.label && (
         <label
           htmlFor={props.labelFor}
-          className={`block font-bold mb-2 ${props.labelFor ? 'cursor-pointer' : ''}`}
+          className={`block font-bold mb-2 ${
+            props.labelFor ? 'cursor-pointer' : ''
+          }`}
         >
           {props.label}
         </label>
@@ -51,7 +53,7 @@ const FormField = ({ icons = [], ...props }: Props) => {
             })}
             {icons[index] && (
               <BaseIcon
-                path={icons[index]}
+                path={icons[index] || ''}
                 w="w-10"
                 h={props.hasTextareaHeight ? 'h-full' : 'h-12'}
                 className="absolute top-0 left-0 z-10 pointer-events-none text-gray-500 dark:text-slate-400"
@@ -61,10 +63,12 @@ const FormField = ({ icons = [], ...props }: Props) => {
         ))}
       </div>
       {props.help && (
-        <div className="text-xs text-gray-500 dark:text-slate-400 mt-1">{props.help}</div>
+        <div className="text-xs text-gray-500 dark:text-slate-400 mt-1">
+          {props.help}
+        </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default FormField
+export default FormField;

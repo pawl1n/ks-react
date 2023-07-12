@@ -1,16 +1,16 @@
-import React from 'react'
-import { ColorKey } from '../interfaces'
-import { colorsBgLight, colorsText } from '../colors'
-import BaseIcon from './BaseIcon'
+import React from 'react';
+import { ColorKey } from 'types/style';
+import { colorsBgLight, colorsText } from '../colors';
+import BaseIcon from './BaseIcon';
 
 type Props = {
-  icon: string
-  color: ColorKey
-  w?: string
-  h?: string
-  bg?: boolean
-  className?: string
-}
+  icon: string;
+  color: ColorKey;
+  w?: string;
+  h?: string;
+  bg?: boolean;
+  className?: string;
+};
 
 export default function IconRounded({
   icon,
@@ -20,7 +20,9 @@ export default function IconRounded({
   bg = false,
   className = '',
 }: Props) {
-  const classAddon = bg ? colorsBgLight[color] : `${colorsText[color]} bg-gray-50 dark:bg-slate-800`
+  const classAddon = bg
+    ? colorsBgLight[color]
+    : `${colorsText[color]} bg-gray-50 dark:bg-slate-800`;
 
   return (
     <BaseIcon
@@ -30,5 +32,5 @@ export default function IconRounded({
       size="24"
       className={`rounded-full ${classAddon} ${className}`}
     />
-  )
+  );
 }

@@ -1,0 +1,9 @@
+{
+  "name": "shared",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "types": "shared/types/index.ts",
+  "dependencies": {
+    "typescript": "latest"
+  }
+}

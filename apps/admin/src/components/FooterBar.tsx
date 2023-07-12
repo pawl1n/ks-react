@@ -19,7 +19,7 @@ export default function FooterBar({ children }: Props) {
               rel="noreferrer"
               target="_blank"
             >
-              popuga
+              GitHub
             </a>
             .
           </b>

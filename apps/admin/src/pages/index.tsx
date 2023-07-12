@@ -5,11 +5,10 @@ import React, { ReactElement } from 'react';
 import CardBox from '../components/CardBox';
 import LayoutGuest from '../layouts/Guest';
 import SectionMain from '../components/SectionMain';
-import { StyleKey } from '../interfaces';
 import { gradientBgPurplePink } from '../colors';
 import { appTitle } from '../config';
 import { useAppDispatch } from '../stores/hooks';
-import { setDarkMode, setStyle } from '../stores/styleSlice';
+import { setDarkMode, setStyle, StyleKey } from '../stores/styleSlice';
 
 const StyleSelect = () => {
   const dispatch = useAppDispatch();
@@ -25,7 +24,7 @@ const StyleSelect = () => {
 
     dispatch(setStyle(style));
 
-    router.push('/dashboard');
+    router.push('/dashboard').catch(console.error);
   };
 
   return (

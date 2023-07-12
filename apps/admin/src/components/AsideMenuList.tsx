@@ -1,5 +1,5 @@
 import React from 'react';
-import { MenuAsideItem } from '../interfaces';
+import { MenuAsideItem } from 'types/style';
 import AsideMenuItem from './AsideMenuItem';
 
 type Props = {

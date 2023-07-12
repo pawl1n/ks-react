@@ -14,9 +14,11 @@ const nextConfig = {
     ];
   },
   images: {
-    unoptimized: true,
+    unoptimized: false,
     remotePatterns: [],
   },
+
+  transpilePackages: ['shared'],
 };
 
 export default nextConfig;

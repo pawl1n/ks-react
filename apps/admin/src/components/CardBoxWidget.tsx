@@ -1,24 +1,24 @@
-import { mdiCog } from '@mdi/js'
-import React from 'react'
-import { ColorKey, TrendType } from '../interfaces'
-import { colorsText } from '../colors'
-import BaseButton from './BaseButton'
-import BaseIcon from './BaseIcon'
-import CardBox from './CardBox'
-import NumberDynamic from './NumberDynamic'
-import PillTagTrend from './PillTagTrend'
+import { mdiCog } from '@mdi/js';
+import React from 'react';
+import { ColorKey, TrendType } from 'types/style';
+import { colorsText } from '../colors';
+import BaseButton from './BaseButton';
+import BaseIcon from './BaseIcon';
+import CardBox from './CardBox';
+import NumberDynamic from './NumberDynamic';
+import PillTagTrend from './PillTagTrend';
 
 type Props = {
-  number: number
-  numberPrefix?: string
-  numberSuffix?: string
-  icon: string
-  iconColor: ColorKey
-  label: string
-  trendLabel?: string
-  trendType?: TrendType
-  trendColor?: ColorKey
-}
+  number: number;
+  numberPrefix?: string;
+  numberSuffix?: string;
+  icon: string;
+  iconColor: ColorKey;
+  label: string;
+  trendLabel?: string;
+  trendType?: TrendType;
+  trendColor?: ColorKey;
+};
 
 const CardBoxWidget = (props: Props) => {
   return (
@@ -36,7 +36,9 @@ const CardBoxWidget = (props: Props) => {
       )}
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-lg leading-tight text-gray-500 dark:text-slate-400">{props.label}</h3>
+          <h3 className="text-lg leading-tight text-gray-500 dark:text-slate-400">
+            {props.label}
+          </h3>
           <h1 className="text-3xl leading-tight font-semibold">
             <NumberDynamic
               value={props.number}
@@ -56,7 +58,7 @@ const CardBoxWidget = (props: Props) => {
         )}
       </div>
     </CardBox>
-  )
-}
+  );
+};
 
-export default CardBoxWidget
+export default CardBoxWidget;

@@ -1,13 +1,13 @@
 ---
 import Layout from "../../layouts/Shop.astro";
-import ProductType, { ProductVariation } from "../../types/Product";
+import { Product as ProductType, ProductItem } from "shared/types/product";
 import ProductDetails from "../../components/products/ProductDetails";
 import { getOne, getVariations } from "../../api/products";
 
 const productId = Astro.params.id;
 
 let product = undefined as undefined | ProductType;
-let productVariations = undefined as undefined | ProductVariation[];
+let productVariations = undefined as undefined | ProductItem[];
 if (productId) {
   const response = await getOne(productId);
   if (response.data) {

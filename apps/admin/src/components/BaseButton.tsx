@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { getButtonColor } from '../colors';
 import BaseIcon from './BaseIcon';
-import type { ColorButtonKey } from '../interfaces';
+import type { ColorButtonKey } from 'types/style';
 
 type Props = {
   label?: string;

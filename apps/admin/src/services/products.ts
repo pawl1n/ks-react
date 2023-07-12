@@ -1,14 +1,15 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
-import Product, {
+import {
+  Product,
   ProductItem,
   ProductItemRequest,
   ProductItemRequestParams,
   ProductRequest,
-} from '../interfaces/Product';
-import { ApiArrayResponse } from 'interfaces/apiResponse';
-import { Pageable, UpdateRequestProps } from '../interfaces';
-import Image from '../interfaces/Image';
+} from 'shared/types/product';
+import { ApiArrayResponse } from 'shared/types/response';
+import { Pageable } from 'shared/types/pageable';
+import { Image, UpdateRequestProps } from 'types/request';
 import { baseQueryWithReauthorization } from './baseQueryWithReauthorization';
 
 export const productsApi = createApi({

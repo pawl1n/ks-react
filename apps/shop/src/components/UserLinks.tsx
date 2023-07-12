@@ -24,11 +24,6 @@ const UserLinks = () => {
   return (
     <>
       <div className="md:col-span-1 mx-10 flex flex-row sm:gap-5 md:flex-col items-center md:items-start gap-2">
-        {/*<div className="sm:px-0">*/}
-        {/*  <h3 className="text-base font-semibold leading-6 text-gray-900">*/}
-        {/*    Персональна інформація*/}
-        {/*  </h3>*/}
-        {/*</div>*/}
         {links.map((link) => {
           return window.location.href.endsWith(link.path) ? (
             <div className="sm:px-0">

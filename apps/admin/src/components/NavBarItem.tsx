@@ -5,9 +5,9 @@ import BaseDivider from './BaseDivider';
 import BaseIcon from './BaseIcon';
 import NavBarMenuList from './NavBarMenuList';
 import { useAppDispatch, useAppSelector } from '../stores/hooks';
-import { MenuNavBarItem } from '../interfaces';
-import { setDarkMode } from '../stores/styleSlice';
-import { setToken } from '../stores/tokenSlice';
+import { MenuNavBarItem } from 'types/style';
+import { setDarkMode } from 'stores/styleSlice';
+import { logout } from 'stores/tokenSlice';
 
 type Props = {
   item: MenuNavBarItem;
@@ -95,7 +95,7 @@ export default function NavBarItem({ item }: Props) {
       <div
         className={componentClass}
         onClick={() => {
-          dispatch(setToken({ token: '' }));
+          dispatch(logout());
         }}
       >
         {NavBarItemComponentContents}

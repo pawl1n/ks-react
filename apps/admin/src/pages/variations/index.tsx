@@ -12,7 +12,7 @@ import {
   useDeleteVariationMutation,
   useGetVariationsQuery,
 } from '../../services/variations';
-import Variation from '../../interfaces/Variation';
+import { Variation } from 'shared/types/variation';
 
 const TablesPage = () => {
   const [deleteVariation] = useDeleteVariationMutation();

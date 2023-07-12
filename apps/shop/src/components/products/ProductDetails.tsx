@@ -1,16 +1,15 @@
-import type ProductType from "../../types/Product";
-import type { ProductVariation } from "../../types/Product";
+import type { Product as ProductType, ProductItem } from "shared/types/product";
 import { useState } from "preact/hooks";
 import { addCartItem } from "../../stores/cartStore";
 
 interface ProductProps {
   product: ProductType;
-  variations: ProductVariation[];
+  variations: ProductItem[];
 }
 
 const ProductDetails = ({ product, variations }: ProductProps) => {
   const [selectedVariation, setSelectedVariation] = useState<
-    ProductVariation | undefined
+    ProductItem | undefined
   >(variations.length == 1 ? variations[0] : undefined);
 
   const handleAddToCart = () => {
@@ -58,7 +57,7 @@ const ProductDetails = ({ product, variations }: ProductProps) => {
                     ${selectedVariation === variation ? "bg-stone-200" : ""}`}
                     >
                       {variation.variationOptions
-                        .map((option) => option.value)
+                        ?.map((option) => option.value)
                         .join(", ")}
                     </div>
                   </section>

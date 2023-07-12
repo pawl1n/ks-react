@@ -14,11 +14,10 @@ import Router from 'next/router';
 import LayoutAuthenticated from 'layouts/Authenticated';
 import FormFilePicker from 'components/FormFilePicker';
 import Image from 'next/image';
-import { ProductRequest } from 'interfaces/Product';
+import { Image as ImageType, ProductRequest } from 'types/request';
 import { useCreateProductMutation } from 'services/products';
 import { useGetCategoriesQuery } from 'services/categories';
 import ImagePicker from 'components/ImagePicker';
-import ImageType from 'interfaces/Image';
 import { useCreateImageMutation } from '../../services/images';
 
 const CreateProductPage = () => {

@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { AuthResponse, LoginRequest } from '../interfaces/auth';
+import { AuthResponse, LoginRequest } from 'shared/types/auth';
 import { RootState } from '../stores/store';
 import { setToken } from '../stores/tokenSlice';
 import {
@@ -9,7 +9,7 @@ import {
 } from '@reduxjs/toolkit';
 import Router from 'next/router';
 import { addToast } from '../stores/toastSlice';
-import { ToastType } from '../interfaces/Toast';
+import { ToastType } from 'types/toast';
 
 const baseUrl = 'http://localhost:8080/api/auth';
 

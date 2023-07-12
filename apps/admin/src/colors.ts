@@ -1,9 +1,9 @@
-import type { ColorButtonKey } from './interfaces'
+import type { ColorButtonKey } from 'types/style';
 
-export const gradientBgBase = 'bg-gradient-to-tr'
-export const gradientBgPurplePink = `${gradientBgBase} from-purple-400 via-pink-500 to-red-500`
-export const gradientBgDark = `${gradientBgBase} from-slate-700 via-slate-900 to-slate-800`
-export const gradientBgPinkRed = `${gradientBgBase} from-pink-400 via-red-500 to-yellow-500`
+export const gradientBgBase = 'bg-gradient-to-tr';
+export const gradientBgPurplePink = `${gradientBgBase} from-purple-400 via-pink-500 to-red-500`;
+export const gradientBgDark = `${gradientBgBase} from-slate-700 via-slate-900 to-slate-800`;
+export const gradientBgPinkRed = `${gradientBgBase} from-pink-400 via-red-500 to-yellow-500`;
 
 export const colorsBgLight = {
   white: 'bg-white text-black',
@@ -13,7 +13,7 @@ export const colorsBgLight = {
   danger: 'bg-red-500 border-red-500 text-white',
   warning: 'bg-yellow-500 border-yellow-500 text-white',
   info: 'bg-blue-500 border-blue-500 text-white',
-}
+};
 
 export const colorsText = {
   white: 'text-black dark:text-slate-100',
@@ -23,26 +23,28 @@ export const colorsText = {
   danger: 'text-red-500',
   warning: 'text-yellow-500',
   info: 'text-blue-500',
-}
+};
 
 export const colorsOutline = {
   white: [colorsText.white, 'border-gray-100'].join(' '),
   light: [colorsText.light, 'border-gray-100'].join(' '),
-  contrast: [colorsText.contrast, 'border-gray-900 dark:border-slate-100'].join(' '),
+  contrast: [colorsText.contrast, 'border-gray-900 dark:border-slate-100'].join(
+    ' ',
+  ),
   success: [colorsText.success, 'border-emerald-500'].join(' '),
   danger: [colorsText.danger, 'border-red-500'].join(' '),
   warning: [colorsText.warning, 'border-yellow-500'].join(' '),
   info: [colorsText.info, 'border-blue-500'].join(' '),
-}
+};
 
 export const getButtonColor = (
   color: ColorButtonKey,
   isOutlined: boolean,
   hasHover: boolean,
-  isActive = false
+  isActive = false,
 ) => {
   if (color === 'void') {
-    return ''
+    return '';
   }
 
   const colors = {
@@ -117,21 +119,27 @@ export const getButtonColor = (
         'hover:bg-yellow-600 hover:text-white hover:text-white hover:dark:text-white hover:dark:border-yellow-600',
       info: 'hover:bg-blue-600 hover:text-white hover:dark:text-white hover:dark:border-blue-600',
     },
-  }
+  };
 
-  const isOutlinedProcessed = isOutlined && ['white', 'whiteDark', 'lightDark'].indexOf(color) < 0
+  const isOutlinedProcessed =
+    isOutlined &&
+    color !== 'white' &&
+    color !== 'whiteDark' &&
+    color !== 'lightDark';
 
-  const base = [colors.borders[color], colors.ring[color]]
+  const base = [colors.borders[color], colors.ring[color]];
 
   if (isActive) {
-    base.push(colors.active[color])
+    base.push(colors.active[color]);
   } else {
-    base.push(isOutlinedProcessed ? colors.text[color] : colors.bg[color])
+    base.push(isOutlinedProcessed ? colors.text[color] : colors.bg[color]);
   }
 
   if (hasHover) {
-    base.push(isOutlinedProcessed ? colors.outlineHover[color] : colors.bgHover[color])
+    base.push(
+      isOutlinedProcessed ? colors.outlineHover[color] : colors.bgHover[color],
+    );
   }
 
-  return base.join(' ')
-}
+  return base.join(' ');
+};

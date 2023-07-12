@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import * as styles from '../styles';
 import { localStorageDarkModeKey, localStorageStyleKey } from '../config';
-import { StyleKey } from '../interfaces';
 
 interface StyleState {
   asideStyle: string;
@@ -30,6 +29,8 @@ const initialState: StyleState = {
   overlayStyle: styles.basic.overlay,
   darkMode: false,
 };
+
+export type StyleKey = 'white' | 'basic';
 
 export const styleSlice = createSlice({
   name: 'style',

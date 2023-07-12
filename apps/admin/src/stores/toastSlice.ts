@@ -4,7 +4,7 @@ import {
   Middleware,
   PayloadAction,
 } from '@reduxjs/toolkit';
-import Toast, { ToastPayloadObject, ToastType } from '../interfaces/Toast';
+import { Toast, ToastPayloadObject, ToastType } from 'types/toast';
 
 const DEFAULT_DELAY = 3000;
 

@@ -1,4 +1,4 @@
-import type Category from "ks-react-admin/src/interfaces/Category";
+import type { Category } from "shared/types/category";
 
 interface Props {
   category: Category;

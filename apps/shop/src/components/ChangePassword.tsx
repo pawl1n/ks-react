@@ -1,4 +1,4 @@
-import type User from "../types/User";
+import type { User } from "shared/types/user";
 import { changePassword, getMe } from "../api/userApi";
 import { useEffect, useState } from "preact/hooks";
 import UserLinks from "./UserLinks";

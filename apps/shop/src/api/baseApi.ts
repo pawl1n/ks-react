@@ -3,7 +3,7 @@ import {
   getRefreshToken,
   setToken,
 } from "../stores/tokenStore";
-import type { ApiResponse } from "../types/Response";
+import type { ApiResponse } from "../types/apiResponse";
 
 const baseUrl = "http://localhost:8080/api";
 

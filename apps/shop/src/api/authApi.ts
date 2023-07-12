@@ -1,10 +1,10 @@
 import { post } from "./baseApi";
-import type { RegisterRequest } from "../types/User";
 import type {
+  RegisterRequest,
   AuthResponse,
   LoginRequest,
-} from "ks-react-admin/src/interfaces/auth";
-import type { ApiResponse } from "../types/Response";
+} from "shared/types/auth";
+import type { ApiResponse } from "../types/apiResponse";
 
 const userApi = {
   login: (data: LoginRequest): Promise<ApiResponse<AuthResponse>> =>

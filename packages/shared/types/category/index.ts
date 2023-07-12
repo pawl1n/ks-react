@@ -1,4 +1,4 @@
-import { ApiResponseEntity, Link } from './apiResponse';
+import { ApiResponseEntity, Link } from "shared/types/response";
 
 export type CategoryRequest = {
   name: string;
@@ -6,7 +6,7 @@ export type CategoryRequest = {
   parentCategory?: number;
 };
 
-interface Category extends ApiResponseEntity {
+export interface Category extends ApiResponseEntity {
   id: number;
   name: string;
   parentCategory?: string;
@@ -18,5 +18,3 @@ interface Category extends ApiResponseEntity {
     descendants: Link;
   };
 }
-
-export default Category;

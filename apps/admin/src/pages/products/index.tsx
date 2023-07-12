@@ -6,13 +6,13 @@ import CardBox from 'components/CardBox';
 import LayoutAuthenticated from 'layouts/Authenticated';
 import SectionMain from 'components/SectionMain';
 import SectionTitleLineWithButton from 'components/SectionTitleLineWithButton';
-import { getPageTitle } from '../../config';
-import Table from '../../components/tables/Table';
+import { getPageTitle } from 'config';
+import Table from 'components/tables/Table';
 import {
   useDeleteProductMutation,
   useGetProductsQuery,
-} from '../../services/products';
-import Product from '../../interfaces/Product';
+} from 'services/products';
+import { Product } from 'shared/types/product';
 
 const TablesPage = () => {
   const [deleteProduct] = useDeleteProductMutation();

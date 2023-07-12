@@ -1,4 +1,4 @@
-import type ProductType from "ks-react-admin/src/interfaces/Product";
+import type { Product as ProductType } from "shared/types/product";
 
 interface ProductProps {
   product: ProductType;

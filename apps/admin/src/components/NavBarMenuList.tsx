@@ -1,10 +1,10 @@
-import React from 'react'
-import { MenuNavBarItem } from '../interfaces'
-import NavBarItem from './NavBarItem'
+import React from 'react';
+import { MenuNavBarItem } from 'types/style';
+import NavBarItem from './NavBarItem';
 
 type Props = {
-  menu: MenuNavBarItem[]
-}
+  menu: MenuNavBarItem[];
+};
 
 export default function NavBarMenuList({ menu }: Props) {
   return (
@@ -13,5 +13,5 @@ export default function NavBarMenuList({ menu }: Props) {
         <NavBarItem key={index} item={item} />
       ))}
     </>
-  )
+  );
 }

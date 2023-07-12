@@ -4,16 +4,13 @@ import React, { useState } from 'react';
 import BaseButton from './BaseButton';
 import BaseButtons from './BaseButtons';
 import { mdiMagnify, mdiTrashCan } from '@mdi/js';
-import Product, {
-  ProductItem,
-  ProductItemRequest,
-} from '../interfaces/Product';
+import { Product, ProductItem, ProductItemRequest } from 'shared/types/product';
 import {
   useCreateProductItemMutation,
   useDeleteProductItemMutation,
   useUpdateProductItemMutation,
 } from '../services/products';
-import Variation, { VariationOption } from '../interfaces/Variation';
+import { Variation, VariationOption } from 'shared/types/variation';
 import { useGetVariationsQuery } from '../services/variations';
 import Variations from './Variations';
 import CardBoxModal from './CardBoxModal';

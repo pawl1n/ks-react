@@ -12,7 +12,7 @@ import SectionTitleLineWithButton from 'components/SectionTitleLineWithButton';
 import { getPageTitle } from '../../config';
 import Router from 'next/router';
 import LayoutAuthenticated from 'layouts/Authenticated';
-import { CategoryRequest } from '../../interfaces/Category';
+import { CategoryRequest } from 'types/request';
 import {
   useCreateCategoryMutation,
   useGetCategoriesQuery,

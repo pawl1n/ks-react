@@ -5,7 +5,7 @@ const token = persistentMap(
   {
     accessToken: "",
     refreshToken: "",
-  },
+  } as TokenProps,
   {}
 );
 

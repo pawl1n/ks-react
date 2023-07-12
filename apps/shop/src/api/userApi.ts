@@ -1,8 +1,7 @@
 import { get, put } from "./baseApi";
-import type User from "../types/User";
-import type { UserUpdateRequest } from "../types/User";
-import type { ApiResponse } from "../types/Response";
-import type { PasswordChangeRequest } from "ks-react-admin/src/interfaces/User";
+import type { User, UserUpdateRequest } from "shared/types/user";
+import type { ApiResponse } from "../types/apiResponse";
+import type { PasswordChangeRequest } from "shared/types/auth";
 
 const userApi = {
   getMe: (): Promise<ApiResponse<User>> => get("users/me", true),

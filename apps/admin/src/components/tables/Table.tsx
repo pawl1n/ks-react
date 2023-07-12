@@ -1,8 +1,5 @@
-import {
-  ApiArrayResponse,
-  ApiResponseEntity,
-} from '../../interfaces/apiResponse';
-import { Pageable, Sort, SortDirection, SortKey } from '../../interfaces';
+import { ApiArrayResponse, ApiResponseEntity } from 'shared/types/response';
+import { Pageable, Sort, SortDirection, SortKey } from 'shared/types/pageable';
 import { useState } from 'react';
 import CardBoxModal from '../CardBoxModal';
 import BaseButtons from '../BaseButtons';

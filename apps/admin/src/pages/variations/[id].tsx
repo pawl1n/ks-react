@@ -12,7 +12,7 @@ import SectionTitleLineWithButton from 'components/SectionTitleLineWithButton';
 import { getPageTitle } from '../../config';
 import Router from 'next/router';
 import LayoutAuthenticated from 'layouts/Authenticated';
-import { VariationRequest } from 'interfaces/Variation';
+import { VariationRequest } from 'types/request';
 import {
   useGetVariationByIdQuery,
   useUpdateVariationMutation,

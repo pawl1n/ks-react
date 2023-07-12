@@ -1,9 +1,9 @@
 import { BaseQueryFn, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from '../stores/store';
-import { setToken } from '../stores/tokenSlice';
+import { logout, setToken } from '../stores/tokenSlice';
 import { addToast } from '../stores/toastSlice';
-import { ToastType } from '../interfaces/Toast';
-import { AuthResponse } from '../interfaces/auth';
+import { ToastType } from 'types/toast';
+import { AuthResponse } from 'shared/types/auth';
 import Router from 'next/router';
 import { MiddlewareAPI } from '@reduxjs/toolkit';
 
@@ -55,7 +55,7 @@ export const baseQueryWithReauthorization: BaseQueryFn = async (
 };
 
 const logoutWithError = (api: MiddlewareAPI) => {
-  api.dispatch(setToken({ accessToken: null, refreshToken: null }));
+  api.dispatch(logout());
   api.dispatch(
     addToast({
       toast: {

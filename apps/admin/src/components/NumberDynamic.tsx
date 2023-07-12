@@ -1,48 +1,55 @@
-import React, { useEffect, useState } from 'react'
-import numeral from 'numeral'
+import React, { useEffect, useState } from 'react';
+import numeral from 'numeral';
+import { TimeoutId } from '@reduxjs/toolkit/dist/query/core/buildMiddleware/types';
 
 type Props = {
-  value: number
-  duration?: number
-  prefix?: string
-  suffix?: string
-}
+  value: number;
+  duration?: number;
+  prefix?: string;
+  suffix?: string;
+};
 
-const NumberDynamic = ({ prefix = '', suffix = '', value, duration = 500 }: Props) => {
-  const [newValue, setNewValue] = useState(0)
+const NumberDynamic = ({
+  prefix = '',
+  suffix = '',
+  value,
+  duration = 500,
+}: Props) => {
+  const [newValue, setNewValue] = useState(0);
 
-  const newValueFormatted = newValue < 1000 ? newValue : numeral(newValue).format('0,0')
+  const newValueFormatted =
+    newValue < 1000 ? newValue : numeral(newValue).format('0,0');
 
-  const stepDurationMs = 25
+  const stepDurationMs = 25;
 
-  const timeoutIds = []
+  const timeoutIds: TimeoutId[] = [];
 
   const grow = (growIncrement: number) => {
-    const incrementedStep = Math.ceil(newValue + growIncrement)
+    const incrementedStep = Math.ceil(newValue + growIncrement);
 
     if (incrementedStep > value) {
-      setNewValue(value)
-      return false
+      setNewValue(value);
+      return false;
     }
 
-    setNewValue(incrementedStep)
+    setNewValue(incrementedStep);
 
     timeoutIds.push(
       setTimeout(() => {
-        grow(growIncrement)
-      }, stepDurationMs)
-    )
-  }
+        grow(growIncrement);
+      }, stepDurationMs),
+    );
+  };
 
   useEffect(() => {
-    grow(value / (duration / stepDurationMs))
+    grow(value / (duration / stepDurationMs));
 
     return () => {
       timeoutIds.forEach((tid) => {
-        clearTimeout(tid)
-      })
-    }
-  })
+        clearTimeout(tid);
+      });
+    };
+  });
 
   return (
     <div>
@@ -50,7 +57,7 @@ const NumberDynamic = ({ prefix = '', suffix = '', value, duration = 500 }: Prop
       {newValueFormatted}
       {suffix}
     </div>
-  )
-}
+  );
+};
 
-export default NumberDynamic
+export default NumberDynamic;

@@ -6,7 +6,7 @@ import {
   mdiTshirtCrewOutline,
   mdiVariable,
 } from '@mdi/js';
-import { MenuAsideItem } from './interfaces';
+import { MenuAsideItem } from 'types/style';
 
 const menuAside: MenuAsideItem[] = [
   {

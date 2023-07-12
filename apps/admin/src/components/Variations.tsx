@@ -2,10 +2,8 @@ import { Field, Form, Formik } from 'formik';
 import FormField from './FormField';
 import CardBox from './CardBox';
 import React, { useState } from 'react';
-import Variation, {
-  VariationOption,
-  VariationOptionRequest,
-} from '../interfaces/Variation';
+import { Variation, VariationOption } from 'shared/types/variation';
+import { VariationOptionRequest } from 'types/request';
 import {
   useCreateVariationOptionMutation,
   useDeleteVariationOptionMutation,

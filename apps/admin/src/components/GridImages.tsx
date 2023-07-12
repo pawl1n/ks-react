@@ -6,7 +6,7 @@ import BaseButtons from './BaseButtons';
 import BaseButton from './BaseButton';
 import { mdiTrashCan } from '@mdi/js';
 import CardBoxModal from './CardBoxModal';
-import ImageType from 'interfaces/Image';
+import { Image as ImageType } from 'types/request';
 
 type Props = {
   onImageClick?: (image: ImageType) => void;

@@ -8,41 +8,42 @@ import {
   mdiOpenInNew,
   mdiReload,
   mdiTrendingUp,
-} from '@mdi/js'
-import { Field, Formik } from 'formik'
-import Head from 'next/head'
-import { useState } from 'react'
-import type { ReactElement } from 'react'
-import BaseButton from '../components/BaseButton'
-import BaseButtons from '../components/BaseButtons'
-import BaseDivider from '../components/BaseDivider'
-import CardBox from '../components/CardBox'
-import CardBoxComponentEmpty from '../components/CardBoxComponentEmpty'
-import CardBoxComponentTitle from '../components/CardBoxComponentTitle'
-import CardBoxModal from '../components/CardBoxModal'
-import FormCheckRadio from '../components/FormCheckRadio'
-import FormCheckRadioGroup from '../components/FormCheckRadioGroup'
-import LayoutAuthenticated from '../layouts/Authenticated'
-import NotificationBar from '../components/NotificationBar'
-import PillTag from '../components/PillTag'
-import SectionMain from '../components/SectionMain'
-import SectionTitle from '../components/SectionTitle'
-import SectionTitleLineWithButton from '../components/SectionTitleLineWithButton'
-import { useAppDispatch } from '../stores/hooks'
-import { setDarkMode } from '../stores/styleSlice'
-import { getPageTitle } from '../config'
+} from '@mdi/js';
+import { Field, Formik } from 'formik';
+import Head from 'next/head';
+import type { ReactElement } from 'react';
+import { useState } from 'react';
+import BaseButton from '../components/BaseButton';
+import BaseButtons from '../components/BaseButtons';
+import BaseDivider from '../components/BaseDivider';
+import CardBox from '../components/CardBox';
+import CardBoxComponentEmpty from '../components/CardBoxComponentEmpty';
+import CardBoxComponentTitle from '../components/CardBoxComponentTitle';
+import CardBoxModal from '../components/CardBoxModal';
+import FormCheckRadio from '../components/FormCheckRadio';
+import FormCheckRadioGroup from '../components/FormCheckRadioGroup';
+import LayoutAuthenticated from '../layouts/Authenticated';
+import NotificationBar from '../components/NotificationBar';
+import PillTag from '../components/PillTag';
+import SectionMain from '../components/SectionMain';
+import SectionTitle from '../components/SectionTitle';
+import SectionTitleLineWithButton from '../components/SectionTitleLineWithButton';
+import { useAppDispatch } from '../stores/hooks';
+import { setDarkMode } from '../stores/styleSlice';
+import { getPageTitle } from '../config';
 
 const UiPage = () => {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   const CardSamplesFooter = (
     <BaseButtons>
       <BaseButton label="Confirm" color="info" />
       <BaseButton label="Cancel" color="info" outline />
     </BaseButtons>
-  )
+  );
 
-  const modalSampleCardClassName = 'cursor-pointer md:w-7/12 lg:w-5/12 shadow-2xl md:mx-auto'
+  const modalSampleCardClassName =
+    'cursor-pointer md:w-7/12 lg:w-5/12 shadow-2xl md:mx-auto';
 
   const modalSampleContents = (
     <>
@@ -51,36 +52,36 @@ const UiPage = () => {
       </p>
       <p>This is sample modal</p>
     </>
-  )
+  );
 
   const modalFooterInfo = (
     <BaseButtons>
       <BaseButton label="Confirm" color="info" />
       <BaseButton label="Cancel" color="info" outline />
     </BaseButtons>
-  )
+  );
 
   const modalFooterDanger = (
     <BaseButtons>
       <BaseButton label="Done" color="danger" />
     </BaseButtons>
-  )
+  );
 
   const modalFooterSuccess = (
     <BaseButtons>
       <BaseButton label="Done" color="success" />
     </BaseButtons>
-  )
+  );
 
   const handleModalAction = () => {
-    setIsModalInfoActive(false)
-    setIsModalDangerActive(false)
-    setIsModalSuccessActive(false)
-  }
+    setIsModalInfoActive(false);
+    setIsModalDangerActive(false);
+    setIsModalSuccessActive(false);
+  };
 
-  const [isModalInfoActive, setIsModalInfoActive] = useState(false)
-  const [isModalDangerActive, setIsModalDangerActive] = useState(false)
-  const [isModalSuccessActive, setIsModalSuccessActive] = useState(false)
+  const [isModalInfoActive, setIsModalInfoActive] = useState(false);
+  const [isModalDangerActive, setIsModalDangerActive] = useState(false);
+  const [isModalSuccessActive, setIsModalSuccessActive] = useState(false);
 
   return (
     <>
@@ -179,11 +180,13 @@ const UiPage = () => {
         </div>
       </SectionMain>
 
-      <Formik initialValues={{ outline: false }} onSubmit={() => null}>
+      <Formik initialValues={{ outline: false }} onSubmit={() => {}}>
         {({ values }) => (
           <>
             <SectionTitle custom>
-              <h1 className="text-2xl text-gray-500 dark:text-slate-400">Notifications</h1>
+              <h1 className="text-2xl text-gray-500 dark:text-slate-400">
+                Notifications
+              </h1>
               <div className="flex items-center justify-center mt-6">
                 <FormCheckRadio type="switch" label="Outline">
                   <Field type="checkbox" name="outline" />
@@ -260,7 +263,11 @@ const UiPage = () => {
                 <b>Danger state</b>. NotificationBar
               </NotificationBar>
 
-              <NotificationBar color="contrast" icon={mdiContrastCircle} outline={values.outline}>
+              <NotificationBar
+                color="contrast"
+                icon={mdiContrastCircle}
+                outline={values.outline}
+              >
                 <b>Contrast</b>. NotificationBar
               </NotificationBar>
             </SectionMain>
@@ -273,8 +280,13 @@ const UiPage = () => {
       <SectionMain>
         <CardBox>
           <Formik
-            initialValues={{ outline: false, small: false, rounded: false, disabled: false }}
-            onSubmit={() => null}
+            initialValues={{
+              outline: false,
+              small: false,
+              rounded: false,
+              disabled: false,
+            }}
+            onSubmit={() => {}}
           >
             {({ values }) => (
               <>
@@ -469,7 +481,7 @@ const UiPage = () => {
         <CardBox>
           <Formik
             initialValues={{ outline: false, small: false, icon: true }}
-            onSubmit={() => null}
+            onSubmit={() => {}}
           >
             {({ values }) => (
               <>
@@ -489,35 +501,35 @@ const UiPage = () => {
                   <PillTag
                     color="contrast"
                     label="Contrast"
-                    icon={values.icon ? mdiTrendingUp : null}
+                    icon={values.icon ? mdiTrendingUp : undefined}
                     outline={values.outline}
                     small={values.small}
                   />
                   <PillTag
                     color="info"
                     label="Info"
-                    icon={values.icon ? mdiTrendingUp : null}
+                    icon={values.icon ? mdiTrendingUp : undefined}
                     outline={values.outline}
                     small={values.small}
                   />
                   <PillTag
                     color="success"
                     label="Info"
-                    icon={values.icon ? mdiTrendingUp : null}
+                    icon={values.icon ? mdiTrendingUp : undefined}
                     outline={values.outline}
                     small={values.small}
                   />
                   <PillTag
                     color="warning"
                     label="Info"
-                    icon={values.icon ? mdiTrendingUp : null}
+                    icon={values.icon ? mdiTrendingUp : undefined}
                     outline={values.outline}
                     small={values.small}
                   />
                   <PillTag
                     color="danger"
                     label="Info"
-                    icon={values.icon ? mdiTrendingUp : null}
+                    icon={values.icon ? mdiTrendingUp : undefined}
                     outline={values.outline}
                     small={values.small}
                   />
@@ -544,18 +556,21 @@ const UiPage = () => {
           <CardBox footer={CardSamplesFooter}>Just body & footer</CardBox>
         </div>
 
-        <SectionTitleLineWithButton icon={mdiAlertCircle} title="Empty variation" />
+        <SectionTitleLineWithButton
+          icon={mdiAlertCircle}
+          title="Empty variation"
+        />
 
         <CardBox>
           <CardBoxComponentEmpty />
         </CardBox>
       </SectionMain>
     </>
-  )
-}
+  );
+};
 
 UiPage.getLayout = function getLayout(page: ReactElement) {
-  return <LayoutAuthenticated>{page}</LayoutAuthenticated>
-}
+  return <LayoutAuthenticated>{page}</LayoutAuthenticated>;
+};
 
-export default UiPage
+export default UiPage;

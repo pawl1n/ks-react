@@ -1,4 +1,4 @@
-import { ApiResponseEntity, Link } from './apiResponse';
+import { ApiResponseEntity, Link } from "shared/types/response";
 
 export type VariationRequest = {
   name: string;
@@ -21,7 +21,7 @@ export type VariationOptionRequestParams = {
   option: VariationOptionRequest;
 };
 
-interface Variation extends ApiResponseEntity {
+export interface Variation extends ApiResponseEntity {
   id: number;
   name: string;
   _links: {
@@ -29,5 +29,3 @@ interface Variation extends ApiResponseEntity {
     options: Link;
   };
 }
-
-export default Variation;

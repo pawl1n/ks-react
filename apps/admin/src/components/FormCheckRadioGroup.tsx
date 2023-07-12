@@ -2,7 +2,7 @@ import { Children, cloneElement, ReactElement } from 'react';
 
 type Props = {
   isColumn?: boolean;
-  children: ReactElement;
+  children: ReactElement | ReactElement[];
 };
 
 const FormCheckRadioGroup = (props: Props) => {

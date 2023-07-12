@@ -1,4 +1,4 @@
-import Toast, { ToastType } from '../interfaces/Toast';
+import { Toast, ToastType } from 'types/toast';
 import { useAppDispatch } from '../stores/hooks';
 import { removeToast } from '../stores/toastSlice';
 import BaseIcon from './BaseIcon';

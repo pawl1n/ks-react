@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import BaseButton from './BaseButton';
 import BaseButtons from './BaseButtons';
 import { mdiBrushVariant, mdiPlus } from '@mdi/js';
-import Product, { ProductItem } from '../interfaces/Product';
+import { Product, ProductItem } from 'shared/types/product';
 import { useGetProductItemsQuery } from '../services/products';
 import SectionTitleLineWithButton from './SectionTitleLineWithButton';
 import SectionMain from './SectionMain';

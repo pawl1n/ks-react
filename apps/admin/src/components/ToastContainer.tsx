@@ -1,6 +1,6 @@
 import ToastNotification from './ToastNotification';
 import { useAppSelector } from '../stores/hooks';
-import Toast from '../interfaces/Toast';
+import { Toast } from 'types/toast';
 
 const ToastContainer = () => {
   const toasts: Toast[] = useAppSelector((state) => state.toasts.toasts);

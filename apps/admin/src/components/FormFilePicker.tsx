@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { ColorButtonKey } from '../interfaces';
+import React, { useState } from 'react';
+import { ColorButtonKey } from 'types/style';
 import BaseButton from './BaseButton';
 
 type Props = {

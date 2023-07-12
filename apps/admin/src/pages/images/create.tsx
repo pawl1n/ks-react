@@ -8,7 +8,7 @@ import SectionTitleLineWithButton from 'components/SectionTitleLineWithButton';
 import { getPageTitle } from '../../config';
 import Router from 'next/router';
 import LayoutAuthenticated from 'layouts/Authenticated';
-import { ImageRequest } from '../../interfaces/Image';
+import { ImageRequest } from 'types/request';
 import { useCreateImageMutation } from '../../services/images';
 import FormField from '../../components/FormField';
 import FormFilePicker from '../../components/FormFilePicker';

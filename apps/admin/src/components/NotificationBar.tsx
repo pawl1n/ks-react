@@ -1,31 +1,33 @@
-import { mdiClose } from '@mdi/js'
-import React, { ReactNode, useState } from 'react'
-import { ColorKey } from '../interfaces'
-import { colorsBgLight, colorsOutline } from '../colors'
-import BaseButton from './BaseButton'
-import BaseIcon from './BaseIcon'
+import { mdiClose } from '@mdi/js';
+import React, { ReactNode, useState } from 'react';
+import { ColorKey } from 'types/style';
+import { colorsBgLight, colorsOutline } from '../colors';
+import BaseButton from './BaseButton';
+import BaseIcon from './BaseIcon';
 
 type Props = {
-  color: ColorKey
-  icon?: string
-  outline?: boolean
-  children: ReactNode
-  button?: ReactNode
-}
+  color: ColorKey;
+  icon?: string;
+  outline?: boolean;
+  children: ReactNode;
+  button?: ReactNode;
+};
 
 const NotificationBar = ({ outline = false, children, ...props }: Props) => {
-  const componentColorClass = outline ? colorsOutline[props.color] : colorsBgLight[props.color]
+  const componentColorClass = outline
+    ? colorsOutline[props.color]
+    : colorsBgLight[props.color];
 
-  const [isDismissed, setIsDismissed] = useState(false)
+  const [isDismissed, setIsDismissed] = useState(false);
 
   const dismiss = (e: React.MouseEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    setIsDismissed(true)
-  }
+    setIsDismissed(true);
+  };
 
   if (isDismissed) {
-    return null
+    return null;
   }
 
   return (
@@ -47,11 +49,17 @@ const NotificationBar = ({ outline = false, children, ...props }: Props) => {
         </div>
         {props.button}
         {!props.button && (
-          <BaseButton icon={mdiClose} color="white" onClick={dismiss} small roundedFull />
+          <BaseButton
+            icon={mdiClose}
+            color="white"
+            onClick={dismiss}
+            small
+            roundedFull
+          />
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default NotificationBar
+export default NotificationBar;

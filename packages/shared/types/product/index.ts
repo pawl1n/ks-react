@@ -1,6 +1,6 @@
-import { ApiResponseEntity, Link } from './apiResponse';
-import { VariationOption } from './Variation';
-import Category from './Category';
+import { ApiResponseEntity, Link } from "shared/types/response";
+import { VariationOption } from "shared/types/variation";
+import { Category } from "shared/types/category";
 
 export type ProductRequest = {
   name: string;
@@ -29,7 +29,7 @@ export type ProductItemRequestParams = {
   productItem: ProductItemRequest;
 };
 
-interface Product extends ApiResponseEntity {
+export interface Product extends ApiResponseEntity {
   id: number;
   name: string;
   description: string;
@@ -42,5 +42,3 @@ interface Product extends ApiResponseEntity {
     variations: Link;
   };
 }
-
-export default Product;

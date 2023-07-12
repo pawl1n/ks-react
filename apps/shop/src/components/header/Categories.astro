@@ -1,11 +1,13 @@
 ---
+import {Category} from "shared/types/category";
+// noinspection JSUnusedGlobalSymbols
 export const prerender = true;
 
 import { getAll } from "../../api/categories";
 import Descendants from "./Descendants";
 const res = await getAll();
 
-let categories = [];
+let categories: Category[] = [];
 if (!res.error && res.data?._embedded?.categories) {
   categories = res.data._embedded?.categories;
 }

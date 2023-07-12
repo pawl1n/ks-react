@@ -1,12 +1,14 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
-import Variation, {
+import {
+  Variation,
   VariationOption,
   VariationOptionRequestParams,
   VariationRequest,
-} from '../interfaces/Variation';
-import { ApiArrayResponse } from 'interfaces/apiResponse';
-import { Pageable, UpdateRequestProps } from '../interfaces';
+} from 'shared/types/variation';
+import { ApiArrayResponse } from 'shared/types/response';
+import { Pageable } from 'shared/types/pageable';
+import { UpdateRequestProps } from 'types/request';
 import { baseQueryWithReauthorization } from './baseQueryWithReauthorization';
 
 export const variationsApi = createApi({

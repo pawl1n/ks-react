@@ -1,5 +1,5 @@
 import Product from "./Product";
-import type ProductType from "../../types/Product";
+import type { Product as ProductType } from "shared/types/product";
 import { useEffect, useState } from "preact/hooks";
 import { getAll } from "../../api/products";
 

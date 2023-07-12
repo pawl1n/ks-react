@@ -1,15 +1,19 @@
-import { mdiGithub, mdiMonitorCellphone, mdiTableBorder, mdiTableOff } from '@mdi/js'
-import Head from 'next/head'
-import React, { ReactElement } from 'react'
-import BaseButton from '../components/BaseButton'
-import CardBox from '../components/CardBox'
-import CardBoxComponentEmpty from '../components/CardBoxComponentEmpty'
-import LayoutAuthenticated from '../layouts/Authenticated'
-import NotificationBar from '../components/NotificationBar'
-import SectionMain from '../components/SectionMain'
-import SectionTitleLineWithButton from '../components/SectionTitleLineWithButton'
-import TableSampleClients from '../components/TableSampleClients'
-import { getPageTitle } from '../config'
+import {
+  mdiGithub,
+  mdiMonitorCellphone,
+  mdiTableBorder,
+  mdiTableOff,
+} from '@mdi/js';
+import Head from 'next/head';
+import React, { ReactElement } from 'react';
+import BaseButton from '../components/BaseButton';
+import CardBox from '../components/CardBox';
+import CardBoxComponentEmpty from '../components/CardBoxComponentEmpty';
+import LayoutAuthenticated from '../layouts/Authenticated';
+import NotificationBar from '../components/NotificationBar';
+import SectionMain from '../components/SectionMain';
+import SectionTitleLineWithButton from '../components/SectionTitleLineWithButton';
+import { getPageTitle } from '../config';
 
 const TablesPage = () => {
   return (
@@ -34,11 +38,10 @@ const TablesPage = () => {
           <b>Responsive table.</b> Collapses on mobile
         </NotificationBar>
 
-        <CardBox className="mb-6" hasTable>
-          <TableSampleClients />
-        </CardBox>
-
-        <SectionTitleLineWithButton icon={mdiTableOff} title="Empty variation" />
+        <SectionTitleLineWithButton
+          icon={mdiTableOff}
+          title="Empty variation"
+        />
 
         <NotificationBar color="danger" icon={mdiTableOff}>
           <b>Empty card.</b> When there&apos;s nothing to show
@@ -49,11 +52,11 @@ const TablesPage = () => {
         </CardBox>
       </SectionMain>
     </>
-  )
-}
+  );
+};
 
 TablesPage.getLayout = function getLayout(page: ReactElement) {
-  return <LayoutAuthenticated>{page}</LayoutAuthenticated>
-}
+  return <LayoutAuthenticated>{page}</LayoutAuthenticated>;
+};
 
-export default TablesPage
+export default TablesPage;

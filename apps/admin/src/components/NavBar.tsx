@@ -4,7 +4,7 @@ import { containerMaxW } from '../config';
 import BaseIcon from './BaseIcon';
 import NavBarItemPlain from './NavBarItemPlain';
 import NavBarMenuList from './NavBarMenuList';
-import { MenuNavBarItem } from '../interfaces';
+import { MenuNavBarItem } from 'types/style';
 
 type Props = {
   menu: MenuNavBarItem[];

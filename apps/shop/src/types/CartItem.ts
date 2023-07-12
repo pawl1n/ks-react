@@ -1,4 +1,4 @@
-import type { VariationOption } from "./Product";
+import type { VariationOption } from "shared/types/variation";
 
 export default interface CartItemType {
   productId: number;
@@ -9,5 +9,5 @@ export default interface CartItemType {
   price: number;
   mainImage: string;
   quantity: number;
-  variationOptions: VariationOption[];
+  variationOptions?: VariationOption[];
 }

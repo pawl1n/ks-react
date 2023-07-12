@@ -1,5 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import User, { PasswordChangeRequest } from '../interfaces/User';
+import { User } from 'shared/types/user';
+import { PasswordChangeRequest } from 'shared/types/auth';
 import { Middleware } from '@reduxjs/toolkit';
 import { setUser } from '../stores/mainSlice';
 import { baseQueryWithReauthorization } from './baseQueryWithReauthorization';

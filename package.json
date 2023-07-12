@@ -5,6 +5,7 @@
     "dev": "turbo dev"
   },
   "workspaces": [
-    "apps/*"
+    "apps/*",
+    "packages/*"
   ]
 }

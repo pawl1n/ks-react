@@ -10,7 +10,7 @@ import BaseDivider from '../components/BaseDivider';
 import BaseButtons from '../components/BaseButtons';
 import { getPageTitle } from '../config';
 import { useLoginMutation } from '../services/auth';
-import { LoginRequest } from '../interfaces/auth';
+import { LoginRequest } from 'shared/types/auth';
 
 export default function Error() {
   const [login] = useLoginMutation();
