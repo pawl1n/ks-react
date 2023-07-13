@@ -10,16 +10,10 @@ const productsApi = {
     get("products", false, searchParams),
   getOneBySlug: (slug: string): Promise<ApiResponse<Product>> =>
     get(`products/slug/${slug}`, false),
-  getByCategoryPath: (
-    categoryPath: string,
-    searchParams?: URLSearchParams
-  ): Promise<ApiResponse<ApiArrayResponse<Product>>> =>
-    get(`products/by-category-path/${categoryPath}`, false, searchParams),
   getVariations: (
     product: Product
   ): Promise<ApiResponse<ApiArrayResponse<ProductItem>>> =>
     get(product._links.variations.href, false),
 };
 
-export const { getAll, getOneBySlug, getByCategoryPath, getVariations } =
-  productsApi;
+export const { getAll, getOneBySlug, getVariations } = productsApi;
