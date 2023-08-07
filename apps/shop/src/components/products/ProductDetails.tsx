@@ -1,13 +1,19 @@
-import type { Product as ProductType, ProductItem } from "shared/types/product";
+import type {
+  BreadCrumb,
+  Product as ProductType,
+  ProductDetails,
+  ProductItem,
+} from "shared/types/product";
 import { useState } from "preact/hooks";
 import { addCartItem } from "../../stores/cartStore";
+import Breadcrumbs from "./Breadcrumbs";
 
 interface ProductProps {
-  product: ProductType;
-  variations: ProductItem[];
+  productDetails: ProductDetails;
 }
 
-const ProductDetails = ({ product, variations }: ProductProps) => {
+const ProductDetails = ({ productDetails }: ProductProps) => {
+  const { product, variations, breadcrumbs } = productDetails;
   const [selectedVariation, setSelectedVariation] = useState<
     ProductItem | undefined
   >(variations.length == 1 ? variations[0] : undefined);
@@ -39,6 +45,8 @@ const ProductDetails = ({ product, variations }: ProductProps) => {
         </div>
       </div>
       <section>
+        <Breadcrumbs breadcrumbs={productDetails?.breadcrumbs} />
+
         <h1 className="font-bold text-xl mb-5">{product.name}</h1>
         <div className="text-sm">{product.description}</div>
         <div className="text-sm capitalize text-gray-500">

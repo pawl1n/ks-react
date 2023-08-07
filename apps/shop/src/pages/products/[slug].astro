@@ -1,36 +1,30 @@
 ---
 import Layout from "../../layouts/Shop.astro";
-import { Product as ProductType, ProductItem } from "shared/types/product";
+import { ProductDetails as ProductDetailsType } from "shared/types/product";
 import ProductDetails from "../../components/products/ProductDetails";
-import { getOneBySlug, getVariations } from "../../api/products";
 
 const slug = Astro.params.slug;
 
-let product = undefined as undefined | ProductType;
-let productVariations = undefined as undefined | ProductItem[];
-if (slug) {
-  const response = await getOneBySlug(slug);
-  if (response.data) {
-    product = response.data;
-    productVariations = await getVariations(product).then(
-      ({ data }) => data?._embedded?.productItems ?? []
-    );
-  }
+let productDetails = undefined as undefined | ProductDetailsType;
+const response = await fetch(
+  `http://localhost:8080/api/products/slug/${slug}/details`
+)
+  .then((res) => (res.status === 200 ? res.json() : null))
+  .catch((err) => console.log(err));
+
+if (response) {
+  productDetails = response;
 }
 ---
 
 <Layout
-  title={product?.name ?? "Товар не знайдено"}
+  title={productDetails?.product?.name ?? "Товар не знайдено"}
   description="Перелік наявних товарів в Інтернет-магазині брендового одягу Puma"
 >
   <div class="py-16 mx-auto">
     {
-      product ? (
-        <ProductDetails
-          client:visible
-          product={product}
-          variations={productVariations}
-        />
+      productDetails?.product ? (
+        <ProductDetails client:visible productDetails={productDetails} />
       ) : (
         <div>Товар не знайдений</div>
       )

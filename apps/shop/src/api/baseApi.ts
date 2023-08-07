@@ -6,6 +6,7 @@ import {
 import type { ApiResponse } from "../types/apiResponse";
 
 const baseUrl = "http://localhost:8080/api";
+let window: Window | undefined;
 
 const baseApi = {
   get: (
@@ -77,12 +78,21 @@ const processResponse = async (res: Response) => {
   return {
     data: String(res.status).startsWith("2") ? await res.json() : undefined,
     status: res.status,
-    error: String(res.status).startsWith("4") ? await res.json() : undefined,
+    error:
+      String(res.status) === "401"
+        ? undefined
+        : String(res.status).startsWith("4")
+        ? await res.json()
+        : undefined,
   } as ApiResponse<any>;
 };
 
 const refreshOn401 = async (data: Response, query: () => Promise<Response>) => {
-  if (data.status === 401 && !window.location.href.endsWith("/login")) {
+  if (
+    data.status === 401 &&
+    window &&
+    !window.location.href.endsWith("/login")
+  ) {
     if (!getRefreshToken()) {
       window.location.href = "/login";
       throw new Error("Необхідно авторизуватись");

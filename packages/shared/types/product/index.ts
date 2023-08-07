@@ -43,3 +43,15 @@ export interface Product extends ApiResponseEntity {
     variations: Link;
   };
 }
+
+export interface ProductDetails extends ApiResponseEntity {
+  product: Product;
+  variations: ProductItem[];
+  breadcrumbs: BreadCrumb;
+}
+
+export interface BreadCrumb {
+  name: string;
+  path: string;
+  descendant: BreadCrumb;
+}

@@ -3,11 +3,12 @@
   "compilerOptions": {
     "target": "es6",
     "jsxImportSource": "preact",
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "verbatimModuleSyntax": true,
+    "plugins": [
+      {
+        "name": "@astrojs/ts-plugin"
+      }
+    ]
   },
-  "plugins": [
-    {
-      "name": "@astrojs/ts-plugin"
-    }
-  ]
 }

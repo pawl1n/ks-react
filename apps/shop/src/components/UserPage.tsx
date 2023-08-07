@@ -10,6 +10,8 @@ const UserPage = () => {
     getMe().then((res) => {
       if (res.data) {
         setUser(res.data);
+      } else {
+        window.location.href = "/login";
       }
     });
   }, []);

@@ -13,7 +13,7 @@ if (!res.error && res.data?._embedded?.categories) {
 }
 ---
 
-<div class="hidden sm:flex gap-5 text-sm uppercase font-semibold">
+<div class="hidden sm:flex gap-5 text-md uppercase font-semibold">
   {
     categories.map((category) => (
       <div class="group/root">
@@ -21,8 +21,8 @@ if (!res.error && res.data?._embedded?.categories) {
           <p>{category.name}</p>
         </a>
         {category.descendants.length > 0 && (
-          <div class="absolute h-5 left-0 w-full font-normal invisible group-hover/root:visible">
-            <div class="absolute left-0 w-full top-5 group-hover/root:bg-primary group-hover/root:py-5 transition-all text-transparent group-hover/root:text-white">
+          <div class="absolute h-12 left-0 w-full font-normal invisible group-hover/root:visible">
+            <div class="absolute left-0 w-full top-12 group-hover/root:bg-primary group-hover/root:py-5 transition-all text-transparent group-hover/root:text-white">
               <div class="container items-center justify-between mx-auto flex gap-5">
                 {category.descendants
                   ?.sort((c1, c2) => c1.id - c2.id)

@@ -1,24 +1,28 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // basePath: "/admin",
-  reactStrictMode: true,
+    // basePath: "/admin",
+    reactStrictMode: true,
 
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/dashboard',
-        basePath: false,
-        permanent: false,
-      },
-    ];
-  },
-  images: {
-    unoptimized: false,
-    remotePatterns: [],
-  },
+    async redirects() {
+        return [
+            {
+                source: '/',
+                destination: '/dashboard',
+                basePath: false,
+                permanent: false,
+            },
+        ];
+    },
+    images: {
+        unoptimized: false,
+        remotePatterns: [
+            {
+                hostname: 'res.cloudinary.com',
+            },
+        ],
+    },
 
-  transpilePackages: ['shared'],
+    transpilePackages: ['shared'],
 };
 
 export default nextConfig;

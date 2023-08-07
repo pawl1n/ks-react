@@ -18,7 +18,6 @@ const ImagePicker = ({ selectImage }: Props) => {
   const dispatch = useAppDispatch();
 
   const handleSelectImage = () => {
-    console.log(selectedImage);
     if (!selectedImage) {
       dispatch(
         addToast({

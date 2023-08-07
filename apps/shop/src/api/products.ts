@@ -1,4 +1,8 @@
-import type { Product, ProductItem } from "shared/types/product";
+import type {
+  Product,
+  ProductDetails,
+  ProductItem,
+} from "shared/types/product";
 import type { ApiArrayResponse } from "shared/types/response";
 import { get } from "./baseApi";
 import type { ApiResponse } from "../types/apiResponse";
@@ -8,8 +12,8 @@ const productsApi = {
     searchParams?: URLSearchParams
   ): Promise<ApiResponse<ApiArrayResponse<Product>>> =>
     get("products", false, searchParams),
-  getOneBySlug: (slug: string): Promise<ApiResponse<Product>> =>
-    get(`products/slug/${slug}`, false),
+  getOneBySlug: (slug: string): Promise<ApiResponse<ProductDetails>> =>
+    get(`products/slug/${slug}/details`, false),
   getVariations: (
     product: Product
   ): Promise<ApiResponse<ApiArrayResponse<ProductItem>>> =>
