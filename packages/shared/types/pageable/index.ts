@@ -11,9 +11,19 @@ export type Sort<T extends ApiResponseEntity> =
   | `${SortKey<T> & string},${SortDirection}`
   | undefined;
 
-export type SortKey<T extends ApiResponseEntity> = Exclude<keyof T, "_links">;
+// SortKey can be any key of object or nested object but not link
+export type SortKey<T extends ApiResponseEntity> = Exclude<
+  NestedKeyOf<T>,
+  `${string}_links${string}`
+>;
 
 export enum SortDirection {
   ASC = "asc",
   DESC = "desc",
 }
+
+type NestedKeyOf<ObjectType extends object> = {
+  [Key in keyof ObjectType & (string | number)]: ObjectType[Key] extends object
+    ? `${Key}.${NestedKeyOf<ObjectType[Key]>}`
+    : `${Key}`;
+}[keyof ObjectType & (string | number)];

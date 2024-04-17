@@ -12,7 +12,7 @@ interface Props {
 
 const CartItem = memo(({ item }: Props) => {
   return (
-    <div className="flex gap-x-4 py-2 xl:px-6 border-b border-gray-200 w-full font-light text-gray-500">
+    <div className="flex gap-x-4 py-2 border-b border-gray-200 w-full font-light text-gray-500">
       <div className="w-full min-h-[150px] flex items-center gap-x-4">
         <a href={`/products/${item.productSlug}`}>
           <img
@@ -58,9 +58,8 @@ const CartItem = memo(({ item }: Props) => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className={`${
-                  item.quantity > 1 ? `cursor-pointer` : `cursor-not-allowed`
-                } w-6 h-6 flex-1 flex justify-center items-center`}
+                className={`${item.quantity > 1 ? `cursor-pointer` : `cursor-not-allowed`
+                  } w-6 h-6 flex-1 flex justify-center items-center`}
                 onClick={() => {
                   if (item.quantity > 1)
                     decrementCartItemQuantity(item.productId, item.variationId);

@@ -1,5 +1,5 @@
 import { ApiArrayResponse, ApiResponseEntity } from 'shared/types/response';
-import { Pageable, Sort, SortDirection, SortKey } from 'shared/types/pageable';
+import { Sort, SortDirection, SortKey } from 'shared/types/pageable';
 import { useState } from 'react';
 import CardBoxModal from '../CardBoxModal';
 import BaseButtons from '../BaseButtons';
@@ -8,16 +8,19 @@ import { mdiArrowDownBold, mdiArrowUpBold, mdiEye, mdiTrashCan } from '@mdi/js';
 import BaseIcon from '../BaseIcon';
 import Router from 'next/router';
 import Link from 'next/link';
+import { NestedItemsProps } from '../../types/request';
 
-type Props<T extends ApiResponseEntity> = {
+type Props<T extends ApiResponseEntity, P extends ApiResponseEntity> = {
   columns: Array<{
     key: SortKey<T>;
     label: string;
   }>;
-  useGetAll: (pageable: Pageable<T> | void) => {
+  useGetAll: (props: NestedItemsProps<T, P>) => {
     data?: ApiArrayResponse<T>;
   };
   dataKey: string;
+
+  parentEntity: P;
 
   deleteItem?: (entity: T) => void;
 };
@@ -29,21 +32,26 @@ type SortInfo<T extends ApiResponseEntity> =
     }
   | undefined;
 
-function Table<T extends ApiResponseEntity>({
+function NestedTable<T extends ApiResponseEntity, P extends ApiResponseEntity>({
   columns,
   useGetAll,
   deleteItem,
   dataKey,
-}: Props<T>) {
+  parentEntity,
+}: Props<T, P>) {
   const [currentPage, setCurrentPage] = useState(0);
   const perPage = 5;
   const [sortInfo, setSortInfo] = useState<SortInfo<T>>(undefined);
 
   const { data } = useGetAll({
-    page: currentPage,
-    size: perPage,
-    sort:
-      sortInfo && (`${String(sortInfo.key)},${sortInfo.direction}` as Sort<T>),
+    pageable: {
+      page: currentPage,
+      size: perPage,
+      sort:
+        sortInfo &&
+        (`${String(sortInfo.key)},${sortInfo.direction}` as Sort<T>),
+    },
+    parent: parentEntity,
   });
 
   const items = data?._embedded?.[dataKey] ?? [];
@@ -136,14 +144,14 @@ function Table<T extends ApiResponseEntity>({
           {items.map((item: T) => (
             <tr key={item.id}>
               {columns.map((col) =>
-                typeof item[col.key] === 'object' ? (
+                typeof item[col.key as keyof T] === 'object' ? (
                   <td key={col.key as string} data-label={col.label}>
-                    {(((item[col.key] as any)['name'] ??
-                      (item[col.key] as any)['id']) as string) ?? ''}
+                    {(((item[col.key as keyof T] as any)['name'] ??
+                      (item[col.key as keyof T] as any)['id']) as string) ?? ''}
                   </td>
                 ) : (
                   <td key={col.key as string} data-label={col.label}>
-                    {(item[col.key] as string) ?? ''}
+                    {(item[col.key as keyof T] as string) ?? ''}
                   </td>
                 ),
               )}
@@ -189,4 +197,4 @@ function Table<T extends ApiResponseEntity>({
   );
 }
 
-export default Table;
+export default NestedTable;

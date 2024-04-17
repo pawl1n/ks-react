@@ -79,6 +79,7 @@ const CreateProductPage = () => {
               {
                 name: category.name,
                 parentCategory: category.parentCategory,
+                slug: category.slug,
               } as CategoryRequest
             }
             onSubmit={handleSubmit}
@@ -86,6 +87,10 @@ const CreateProductPage = () => {
             <Form>
               <FormField label="Назва">
                 <Field name="name" placeholder="Назва" />
+              </FormField>
+
+              <FormField label={category.path}>
+                <Field name="slug" placeholder="slug" />
               </FormField>
 
               <FormField
@@ -97,7 +102,7 @@ const CreateProductPage = () => {
                   id="parentCategory"
                   component="select"
                 >
-                  <option>Відсутня</option>
+                  <option value="null">Відсутня</option>
                   {categories
                     .filter((cat) => cat.id !== category.id)
                     .map((category) => (

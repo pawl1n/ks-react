@@ -1,6 +1,7 @@
 import { Variation, VariationOption } from 'shared/types/variation';
 import { Product } from 'shared/types/product';
 import { ApiResponseEntity, Link } from 'shared/types/response';
+import { Pageable } from 'shared/types/pageable';
 
 export type ProductRequest = {
   name: string;
@@ -52,11 +53,19 @@ export interface Image extends ApiResponseEntity {
 
 export type CategoryRequest = {
   name: string;
-  description?: string;
   parentCategory?: number;
+  slug?: string;
 };
 
 export type UpdateRequestProps<Entity extends ApiResponseEntity, T> = {
   entity: Entity;
   data: T;
+};
+
+export type NestedItemsProps<
+  Entity extends ApiResponseEntity,
+  Parent extends ApiResponseEntity,
+> = {
+  parent: Parent;
+  pageable: Pageable<Entity>;
 };

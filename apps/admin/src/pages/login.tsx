@@ -12,7 +12,7 @@ import { getPageTitle } from '../config';
 import { useLoginMutation } from '../services/auth';
 import { LoginRequest } from 'shared/types/auth';
 
-export default function Error() {
+export default function Login() {
   const [login] = useLoginMutation();
 
   const handleSubmit = async (user: LoginRequest) => {
@@ -61,6 +61,6 @@ export default function Error() {
   );
 }
 
-Error.getLayout = function getLayout(page: ReactElement) {
+Login.getLayout = function getLayout(page: ReactElement) {
   return <LayoutGuest>{page}</LayoutGuest>;
 };
