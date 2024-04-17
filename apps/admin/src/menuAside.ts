@@ -1,6 +1,7 @@
 import {
   mdiImage,
   mdiMonitor,
+  mdiPackage,
   mdiPlus,
   mdiTshirtCrew,
   mdiTshirtCrewOutline,
@@ -57,6 +58,18 @@ const menuAside: MenuAsideItem[] = [
     menu: [
       {
         href: '/variations/create',
+        label: 'Створити',
+        icon: mdiPlus,
+      },
+    ],
+  },
+  {
+    href: '/orders',
+    label: 'Замовлення',
+    icon: mdiPackage,
+    menu: [
+      {
+        href: '/orders/create',
         label: 'Створити',
         icon: mdiPlus,
       },

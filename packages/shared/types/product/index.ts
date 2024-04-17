@@ -14,6 +14,8 @@ export interface ProductItem extends ApiResponseEntity {
   sku: string;
   price: number;
   stock: number;
+  productName: string;
+  description: string;
   variationOptions?: VariationOption[];
 }
 

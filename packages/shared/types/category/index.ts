@@ -11,6 +11,7 @@ export interface Category extends ApiResponseEntity {
   name: string;
   parentCategory?: string;
   path: string;
+  slug: string;
   descendants: Category[];
   _links: {
     self: Link;

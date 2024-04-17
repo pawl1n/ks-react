@@ -187,7 +187,7 @@ const EditProductPage = () => {
                 name: product.name,
                 description: product.description,
                 mainImage: product.mainImage,
-                category: product.category.id,
+                category: product.category?.id,
               } as ProductRequest
             }
             onSubmit={handleSubmit}

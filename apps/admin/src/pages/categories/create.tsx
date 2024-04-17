@@ -35,13 +35,13 @@ const CreateProductPage = () => {
   return (
     <>
       <Head>
-        <title>{getPageTitle('Додавання товару')}</title>
+        <title>{getPageTitle('Створення категорії')}</title>
       </Head>
 
       <SectionMain>
         <SectionTitleLineWithButton
           icon={mdiPlus}
-          title="Додавання товару"
+          title="Створення категорії"
           main
         >
           <BaseButton
@@ -58,6 +58,7 @@ const CreateProductPage = () => {
             initialValues={
               {
                 name: '',
+                slug: '',
               } as CategoryRequest
             }
             onSubmit={handleSubmit}
@@ -65,6 +66,10 @@ const CreateProductPage = () => {
             <Form>
               <FormField label="Назва">
                 <Field name="name" placeholder="Назва" />
+              </FormField>
+
+              <FormField label="Slug">
+                <Field name="slug" placeholder="slug" />
               </FormField>
 
               <FormField

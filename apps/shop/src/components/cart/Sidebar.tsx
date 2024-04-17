@@ -17,9 +17,8 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`${
-        $isCartOpen ? "right-0" : "-right-full"
-      } w-full bg-white fixed top-0 h-full shadow-2xl select-none
+      className={`${$isCartOpen ? "right-0" : "-right-full"
+        } w-full bg-white fixed top-0 h-full shadow-2xl select-none
 md:w-[40vw] xl:max-w-[45vw] transition-all duration-300 ease-in-out z-20 px-4 lg:px-[35px] flex flex-col`}
     >
       <div className="flex items-center justify-between py-6 border-b">
@@ -59,16 +58,19 @@ md:w-[40vw] xl:max-w-[45vw] transition-all duration-300 ease-in-out z-20 px-4 lg
         })}
       </div>
       <div className="mt-auto flex flex-col gap-y-3 py-4 mb-0">
-        <div className="flex w-full justify-between items-center">
-          <div className="uppercase font-semibold">
-            <span className="mr-2">Загальна сума: </span>
-            {$cartItems
-              .reduce((acc, item) => acc + item.price * item.quantity, 0)
-              .toFixed(2)}{" "}
-            ₴
+        <div className="uppercase font-semibold w-full flex justify-between">
+          <span className="">Загальна сума: </span>
+          {$cartItems
+            .reduce((acc, item) => acc + item.price * item.quantity, 0)
+            .toFixed(2)}{" "}
+          ₴
+        </div>
+        <div className="flex w-full justify-between items-center gap-x-5">
+          <div className="bg-primary rounded h-12 text-white flex justify-center items-center text-xl flex-1">
+            <a href="/checkout">Оформити замовлення</a>
           </div>
           <div
-            className="cursor-pointer py-4 bg-red-500 text-white w-12 h-12 flex justify-center items-center text-xl"
+            className="cursor-pointer bg-red-500 text-white w-12 h-12 flex justify-center items-center text-xl"
             onClick={() => handleRemoveAll()}
           >
             <svg

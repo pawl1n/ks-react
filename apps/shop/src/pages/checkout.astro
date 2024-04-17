@@ -1,0 +1,24 @@
+---
+import Layout from "../layouts/Light.astro";
+import CheckoutForm from "../components/CheckoutForm";
+---
+
+<Layout title="Оформлення замовлення" description="Оформлення замовлення">
+  <div class="container mx-auto flex flex-col items-center gap-5 py-6">
+    <h1 class="text-3xl font-bold">Оформлення замовлення</h1>
+    <CheckoutForm client:only />
+    <style is:inline>
+      input:-webkit-autofill,
+      input:-webkit-autofill:hover,
+      input:-webkit-autofill:focus,
+      textarea:-webkit-autofill,
+      textarea:-webkit-autofill:hover,
+      textarea:-webkit-autofill:focus,
+      select:-webkit-autofill,
+      select:-webkit-autofill:hover,
+      select:-webkit-autofill:focus {
+        -webkit-text-fill-color: inherit !important;
+      }
+    </style>
+  </div>
+</Layout>

@@ -22,11 +22,11 @@ export const categoriesApi = createApi({
       providesTags: (result) =>
         result
           ? [
-              ...(result?._embedded?.categories ?? []).map(
-                ({ id }) => ({ type: 'Categories', id } as const),
-              ),
-              { type: 'Categories', id: 'LIST' },
-            ]
+            ...(result?._embedded?.categories ?? []).map(
+              ({ id }) => ({ type: 'Categories', id } as const),
+            ),
+            { type: 'Categories', id: 'LIST' },
+          ]
           : [{ type: 'Categories', id: 'LIST' }],
     }),
     getCategoryById: builder.query<Category, number>({
@@ -59,8 +59,8 @@ export const categoriesApi = createApi({
         },
         body: data,
       }),
-      invalidatesTags: (result, error, { entity }) => [
-        { type: 'Categories', id: entity.id },
+      invalidatesTags: [
+        { type: 'Categories', id: 'LIST' },
       ],
     }),
     deleteCategory: builder.mutation<void, Category>({
