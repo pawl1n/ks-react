@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import * as styles from '../styles';
-import { localStorageDarkModeKey, localStorageStyleKey } from '../config';
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import * as styles from "../styles";
+import { localStorageDarkModeKey, localStorageStyleKey } from "../config";
 
 interface StyleState {
   asideStyle: string;
@@ -30,30 +30,30 @@ const initialState: StyleState = {
   darkMode: false,
 };
 
-export type StyleKey = 'white' | 'basic';
+export type StyleKey = "white" | "basic";
 
 export const styleSlice = createSlice({
-  name: 'style',
+  name: "style",
   initialState,
   reducers: {
     setDarkMode: (state, action: PayloadAction<boolean | null>) => {
       state.darkMode =
         action.payload !== null ? action.payload : !state.darkMode;
 
-      if (typeof localStorage !== 'undefined') {
+      if (typeof localStorage !== "undefined") {
         localStorage.setItem(
           localStorageDarkModeKey,
-          state.darkMode ? '1' : '0',
+          state.darkMode ? "1" : "0",
         );
       }
 
-      if (typeof document !== 'undefined') {
-        document.body.classList[state.darkMode ? 'add' : 'remove'](
-          'dark-scrollbars',
+      if (typeof document !== "undefined") {
+        document.body.classList[state.darkMode ? "add" : "remove"](
+          "dark-scrollbars",
         );
 
-        document.documentElement.classList[state.darkMode ? 'add' : 'remove'](
-          'dark-scrollbars-compat',
+        document.documentElement.classList[state.darkMode ? "add" : "remove"](
+          "dark-scrollbars-compat",
         );
       }
     },
@@ -63,7 +63,7 @@ export const styleSlice = createSlice({
         return;
       }
 
-      if (typeof localStorage !== 'undefined') {
+      if (typeof localStorage !== "undefined") {
         localStorage.setItem(localStorageStyleKey, action.payload);
       }
 
@@ -72,7 +72,7 @@ export const styleSlice = createSlice({
       for (const key in style) {
         const stateKey = `${key}Style` as keyof typeof state;
 
-        if (stateKey !== 'darkMode') {
+        if (stateKey !== "darkMode") {
           state[stateKey] = style[key as keyof typeof style];
         }
       }

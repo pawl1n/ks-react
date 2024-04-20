@@ -1,33 +1,38 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import Router from 'next/router';
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import Router from "next/router";
 
 type TokenState = {
   accessToken: string | null;
   refreshToken: string | null;
 };
 
-const getToken = () => {
-  if (typeof window !== 'undefined') {
-    return localStorage.getItem('refreshToken');
+const getTokens = () => {
+  const tokens = {
+    accessToken: null,
+    refreshToken: null,
+  };
+
+  if (typeof window !== "undefined") {
+    tokens.accessToken = localStorage.getItem("accessToken");
+    tokens.refreshToken = localStorage.getItem("refreshToken");
   }
-  return null;
+  return tokens;
 };
 
-const initialState: TokenState = {
-  accessToken: null,
-  refreshToken: getToken(),
-};
+const initialState: TokenState = getTokens();
 
 export const tokenSlice = createSlice({
-  name: 'token',
+  name: "token",
   initialState,
   reducers: {
     setToken: (state, action: PayloadAction<TokenState>) => {
+      console.log(action.payload);
       state.accessToken = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
 
       if (state.refreshToken) {
-        localStorage.setItem('refreshToken', state.refreshToken);
+        localStorage.setItem("refreshToken", state.refreshToken);
+        localStorage.setItem("accessToken", state.refreshToken);
       } else if (!state.accessToken && !state.refreshToken) {
         logout();
       }
@@ -36,8 +41,9 @@ export const tokenSlice = createSlice({
       state.accessToken = null;
       state.refreshToken = null;
 
-      localStorage.removeItem('refreshToken');
-      Router.push('/login').catch(console.error);
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("accessToken");
+      Router.push("/login").catch(console.error);
     },
   },
 });

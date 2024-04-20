@@ -1,10 +1,10 @@
 import {
   createSlice,
   isRejectedWithValue,
-  Middleware,
-  PayloadAction,
-} from '@reduxjs/toolkit';
-import { Toast, ToastPayloadObject, ToastType } from 'types/toast';
+  type Middleware,
+  type PayloadAction,
+} from "@reduxjs/toolkit";
+import type { Toast, ToastPayloadObject, ToastType } from "types/toast";
 
 const DEFAULT_DELAY = 3000;
 
@@ -17,7 +17,7 @@ const initialState: ToastSlice = {
 };
 
 export const toastSlice = createSlice({
-  name: 'toast',
+  name: "toast",
   initialState,
   reducers: {
     addToast: (state, action: PayloadAction<ToastPayloadObject>) => {
