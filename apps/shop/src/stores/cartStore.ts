@@ -28,7 +28,7 @@ export const addCartItem = (product: Product, variation: ProductItem) => {
     .get()
     .find(
       (item) =>
-        item.variationId === variation.id && item.productId === product.id
+        item.variationId === variation.id && item.productId === product.id,
     );
 
   if (existingEntry) {
@@ -68,7 +68,7 @@ export const removeCartItem = (cartItemId: number, variationId: number) => {
       .get()
       .filter(
         (item) =>
-          !(item.variationId === variationId && item.productId === cartItemId)
+          !(item.variationId === variationId && item.productId === cartItemId),
       ),
   ]);
 };
@@ -79,7 +79,7 @@ export const removeAllCartItems = () => {
 
 export const incrementCartItemQuantity = (
   cartItemId: number,
-  variationId: number
+  variationId: number,
 ) => {
   shoppingCart.set([
     ...shoppingCart.get().map((item) => {
@@ -96,11 +96,11 @@ export const incrementCartItemQuantity = (
 
 export const decrementCartItemQuantity = (
   cartItemId: number,
-  variationId: number
+  variationId: number,
 ) => {
   shoppingCart.set([
     ...shoppingCart.get().map((item) => {
-      if (item.variationId === variationId && item.productId == cartItemId) {
+      if (item.variationId === variationId && item.productId === cartItemId) {
         return {
           ...item,
           quantity: item.quantity === 1 ? item.quantity : item.quantity - 1,

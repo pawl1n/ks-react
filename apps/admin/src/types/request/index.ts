@@ -1,18 +1,18 @@
-import { Variation, VariationOption } from 'shared/types/variation';
-import { Product } from 'shared/types/product';
-import { ApiResponseEntity, Link } from 'shared/types/response';
-import { Pageable } from 'shared/types/pageable';
+import type { Variation, VariationOption } from "shared/types/variation";
+import type { Product } from "shared/types/product";
+import type { ApiResponseEntity, Link } from "shared/types/response";
+import type { Pageable } from "shared/types/pageable";
 
 export type ProductRequest = {
   name: string;
   description: string;
   category?: number;
   mainImage?: string;
+  price: number;
+  sku: string;
 };
 
 export type ProductItemRequest = {
-  sku: string;
-  price: number;
   stock: number;
   variationOptions?: VariationOption[];
 };
@@ -55,6 +55,7 @@ export type CategoryRequest = {
   name: string;
   parentCategory?: number;
   slug?: string;
+  variations?: number[];
 };
 
 export type UpdateRequestProps<Entity extends ApiResponseEntity, T> = {

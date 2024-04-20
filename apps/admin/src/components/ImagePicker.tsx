@@ -1,12 +1,12 @@
-import CardBoxModal from './CardBoxModal';
-import { useState } from 'react';
-import { Image } from 'types/request';
-import GridImages from './GridImages';
-import BaseButton from './BaseButton';
-import { mdiImage } from '@mdi/js';
-import { useAppDispatch } from '../stores/hooks';
-import { addToast } from '../stores/toastSlice';
-import { ToastType } from 'types/toast';
+import CardBoxModal from "./CardBoxModal";
+import { useState } from "react";
+import type { Image } from "types/request";
+import GridImages from "./GridImages";
+import BaseButton from "./BaseButton";
+import { mdiImage } from "@mdi/js";
+import { useAppDispatch } from "../stores/hooks";
+import { addToast } from "../stores/toastSlice";
+import { ToastType } from "types/toast";
 
 type Props = {
   selectImage: (image: Image | null) => void;
@@ -23,7 +23,7 @@ const ImagePicker = ({ selectImage }: Props) => {
         addToast({
           toast: {
             type: ToastType.danger,
-            message: 'Зображення не обрано',
+            message: "Зображення не обрано",
           },
         }),
       );

@@ -12,11 +12,11 @@ interface ProductProps {
   productDetails: ProductDetails;
 }
 
-const ProductDetails = ({ productDetails }: ProductProps) => {
+export default ({ productDetails }: ProductProps) => {
   const { product, variations, breadcrumbs } = productDetails;
   const [selectedVariation, setSelectedVariation] = useState<
     ProductItem | undefined
-  >(variations.length == 1 ? variations[0] : undefined);
+  >(variations.length === 1 ? variations[0] : undefined);
 
   const handleAddToCart = () => {
     if (!selectedVariation) {
@@ -52,6 +52,8 @@ const ProductDetails = ({ productDetails }: ProductProps) => {
         <div className="text-sm capitalize text-gray-500">
           {product.category.name}
         </div>
+        <div className="text-sm mt-5">Ціна: {product.price} грн.</div>
+        <div className="text-sm text-gray-500">{product.sku}</div>
         {variations.length > 1 && (
           <div className="mt-5">
             <h2 className="font-bold text-xl mb-5">Варіації</h2>
@@ -76,6 +78,7 @@ const ProductDetails = ({ productDetails }: ProductProps) => {
         )}
         <div>
           <button
+            type="button"
             onClick={() => handleAddToCart()}
             className="flex justify-center items-center text-white px-5 py-2 bg-primary rounded mt-5"
           >
@@ -88,5 +91,3 @@ const ProductDetails = ({ productDetails }: ProductProps) => {
     </section>
   );
 };
-
-export default ProductDetails;

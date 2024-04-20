@@ -3,7 +3,7 @@ import type { Product as ProductType } from "shared/types/product";
 import { useEffect, useState } from "preact/hooks";
 import { getAll } from "../../api/products";
 
-let isLoading = false;
+const isLoading = false;
 
 type Props = {
   categoryPath?: string;
@@ -22,15 +22,15 @@ const Products = ({ categoryPath }: Props) => {
 
   useEffect(() => {
     getAll(params).then((res) => {
-      if (page == res.data?.page?.totalPages) {
+      if (page === res.data?.page?.totalPages) {
         setIsLastPage(true);
         return;
       }
       if (res.data?._embedded?.products) {
-        setProducts([...products, ...res.data._embedded.products]);
+        setProducts(res.data._embedded.products);
       }
     });
-  }, [page]);
+  }, [page, params]);
 
   useEffect(() => {
     // setup infinite scroll listeners

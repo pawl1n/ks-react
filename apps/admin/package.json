@@ -2,7 +2,7 @@
   "name": "ks-react-admin",
   "private": true,
   "scripts": {
-    "dev": "next dev --show-all",
+    "dev": "next dev",
     "build": "next build",
     "export": "next export",
     "start": "next start",

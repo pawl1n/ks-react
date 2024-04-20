@@ -11,7 +11,7 @@ const Product = ({ product }: ProductProps) => {
         <div className="w-full h-full flex justify-center">
           <div className="w-[200px] mx-auto flex justify-center items-center">
             <img
-              className={`max-h-[160px] group-hover:scale-110 transition duration-300`}
+              className="max-h-[160px] group-hover:scale-110 transition duration-300"
               src={product.mainImage}
               alt={product.name}
               height="160"
@@ -48,16 +48,20 @@ const Product = ({ product }: ProductProps) => {
                 strokeLinejoin="round"
                 d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
               />
+              <title>View details</title>
             </svg>
           </a>
         </div>
       </div>
+      <div className="flex flex-row justify-between">
+        <a href={`/products/${product.slug}`}>
+          <h2 className="font-semibold mb-1">{product.name}</h2>
+        </a>
+        <span className="text-sm text-gray-500">{product.price} грн.</span>
+      </div>
       <div className="text-sm capitalize text-gray-500">
         {product.category.name}
       </div>
-      <a href={`/products/${product.slug}`}>
-        <h2 className="font-semibold mb-1">{product.name}</h2>
-      </a>
     </div>
   );
 };

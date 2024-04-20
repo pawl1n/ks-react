@@ -7,7 +7,7 @@ type TokenState = {
 };
 
 const getTokens = () => {
-  const tokens = {
+  const tokens: TokenState = {
     accessToken: null,
     refreshToken: null,
   };
@@ -26,7 +26,6 @@ export const tokenSlice = createSlice({
   initialState,
   reducers: {
     setToken: (state, action: PayloadAction<TokenState>) => {
-      console.log(action.payload);
       state.accessToken = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
 

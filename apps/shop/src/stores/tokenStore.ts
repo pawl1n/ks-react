@@ -6,7 +6,7 @@ const token = persistentMap(
     accessToken: "",
     refreshToken: "",
   } as TokenProps,
-  {}
+  {},
 );
 
 type TokenProps = {
@@ -19,5 +19,4 @@ export const setToken = (value: TokenProps) => {
 };
 
 export const getAccessToken = () => token.get().accessToken;
-
 export const getRefreshToken = () => token.get().refreshToken;

@@ -1,13 +1,13 @@
-import CardBox from './CardBox';
-import React, { useState } from 'react';
-import BaseButton from './BaseButton';
-import BaseButtons from './BaseButtons';
-import { mdiBrushVariant, mdiPlus } from '@mdi/js';
-import { Product, ProductItem } from 'shared/types/product';
-import { useGetProductItemsQuery } from '../services/products';
-import SectionTitleLineWithButton from './SectionTitleLineWithButton';
-import SectionMain from './SectionMain';
-import ProductItemForm from './ProductItem';
+import CardBox from "./CardBox";
+import React, { useState } from "react";
+import BaseButton from "./BaseButton";
+import BaseButtons from "./BaseButtons";
+import { mdiBrushVariant, mdiPlus } from "@mdi/js";
+import type { Product, ProductItem } from "shared/types/product";
+import { useGetProductItemsQuery } from "../services/products";
+import SectionTitleLineWithButton from "./SectionTitleLineWithButton";
+import SectionMain from "./SectionMain";
+import ProductItemForm from "./ProductItem";
 
 type Props = {
   product: Product;

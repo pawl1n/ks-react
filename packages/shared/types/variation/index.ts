@@ -1,4 +1,4 @@
-import { ApiResponseEntity, Link } from "shared/types/response";
+import type { ApiResponseEntity, Link } from "shared/types/response";
 
 export type VariationRequest = {
   name: string;

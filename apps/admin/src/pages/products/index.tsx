@@ -1,18 +1,18 @@
-import { mdiPlus, mdiTshirtCrew } from '@mdi/js';
-import Head from 'next/head';
-import React, { ReactElement } from 'react';
-import BaseButton from 'components/BaseButton';
-import CardBox from 'components/CardBox';
-import LayoutAuthenticated from 'layouts/Authenticated';
-import SectionMain from 'components/SectionMain';
-import SectionTitleLineWithButton from 'components/SectionTitleLineWithButton';
-import { getPageTitle } from 'config';
-import Table from 'components/tables/Table';
+import { mdiPlus, mdiTshirtCrew } from "@mdi/js";
+import Head from "next/head";
+import React, { type ReactElement } from "react";
+import BaseButton from "components/BaseButton";
+import CardBox from "components/CardBox";
+import LayoutAuthenticated from "layouts/Authenticated";
+import SectionMain from "components/SectionMain";
+import SectionTitleLineWithButton from "components/SectionTitleLineWithButton";
+import { getPageTitle } from "config";
+import Table from "components/tables/Table";
 import {
   useDeleteProductMutation,
   useGetProductsQuery,
-} from 'services/products';
-import { Product } from 'shared/types/product';
+} from "services/products";
+import type { Product } from "shared/types/product";
 
 const TablesPage = () => {
   const [deleteProduct] = useDeleteProductMutation();
@@ -20,7 +20,7 @@ const TablesPage = () => {
   return (
     <>
       <Head>
-        <title>{getPageTitle('Речі')}</title>
+        <title>{getPageTitle("Речі")}</title>
       </Head>
       <SectionMain>
         <SectionTitleLineWithButton icon={mdiTshirtCrew} title="Речі" main>
@@ -29,12 +29,12 @@ const TablesPage = () => {
         <CardBox className="mb-6" hasTable>
           <Table<Product>
             columns={[
-              { key: 'name', label: 'Назва' },
-              { key: 'description', label: 'Опис' },
-              { key: 'category', label: 'Категорія' },
+              { key: "name", label: "Назва" },
+              { key: "description", label: "Опис" },
+              { key: "category", label: "Категорія" },
             ]}
             useGetAll={useGetProductsQuery}
-            dataKey={'products'}
+            dataKey={"products"}
             deleteItem={deleteProduct}
           />
         </CardBox>

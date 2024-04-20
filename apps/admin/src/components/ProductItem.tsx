@@ -1,19 +1,23 @@
-import { Field, Form, Formik } from 'formik';
-import FormField from './FormField';
-import React, { useState } from 'react';
-import BaseButton from './BaseButton';
-import BaseButtons from './BaseButtons';
-import { mdiMagnify, mdiTrashCan } from '@mdi/js';
-import { Product, ProductItem, ProductItemRequest } from 'shared/types/product';
+import { mdiMagnify, mdiTrashCan } from "@mdi/js";
+import { Field, Form, Formik } from "formik";
+import React, { useState } from "react";
+import type {
+  Product,
+  ProductItem,
+  ProductItemRequest,
+} from "shared/types/product";
+import type { Variation, VariationOption } from "shared/types/variation";
 import {
   useCreateProductItemMutation,
   useDeleteProductItemMutation,
   useUpdateProductItemMutation,
-} from '../services/products';
-import { Variation, VariationOption } from 'shared/types/variation';
-import { useGetVariationsQuery } from '../services/variations';
-import Variations from './Variations';
-import CardBoxModal from './CardBoxModal';
+} from "../services/products";
+import { useGetCategoryVariationsQuery } from "../services/categories";
+import BaseButton from "./BaseButton";
+import BaseButtons from "./BaseButtons";
+import CardBoxModal from "./CardBoxModal";
+import FormField from "./FormField";
+import Variations from "./Variations";
 
 type Props = {
   productItem?: ProductItem;
@@ -26,7 +30,13 @@ const ProductItemForm = ({ productItem, product, setAddNew }: Props) => {
   const [updateProductItem] = useUpdateProductItemMutation();
   const [deleteProductItem] = useDeleteProductItemMutation();
 
-  const variations = useGetVariationsQuery().data?._embedded?.variations ?? [];
+  let variations: Variation[] = [];
+
+  if (product?.category) {
+    variations =
+      useGetCategoryVariationsQuery(product.category.id).data?._embedded
+        ?.variations ?? [];
+  }
   const [isPickerActive, setIsPickerActive] = useState(false);
 
   const [productVariationOptions, setProductVariationOptions] = useState<
@@ -54,7 +64,7 @@ const ProductItemForm = ({ productItem, product, setAddNew }: Props) => {
     })
       .unwrap()
       .then(() => {
-        setAddNew && setAddNew(false);
+        setAddNew?.(false);
       });
   };
 
@@ -76,10 +86,7 @@ const ProductItemForm = ({ productItem, product, setAddNew }: Props) => {
     });
   };
 
-  const handleDeleteVariationOption = (
-    productItem: ProductItem,
-    variationOption: VariationOption,
-  ) => {
+  const handleDeleteVariationOption = (variationOption: VariationOption) => {
     setProductVariationOptions(
       productVariationOptions.filter(
         (option) =>
@@ -124,22 +131,14 @@ const ProductItemForm = ({ productItem, product, setAddNew }: Props) => {
       <Formik
         initialValues={
           {
-            sku: '',
-            price: 0,
             stock: 0,
           } as ProductItemRequest
         }
         onSubmit={handleCreate}
       >
         <Form className="mb-10">
-          <FormField label="Ціна">
-            <Field name="price" />
-          </FormField>
           <FormField label="Кількість">
             <Field name="stock" />
-          </FormField>
-          <FormField label="Код">
-            <Field name="sku" />
           </FormField>
           <BaseButtons>
             <BaseButton type="submit" color="info" label="Додати" />
@@ -172,15 +171,10 @@ const ProductItemForm = ({ productItem, product, setAddNew }: Props) => {
         key={productItem.id}
       >
         <Form className="mb-10">
-          <FormField label="Ціна">
-            <Field name="price" />
-          </FormField>
           <FormField label="Кількість">
             <Field name="stock" />
           </FormField>
-          <FormField label="Код">
-            <Field name="sku" />
-          </FormField>
+
           {productVariationOptions.map((option) => (
             <div
               key={`${option.variationId}-${option.value}`}
@@ -191,7 +185,7 @@ const ProductItemForm = ({ productItem, product, setAddNew }: Props) => {
                 type="button"
                 color="danger"
                 icon={mdiTrashCan}
-                onClick={() => handleDeleteVariationOption(productItem, option)}
+                onClick={() => handleDeleteVariationOption(option)}
               />
             </div>
           ))}

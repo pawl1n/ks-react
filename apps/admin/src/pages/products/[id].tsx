@@ -1,36 +1,36 @@
-import { mdiArrowLeft, mdiPlus, mdiUpload } from '@mdi/js';
-import { Field, Form, Formik } from 'formik';
-import Head from 'next/head';
-import React, { ReactElement, useState } from 'react';
-import BaseButton from 'components/BaseButton';
-import BaseButtons from 'components/BaseButtons';
-import BaseDivider from 'components/BaseDivider';
-import CardBox from 'components/CardBox';
-import FormField from 'components/FormField';
-import SectionMain from 'components/SectionMain';
-import SectionTitleLineWithButton from 'components/SectionTitleLineWithButton';
-import { getPageTitle } from 'config';
-import Router from 'next/router';
-import LayoutAuthenticated from 'layouts/Authenticated';
-import FormFilePicker from 'components/FormFilePicker';
-import Image from 'next/image';
-import { Image as ImageType, ProductRequest } from 'types/request';
+import { mdiArrowLeft, mdiPlus, mdiUpload } from "@mdi/js";
+import { Field, Form, Formik } from "formik";
+import Head from "next/head";
+import React, { type ReactElement, useState } from "react";
+import BaseButton from "components/BaseButton";
+import BaseButtons from "components/BaseButtons";
+import BaseDivider from "components/BaseDivider";
+import CardBox from "components/CardBox";
+import FormField from "components/FormField";
+import SectionMain from "components/SectionMain";
+import SectionTitleLineWithButton from "components/SectionTitleLineWithButton";
+import { getPageTitle } from "config";
+import Router from "next/router";
+import LayoutAuthenticated from "layouts/Authenticated";
+import FormFilePicker from "components/FormFilePicker";
+import Image from "next/image";
+import type { Image as ImageType, ProductRequest } from "types/request";
 import {
   useGetProductByIdQuery,
   useUpdateProductMutation,
-} from 'services/products';
-import { useGetCategoriesQuery } from 'services/categories';
-import ImagePicker from 'components/ImagePicker';
-import { useCreateImageMutation } from '../../services/images';
-import ProductItems from '../../components/ProductItems';
+} from "services/products";
+import { useGetCategoriesQuery } from "services/categories";
+import ImagePicker from "components/ImagePicker";
+import { useCreateImageMutation } from "../../services/images";
+import ProductItems from "../../components/ProductItems";
 
 const EditProductPage = () => {
   const id = Router.query.id as string;
-  if (!parseInt(id)) {
-    throw new Error('Invalid id');
+  if (!Number.parseInt(id)) {
+    throw new Error("Invalid id");
   }
 
-  const productResponse = useGetProductByIdQuery(parseInt(id));
+  const productResponse = useGetProductByIdQuery(Number.parseInt(id));
   const product = productResponse?.data;
 
   const response = useGetCategoriesQuery();
@@ -68,7 +68,7 @@ const EditProductPage = () => {
 
       reader.onload = () => {
         const result = reader.result as string;
-        const base64 = result.split(',')[1];
+        const base64 = result.split(",")[1];
 
         createImage({
           base64Image: base64,
@@ -81,18 +81,20 @@ const EditProductPage = () => {
               entity: product,
               data: changed,
             }).catch(() => {
-              console.log('error');
+              console.log("error");
             });
 
             Router.back();
           })
           .catch(() => {
-            console.log('error');
+            console.log("error");
           });
       };
 
       return;
-    } else if (selectedImage) {
+    }
+
+    if (selectedImage) {
       changed.mainImage = selectedImage.url;
     }
 
@@ -105,7 +107,7 @@ const EditProductPage = () => {
         Router.back();
       })
       .catch(() => {
-        console.log('error');
+        console.log("error");
       });
   };
 
@@ -116,7 +118,7 @@ const EditProductPage = () => {
   return (
     <>
       <Head>
-        <title>{getPageTitle('Редагування товару')}</title>
+        <title>{getPageTitle("Редагування товару")}</title>
       </Head>
 
       <SectionMain>
@@ -188,6 +190,8 @@ const EditProductPage = () => {
                 description: product.description,
                 mainImage: product.mainImage,
                 category: product.category?.id,
+                price: product.price,
+                sku: product.sku,
               } as ProductRequest
             }
             onSubmit={handleSubmit}
@@ -210,6 +214,14 @@ const EditProductPage = () => {
                     </option>
                   ))}
                 </Field>
+              </FormField>
+
+              <FormField label="Ціна">
+                <Field name="price" />
+              </FormField>
+
+              <FormField label="Код">
+                <Field name="sku" />
               </FormField>
 
               <BaseDivider />

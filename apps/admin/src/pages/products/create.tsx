@@ -1,24 +1,24 @@
-import { mdiArrowLeft, mdiPlus, mdiUpload } from '@mdi/js';
-import { Field, Form, Formik } from 'formik';
-import Head from 'next/head';
-import React, { ReactElement, useState } from 'react';
-import BaseButton from 'components/BaseButton';
-import BaseButtons from 'components/BaseButtons';
-import BaseDivider from 'components/BaseDivider';
-import CardBox from 'components/CardBox';
-import FormField from 'components/FormField';
-import SectionMain from 'components/SectionMain';
-import SectionTitleLineWithButton from 'components/SectionTitleLineWithButton';
-import { getPageTitle } from '../../config';
-import Router from 'next/router';
-import LayoutAuthenticated from 'layouts/Authenticated';
-import FormFilePicker from 'components/FormFilePicker';
-import Image from 'next/image';
-import { Image as ImageType, ProductRequest } from 'types/request';
-import { useCreateProductMutation } from 'services/products';
-import { useGetCategoriesQuery } from 'services/categories';
-import ImagePicker from 'components/ImagePicker';
-import { useCreateImageMutation } from '../../services/images';
+import { mdiArrowLeft, mdiPlus, mdiUpload } from "@mdi/js";
+import { Field, Form, Formik } from "formik";
+import Head from "next/head";
+import React, { type ReactElement, useState } from "react";
+import BaseButton from "components/BaseButton";
+import BaseButtons from "components/BaseButtons";
+import BaseDivider from "components/BaseDivider";
+import CardBox from "components/CardBox";
+import FormField from "components/FormField";
+import SectionMain from "components/SectionMain";
+import SectionTitleLineWithButton from "components/SectionTitleLineWithButton";
+import { getPageTitle } from "../../config";
+import Router from "next/router";
+import LayoutAuthenticated from "layouts/Authenticated";
+import FormFilePicker from "components/FormFilePicker";
+import Image from "next/image";
+import type { Image as ImageType, ProductRequest } from "types/request";
+import { useCreateProductMutation } from "services/products";
+import { useGetCategoriesQuery } from "services/categories";
+import ImagePicker from "components/ImagePicker";
+import { useCreateImageMutation } from "../../services/images";
 
 const CreateProductPage = () => {
   const response = useGetCategoriesQuery();
@@ -52,7 +52,7 @@ const CreateProductPage = () => {
 
       reader.onload = () => {
         const result = reader.result as string;
-        const base64 = result.split(',')[1];
+        const base64 = result.split(",")[1];
 
         createImage({
           base64Image: base64,
@@ -84,7 +84,7 @@ const CreateProductPage = () => {
   return (
     <>
       <Head>
-        <title>{getPageTitle('Додавання товару')}</title>
+        <title>{getPageTitle("Додавання товару")}</title>
       </Head>
 
       <SectionMain>
@@ -141,9 +141,11 @@ const CreateProductPage = () => {
           <Formik
             initialValues={
               {
-                name: '',
-                description: '',
+                name: "",
+                description: "",
                 category: undefined,
+                price: 0,
+                sku: "",
               } as ProductRequest
             }
             onSubmit={handleSubmit}
@@ -166,6 +168,14 @@ const CreateProductPage = () => {
                     </option>
                   ))}
                 </Field>
+              </FormField>
+
+              <FormField label="Ціна">
+                <Field name="price" />
+              </FormField>
+
+              <FormField label="Код">
+                <Field name="sku" />
               </FormField>
 
               <BaseDivider />

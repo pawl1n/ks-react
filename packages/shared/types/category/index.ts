@@ -1,4 +1,5 @@
-import { ApiResponseEntity, Link } from "shared/types/response";
+import type { ApiResponseEntity, Link } from "shared/types/response";
+import type { Variation } from "../variation";
 
 export type CategoryRequest = {
   name: string;
@@ -13,6 +14,7 @@ export interface Category extends ApiResponseEntity {
   path: string;
   slug: string;
   descendants: Category[];
+  variations: Variation[];
   _links: {
     self: Link;
     parentCategory: Link;

@@ -1,35 +1,49 @@
-import { mdiArrowLeft, mdiPlus } from '@mdi/js';
-import { Field, Form, Formik } from 'formik';
-import Head from 'next/head';
-import React, { ReactElement } from 'react';
-import BaseButton from 'components/BaseButton';
-import BaseButtons from 'components/BaseButtons';
-import BaseDivider from 'components/BaseDivider';
-import CardBox from 'components/CardBox';
-import FormField from 'components/FormField';
-import SectionMain from 'components/SectionMain';
-import SectionTitleLineWithButton from 'components/SectionTitleLineWithButton';
-import { getPageTitle } from '../../config';
-import Router from 'next/router';
-import LayoutAuthenticated from 'layouts/Authenticated';
-import { CategoryRequest } from 'types/request';
+import { mdiArrowLeft, mdiPlus } from "@mdi/js";
+import { Field, Form, Formik } from "formik";
+import Head from "next/head";
+import React, { useState, type ReactElement } from "react";
+import BaseButton from "components/BaseButton";
+import BaseButtons from "components/BaseButtons";
+import BaseDivider from "components/BaseDivider";
+import CardBox from "components/CardBox";
+import FormField from "components/FormField";
+import SectionMain from "components/SectionMain";
+import SectionTitleLineWithButton from "components/SectionTitleLineWithButton";
+import { getPageTitle } from "../../config";
+import Router from "next/router";
+import LayoutAuthenticated from "layouts/Authenticated";
+import type { CategoryRequest } from "types/request";
 import {
   useGetCategoriesQuery,
   useGetCategoryByIdQuery,
   useUpdateCategoryMutation,
-} from '../../services/categories';
+} from "../../services/categories";
+import Multiselect, { type ListValue } from "components/Multiselect";
+import { useGetVariationsQuery } from "services/variations";
 
 const CreateProductPage = () => {
   const id = Router.query.id as string;
-  if (!parseInt(id)) {
-    throw new Error('Invalid id');
+  if (!Number.parseInt(id)) {
+    throw new Error("Invalid id");
   }
 
-  const categoryResponse = useGetCategoryByIdQuery(parseInt(id));
+  const categoryResponse = useGetCategoryByIdQuery(Number.parseInt(id));
   const category = categoryResponse?.data;
 
   const response = useGetCategoriesQuery();
   const categories = response?.data?._embedded?.categories ?? [];
+
+  const variations = useGetVariationsQuery()?.data?._embedded?.variations ?? [];
+  const variationsList: ListValue[] = variations.map((variation) => {
+    return {
+      id: variation.id,
+      name: variation.name,
+    };
+  });
+
+  const [selectedVariations, setSelectedVariations] = useState<ListValue[]>(
+    category?.variations ?? [],
+  );
 
   const [updateCategory] = useUpdateCategoryMutation();
 
@@ -37,6 +51,10 @@ const CreateProductPage = () => {
     if (!category) {
       return;
     }
+
+    categoryRequest.variations = selectedVariations.map((variation) => {
+      return variation.id;
+    });
 
     updateCategory({
       entity: category,
@@ -52,10 +70,14 @@ const CreateProductPage = () => {
     return <>Не знайдено</>;
   }
 
+  if (response.isLoading) {
+    return <>Завантаження...</>;
+  }
+
   return (
     <>
       <Head>
-        <title>{getPageTitle('Додавання товару')}</title>
+        <title>{getPageTitle("Додавання товару")}</title>
       </Head>
 
       <SectionMain>
@@ -124,6 +146,13 @@ const CreateProductPage = () => {
                   label="Очистити"
                 />
               </BaseButtons>
+              {category.variations && (
+                <Multiselect
+                  values={variationsList}
+                  initialValues={category.variations}
+                  onChange={setSelectedVariations}
+                />
+              )}
             </Form>
           </Formik>
         </CardBox>

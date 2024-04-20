@@ -1,19 +1,19 @@
-import { Field, Form, Formik } from 'formik';
-import FormField from './FormField';
-import CardBox from './CardBox';
-import React, { useState } from 'react';
-import { Variation, VariationOption } from 'shared/types/variation';
-import { VariationOptionRequest } from 'types/request';
+import { Field, Form, Formik } from "formik";
+import FormField from "./FormField";
+import CardBox from "./CardBox";
+import React, { useState } from "react";
+import type { Variation, VariationOption } from "shared/types/variation";
+import type { VariationOptionRequest } from "types/request";
 import {
   useCreateVariationOptionMutation,
   useDeleteVariationOptionMutation,
   useGetVariationOptionsQuery,
-} from '../services/variations';
-import BaseButton from './BaseButton';
-import BaseButtons from './BaseButtons';
-import { mdiBrushVariant, mdiPlus, mdiTrashCan } from '@mdi/js';
-import SectionTitleLineWithButton from './SectionTitleLineWithButton';
-import SectionMain from './SectionMain';
+} from "../services/variations";
+import BaseButton from "./BaseButton";
+import BaseButtons from "./BaseButtons";
+import { mdiBrushVariant, mdiPlus, mdiTrashCan } from "@mdi/js";
+import SectionTitleLineWithButton from "./SectionTitleLineWithButton";
+import SectionMain from "./SectionMain";
 
 type Props = {
   variation: Variation;
@@ -50,7 +50,7 @@ const Variations = ({ variation, onSelect }: Props) => {
           <div
             key={option.value}
             className={`flex my-5 px-5 py-2 rounded bg-gray-50 dark:bg-slate-800 dark:text-slate-100
-              ${onSelect ? 'cursor-pointer' : 'cursor-default'}`}
+              ${onSelect ? "cursor-pointer" : "cursor-default"}`}
             onClick={onSelect ? () => onSelect(option) : undefined}
           >
             <p className="flex-1">{option.value}</p>
@@ -63,7 +63,7 @@ const Variations = ({ variation, onSelect }: Props) => {
           </div>
         ))}
         {addOption && (
-          <Formik initialValues={{ value: '' }} onSubmit={handleCreate}>
+          <Formik initialValues={{ value: "" }} onSubmit={handleCreate}>
             <Form className="mb-10">
               <FormField label="Опції">
                 <Field name="value" placeholder="Значення" />
