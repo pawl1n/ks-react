@@ -1,39 +1,51 @@
-import Product from "./Product";
-import type { Product as ProductType } from "shared/types/product";
 import { useEffect, useState } from "preact/hooks";
-import { getAll } from "../../api/products";
-
-const isLoading = false;
+import type { Product as ProductType } from "shared/types/product";
+import { getAll, search } from "../../api/products";
+import SearchBar from "../SearchBar";
+import Product from "./Product";
 
 type Props = {
   categoryPath?: string;
+  query?: string;
 };
 
-const Products = ({ categoryPath }: Props) => {
+const Products = ({ categoryPath, query }: Props) => {
   const [products, setProducts] = useState([] as ProductType[]);
   const [page, setPage] = useState(0);
   const [isLastPage, setIsLastPage] = useState(false);
 
-  const params = new URLSearchParams({
-    size: "5",
-    page: String(page),
-    ...(categoryPath && { categoryPath }),
-  });
+  const [isLoading, setIsLoading] = useState(true);
+
+  const [params] = useState(
+    new URLSearchParams({
+      size: "5",
+      page: String(page),
+      ...(categoryPath && { categoryPath }),
+    }),
+  );
 
   useEffect(() => {
+    setIsLoading(true);
+    if (query) {
+      search(query, params).then((res) => {
+        if (page === res.data?.page?.totalPages) {
+          setIsLastPage(true);
+        }
+        setProducts(res.data?._embedded?.products ?? []);
+        setIsLoading(false);
+      });
+      return;
+    }
     getAll(params).then((res) => {
       if (page === res.data?.page?.totalPages) {
         setIsLastPage(true);
-        return;
       }
-      if (res.data?._embedded?.products) {
-        setProducts(res.data._embedded.products);
-      }
+      setProducts(res.data?._embedded?.products ?? []);
+      setIsLoading(false);
     });
-  }, [page, params]);
+  }, [page, params, query]);
 
   useEffect(() => {
-    // setup infinite scroll listeners
     window.addEventListener("scroll", handleScroll);
 
     return () => {
@@ -47,25 +59,36 @@ const Products = ({ categoryPath }: Props) => {
     const offsetHeight = document.documentElement.offsetHeight;
     const clientHeight = document.documentElement.clientHeight;
 
-    if (scrollTop + clientHeight >= offsetHeight) {
+    if (scrollTop + clientHeight >= offsetHeight && !isLastPage) {
       setPage((prevPage) => prevPage + 1);
     }
   };
 
+  const onSearch = (query: string) => {
+    window.location.href = `/products?q=${query}`;
+  };
+
   return (
-    <section className="py-16">
+    <div>
       <div className="container mx-auto">
-        {isLoading ? (
-          "Loading..."
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
-            {products?.map((product) => {
-              return <Product key={product.id} product={product} />;
-            })}
-          </div>
-        )}
+        <SearchBar onSearch={onSearch} initialValue={query} />
       </div>
-    </section>
+      <section className="py-16">
+        <div className="container mx-auto">
+          {isLoading ? (
+            <p>Завантаження...</p>
+          ) : products.length === 0 ? (
+            <p>Нічого не знайдено</p>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
+              {products?.map((product) => {
+                return <Product key={product.id} product={product} />;
+              })}
+            </div>
+          )}
+        </div>
+      </section>
+    </div>
   );
 };
 

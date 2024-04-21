@@ -1,28 +1,27 @@
 ---
 import Layout from "../../layouts/Shop.astro";
-import { Category as CategoryType } from "shared/types/category";
+import type { Category as CategoryType } from "shared/types/category";
 import Products from "../../components/products/Products";
-//
+
 const categoryPath = Astro.params.path;
-//
+
 let category = undefined as undefined | CategoryType;
-// let productVariations = undefined as undefined | ProductItem[];
-// if (productId) {
-//   const response = await getOne(productId);
-//   if (response.data) {
-//     product = response.data;
-//     productVariations = await getVariations(product).then(
-//       ({ data }) => data?._embedded?.productItems ?? []
-//     );
-//   }
-// }
+
+category = await fetch(
+  `http://localhost:8080/api/categories/path/${categoryPath}`
+)
+  .then((res) => (res.status === 200 ? res.json() : null))
+  .catch((err) => console.log(err));
 ---
 
 <Layout
   title={category?.name ?? "Категорію не знайдено"}
   description="Перелік наявних товарів в Інтернет-магазині брендового одягу Puma"
 >
-  <div class="py-16 mx-auto">
+  <div class="py-5 mx-auto">
+    <h2 class="text-3xl font-semibold py-5">
+      {category?.name ?? "Категорію не зндено"}
+    </h2>
     {
       categoryPath ? (
         <Products client:visible categoryPath={categoryPath} />

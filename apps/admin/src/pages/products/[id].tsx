@@ -33,7 +33,7 @@ const EditProductPage = () => {
   const productResponse = useGetProductByIdQuery(Number.parseInt(id));
   const product = productResponse?.data;
 
-  const response = useGetCategoriesQuery();
+  const response = useGetCategoriesQuery(undefined);
   const categories = response.data?._embedded?.categories ?? [];
 
   const [updateProduct] = useUpdateProductMutation();

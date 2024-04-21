@@ -9,15 +9,20 @@ import type { ApiResponse } from "../types/apiResponse";
 
 const productsApi = {
   getAll: (
-    searchParams?: URLSearchParams
+    searchParams?: URLSearchParams,
   ): Promise<ApiResponse<ApiArrayResponse<Product>>> =>
     get("products", false, searchParams),
   getOneBySlug: (slug: string): Promise<ApiResponse<ProductDetails>> =>
     get(`products/slug/${slug}/details`, false),
   getVariations: (
-    product: Product
+    product: Product,
   ): Promise<ApiResponse<ApiArrayResponse<ProductItem>>> =>
     get(product._links.variations.href, false),
+  search: (
+    query: string,
+    searchParams?: URLSearchParams,
+  ): Promise<ApiResponse<ApiArrayResponse<Product>>> =>
+    get(`products/search?q=${query}`, false, searchParams),
 };
 
-export const { getAll, getOneBySlug, getVariations } = productsApi;
+export const { getAll, getOneBySlug, getVariations, search } = productsApi;

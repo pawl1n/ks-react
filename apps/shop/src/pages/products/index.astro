@@ -2,15 +2,22 @@
 import Layout from "../../layouts/Shop.astro";
 import Products from "../../components/products/Products";
 
-// noinspection JSUnusedGlobalSymbols
 export const prerender = true;
+
+const searchParams: URLSearchParams = Astro.url.searchParams;
+const query = searchParams.get("q") || "";
 ---
 
 <Layout
-  title="Товари"
+  title={query ? `Пошук: ${query}` : "Товари"}
   description="Перелік наявних товарів в Інтернет-магазині брендового одягу Puma"
 >
-  <div>
-    <Products client:visible />
+  <div class="py-5 mx-auto container">
+    <h2 class="text-3xl font-semibold py-5">
+      {query ? `Пошук: ${query}` : "Товари"}
+    </h2>
+    <div>
+      <Products client:visible query={query} />
+    </div>
   </div>
 </Layout>
