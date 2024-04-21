@@ -2,8 +2,8 @@ import { type Dispatch, type SetStateAction, useState } from "react";
 
 type Props = {
   values: ListValue[];
-  initialValues: ListValue[];
-  onChange: Dispatch<SetStateAction<ListValue[]>>;
+  selectedValues: number[];
+  onChange: Dispatch<SetStateAction<number[]>>;
 };
 
 export type ListValue = {
@@ -11,33 +11,26 @@ export type ListValue = {
   name: string;
 };
 
-const Multiselect = ({ values, initialValues, onChange }: Props) => {
+const Multiselect = ({ values, selectedValues, onChange }: Props) => {
   const [searchText, setSearchText] = useState("");
 
-  const [selected, setSelected] = useState(
-    initialValues ?? ([] as ListValue[]),
-  );
-
-  const onSelectedChange = (value: ListValue[]) => {
-    setSelected(value);
+  const onSelectedChange = (value: number[]) => {
     onChange(value);
   };
 
-  const removeItem = (value: ListValue) => {
-    onSelectedChange(selected.filter((item) => item.id !== value.id));
+  const removeItem = (value: number) => {
+    onSelectedChange(selectedValues.filter((item) => item !== value));
   };
 
   const addItem = (value: ListValue) => {
-    onSelectedChange([...selected, value]);
+    onSelectedChange([...selectedValues, value.id]);
   };
 
   const filteredValues = values.filter(
     (value) =>
       value.name.toLowerCase().includes(searchText.toLowerCase()) &&
-      !selected.some((selectedValue) => selectedValue.id === value.id),
+      !selectedValues?.some((selectedValue) => selectedValue === value.id),
   );
-
-  console.log(initialValues);
 
   return (
     <div className="w-full md:w-1/2 flex flex-col items-center h-64 mx-auto">
@@ -46,13 +39,13 @@ const Multiselect = ({ values, initialValues, onChange }: Props) => {
           <div className="w-full ">
             <div className="my-2 p-1 flex border border-gray-200 bg-primary rounded">
               <div className="flex flex-auto flex-wrap">
-                {selected.map((value) => (
+                {selectedValues?.map((value) => (
                   <div
-                    key={`selected_${value.id}`}
+                    key={`selected_${value}`}
                     className="flex justify-center items-center m-1 font-medium py-1 px-2 bg-primary rounded-full text-blue-600 border border-blue-600 "
                   >
                     <div className="text-xs font-normal leading-none max-w-full flex-initial">
-                      {value.name}
+                      {values.find((item) => item.id === value)?.name}
                     </div>
                     <div className="flex flex-auto flex-row-reverse">
                       <button type="button" onClick={() => removeItem(value)}>
@@ -113,7 +106,7 @@ const Multiselect = ({ values, initialValues, onChange }: Props) => {
                     className="feather feather-chevron-up w-4 h-4"
                   >
                     <polyline points="18 15 12 9 6 15" />
-                    <title>Expand</title>
+                    <title>Відкрити</title>
                   </svg>
                 </button>
               </div>

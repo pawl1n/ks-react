@@ -72,7 +72,10 @@ export const categoriesApi = createApi({
         },
         body: data,
       }),
-      invalidatesTags: [{ type: "Categories", id: "LIST" }],
+      invalidatesTags: (result) => [
+        { type: "Categories", id: result?.id },
+        { type: "Categories", id: "LIST" },
+      ],
     }),
     deleteCategory: builder.mutation<void, Category>({
       query: (category) => ({

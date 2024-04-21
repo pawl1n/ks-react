@@ -18,7 +18,7 @@ export const variationsApi = createApi({
   endpoints: (builder) => ({
     getVariations: builder.query<
       ApiArrayResponse<Variation>,
-      Pageable<Variation>
+      Pageable<Variation> | undefined
     >({
       query: (pageable?: Pageable<Variation>) => ({
         url: "/variations",

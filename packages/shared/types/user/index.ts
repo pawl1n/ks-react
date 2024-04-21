@@ -1,4 +1,4 @@
-import { ApiResponseEntity } from "shared/types/response";
+import type { ApiResponseEntity } from "shared/types/response";
 
 export interface User extends ApiResponseEntity {
   firstName: string;

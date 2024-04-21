@@ -1,7 +1,7 @@
 import { mdiArrowLeft, mdiPlus } from "@mdi/js";
 import { Field, Form, Formik } from "formik";
 import Head from "next/head";
-import React, { useState, type ReactElement } from "react";
+import React, { useState, useEffect, type ReactElement } from "react";
 import BaseButton from "components/BaseButton";
 import BaseButtons from "components/BaseButtons";
 import BaseDivider from "components/BaseDivider";
@@ -30,10 +30,11 @@ const CreateProductPage = () => {
   const categoryResponse = useGetCategoryByIdQuery(Number.parseInt(id));
   const category = categoryResponse?.data;
 
-  const response = useGetCategoriesQuery();
+  const response = useGetCategoriesQuery(undefined);
   const categories = response?.data?._embedded?.categories ?? [];
 
-  const variations = useGetVariationsQuery()?.data?._embedded?.variations ?? [];
+  const variations =
+    useGetVariationsQuery(undefined)?.data?._embedded?.variations ?? [];
   const variationsList: ListValue[] = variations.map((variation) => {
     return {
       id: variation.id,
@@ -41,9 +42,7 @@ const CreateProductPage = () => {
     };
   });
 
-  const [selectedVariations, setSelectedVariations] = useState<ListValue[]>(
-    category?.variations ?? [],
-  );
+  const [selectedVariations, setSelectedVariations] = useState<number[]>([]);
 
   const [updateCategory] = useUpdateCategoryMutation();
 
@@ -52,9 +51,7 @@ const CreateProductPage = () => {
       return;
     }
 
-    categoryRequest.variations = selectedVariations.map((variation) => {
-      return variation.id;
-    });
+    categoryRequest.variations = selectedVariations;
 
     updateCategory({
       entity: category,
@@ -65,6 +62,14 @@ const CreateProductPage = () => {
         Router.back();
       });
   };
+
+  useEffect(() => {
+    if (categoryResponse.isSuccess && category) {
+      setSelectedVariations(
+        category.variations.map((variation) => variation.id) ?? [],
+      );
+    }
+  }, [categoryResponse, category]);
 
   if (!category) {
     return <>Не знайдено</>;
@@ -77,13 +82,13 @@ const CreateProductPage = () => {
   return (
     <>
       <Head>
-        <title>{getPageTitle("Додавання товару")}</title>
+        <title>{getPageTitle("Редагування категорії")}</title>
       </Head>
 
       <SectionMain>
         <SectionTitleLineWithButton
           icon={mdiPlus}
-          title="Додавання товару"
+          title="Редагування категорії"
           main
         >
           <BaseButton
@@ -149,7 +154,7 @@ const CreateProductPage = () => {
               {category.variations && (
                 <Multiselect
                   values={variationsList}
-                  initialValues={category.variations}
+                  selectedValues={selectedVariations}
                   onChange={setSelectedVariations}
                 />
               )}

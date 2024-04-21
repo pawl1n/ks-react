@@ -1,17 +1,17 @@
-import React, { ReactNode, useEffect, useState } from 'react';
-import { mdiBackburger, mdiForwardburger, mdiMenu } from '@mdi/js';
-import menuAside from '../menuAside';
-import menuNavBar from '../menuNavBar';
-import BaseIcon from '../components/BaseIcon';
-import NavBar from '../components/NavBar';
-import NavBarItemPlain from '../components/NavBarItemPlain';
-import AsideMenu from '../components/AsideMenu';
-import FooterBar from '../components/FooterBar';
-import { useAppDispatch, useAppSelector } from '../stores/hooks';
-import { useRouter } from 'next/router';
-import { setDarkMode } from '../stores/styleSlice';
-import { useGetMeQuery } from '../services/users';
-import ToastContainer from '../components/ToastContainer';
+import React, { type ReactNode, useEffect, useState } from "react";
+import { mdiBackburger, mdiForwardburger, mdiMenu } from "@mdi/js";
+import menuAside from "../menuAside";
+import menuNavBar from "../menuNavBar";
+import BaseIcon from "../components/BaseIcon";
+import NavBar from "../components/NavBar";
+import NavBarItemPlain from "../components/NavBarItemPlain";
+import AsideMenu from "../components/AsideMenu";
+import FooterBar from "../components/FooterBar";
+import { useAppDispatch, useAppSelector } from "../stores/hooks";
+import { useRouter } from "next/router";
+import { setDarkMode } from "../stores/styleSlice";
+import { useGetMeQuery } from "../services/users";
+import ToastContainer from "../components/ToastContainer";
 
 type Props = {
   children: ReactNode;
@@ -20,7 +20,7 @@ type Props = {
 export default function LayoutAuthenticated({ children }: Props) {
   const dispatch = useAppDispatch();
 
-  const { isLoading } = useGetMeQuery();
+  const { isLoading, data } = useGetMeQuery();
 
   const darkMode = useAppSelector((state) => state.style.darkMode);
 
@@ -31,7 +31,7 @@ export default function LayoutAuthenticated({ children }: Props) {
 
   useEffect(() => {
     const preferredColorScheme = window.matchMedia(
-      '(prefers-color-scheme: dark)',
+      "(prefers-color-scheme: dark)",
     );
 
     const handleDarkModeChange = () => {
@@ -40,44 +40,45 @@ export default function LayoutAuthenticated({ children }: Props) {
 
     handleDarkModeChange();
 
-    preferredColorScheme.addEventListener('change', handleDarkModeChange);
+    preferredColorScheme.addEventListener("change", handleDarkModeChange);
 
     const handleRouteChangeStart = () => {
       setIsAsideMobileExpanded(false);
       setIsAsideLgActive(false);
     };
 
-    router.events.on('routeChangeStart', handleRouteChangeStart);
+    router.events.on("routeChangeStart", handleRouteChangeStart);
 
     return () => {
-      router.events.off('routeChangeStart', handleRouteChangeStart);
-      preferredColorScheme.removeEventListener('change', handleDarkModeChange);
+      router.events.off("routeChangeStart", handleRouteChangeStart);
+      preferredColorScheme.removeEventListener("change", handleDarkModeChange);
     };
   }, [router.events, dispatch]);
 
-  const layoutAsidePadding = 'xl:pl-60';
+  const layoutAsidePadding = "xl:pl-60";
 
   return (
     <div
-      className={`${
-        darkMode ? 'dark' : ''
-      } overflow-hidden lg:overflow-visible`}
+      className={`${darkMode ? "dark" : ""
+        } overflow-hidden lg:overflow-visible`}
     >
       {isLoading ? (
         <div className="flex items-center justify-center h-screen">
           <BaseIcon path={mdiBackburger} className="animate-spin" />
         </div>
+      ) : data?.role !== "ADMIN" ? (
+        <div
+          className={`${layoutAsidePadding} min-h-screen w-screen bg-gray-50 transition-position dark:bg-slate-800 dark:text-slate-100`}
+        />
       ) : (
         <div
-          className={`${layoutAsidePadding} ${
-            isAsideMobileExpanded ? 'ml-60 lg:ml-0' : ''
-          } min-h-screen w-screen bg-gray-50 transition-position dark:bg-slate-800 dark:text-slate-100 lg:w-auto`}
+          className={`${layoutAsidePadding} ${isAsideMobileExpanded ? "ml-60 lg:ml-0" : ""
+            } min-h-screen w-screen bg-gray-50 transition-position dark:bg-slate-800 dark:text-slate-100 lg:w-auto`}
         >
           <NavBar
             menu={menuNavBar}
-            className={`${layoutAsidePadding} ${
-              isAsideMobileExpanded ? 'lg:ml-0' : ''
-            }`}
+            className={`${layoutAsidePadding} ${isAsideMobileExpanded ? "lg:ml-0" : ""
+              }`}
           >
             <NavBarItemPlain
               display="flex lg:hidden"
