@@ -12,7 +12,6 @@ import {
   useDeleteProductItemMutation,
   useUpdateProductItemMutation,
 } from "../services/products";
-import { useGetCategoryVariationsQuery } from "../services/categories";
 import BaseButton from "./BaseButton";
 import BaseButtons from "./BaseButtons";
 import CardBoxModal from "./CardBoxModal";
@@ -23,20 +22,19 @@ type Props = {
   productItem?: ProductItem;
   product?: Product;
   setAddNew?: (state: boolean) => void;
+  variations: Variation[];
 };
 
-const ProductItemForm = ({ productItem, product, setAddNew }: Props) => {
+const ProductItemForm = ({
+  productItem,
+  product,
+  setAddNew,
+  variations,
+}: Props) => {
   const [createProductItem] = useCreateProductItemMutation();
   const [updateProductItem] = useUpdateProductItemMutation();
   const [deleteProductItem] = useDeleteProductItemMutation();
 
-  let variations: Variation[] = [];
-
-  if (product?.category) {
-    variations =
-      useGetCategoryVariationsQuery(product.category.id).data?._embedded
-        ?.variations ?? [];
-  }
   const [isPickerActive, setIsPickerActive] = useState(false);
 
   const [productVariationOptions, setProductVariationOptions] = useState<

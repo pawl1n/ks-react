@@ -8,15 +8,23 @@ import { useGetProductItemsQuery } from "../services/products";
 import SectionTitleLineWithButton from "./SectionTitleLineWithButton";
 import SectionMain from "./SectionMain";
 import ProductItemForm from "./ProductItem";
+import { useGetCategoryVariationsQuery } from "services/categories";
 
 type Props = {
   product: Product;
 };
 
 const ProductItems = ({ product }: Props) => {
-  const { data } = useGetProductItemsQuery(product);
+  const { data, isSuccess } = useGetProductItemsQuery(product);
   const productItems: ProductItem[] = data?._embedded?.productItems ?? [];
   const [addOption, setAddOption] = useState(false);
+  const { data: variationsData, isSuccess: isVariationsSuccess } =
+    useGetCategoryVariationsQuery(product.category.id);
+  const variations = variationsData?._embedded?.variations ?? [];
+
+  if (!isSuccess || !isVariationsSuccess) {
+    return <>Завантаження</>;
+  }
 
   return (
     <>
@@ -28,10 +36,18 @@ const ProductItems = ({ product }: Props) => {
         />
         <CardBox>
           {productItems?.map((productItem) => (
-            <ProductItemForm productItem={productItem} key={productItem.id} />
+            <ProductItemForm
+              productItem={productItem}
+              key={productItem.id}
+              variations={variations}
+            />
           ))}
           {addOption && (
-            <ProductItemForm product={product} setAddNew={setAddOption} />
+            <ProductItemForm
+              product={product}
+              setAddNew={setAddOption}
+              variations={variations}
+            />
           )}
           <BaseButtons>
             <BaseButton

@@ -1,11 +1,6 @@
-import type {
-  BreadCrumb,
-  Product as ProductType,
-  ProductDetails,
-  ProductItem,
-} from "shared/types/product";
+import type { ProductDetails, ProductItem } from "shared/types/product";
 import { useState } from "preact/hooks";
-import { addCartItem } from "../../stores/cartStore";
+import { addCartItem, isCartOpen } from "../../stores/cartStore";
 import Breadcrumbs from "./Breadcrumbs";
 
 interface ProductProps {
@@ -13,7 +8,7 @@ interface ProductProps {
 }
 
 export default ({ productDetails }: ProductProps) => {
-  const { product, variations, breadcrumbs } = productDetails;
+  const { product, variations } = productDetails;
   const [selectedVariation, setSelectedVariation] = useState<
     ProductItem | undefined
   >(variations.length === 1 ? variations[0] : undefined);
@@ -22,6 +17,8 @@ export default ({ productDetails }: ProductProps) => {
     if (!selectedVariation) {
       return;
     }
+
+    isCartOpen.set(true);
 
     addCartItem(product, selectedVariation);
   };
@@ -33,7 +30,7 @@ export default ({ productDetails }: ProductProps) => {
           <div className="w-full h-full flex justify-center">
             <div className="w-[200px] mx-auto flex justify-center items-center">
               <img
-                className={`max-h-[160px] group-hover:scale-110 transition duration-300`}
+                className="max-h-[160px] group-hover:scale-110 transition duration-300"
                 src={product.mainImage}
                 alt={product.name}
                 height="160"
@@ -61,15 +58,16 @@ export default ({ productDetails }: ProductProps) => {
               {variations?.map((variation) => {
                 return (
                   <section key={variation.id}>
-                    <div
+                    <button
+                      type="button"
                       onClick={() => setSelectedVariation(variation)}
-                      className={`border border-[#e4e4e4] cursor-pointer rounded relative overflow-hidden group transition px-5 py-2 hover:bg-stone-200 text-center
+                      className={`border border-[#e4e4e4] cursor-pointer rounded relative overflow-hidden group transition px-5 py-2 hover:bg-stone-200 text-center w-full
                     ${selectedVariation === variation ? "bg-stone-200" : ""}`}
                     >
                       {variation.variationOptions
                         ?.map((option) => option.value)
                         .join(", ")}
-                    </div>
+                    </button>
                   </section>
                 );
               })}

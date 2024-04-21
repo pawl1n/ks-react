@@ -16,6 +16,7 @@ import type { CategoryRequest } from "types/request";
 import {
   useGetCategoriesQuery,
   useGetCategoryByIdQuery,
+  useGetCategoryVariationsQuery,
   useUpdateCategoryMutation,
 } from "../../services/categories";
 import Multiselect, { type ListValue } from "components/Multiselect";
@@ -42,6 +43,11 @@ const CreateProductPage = () => {
     };
   });
 
+  const {
+    data: categoryVariationsData,
+    isSuccess: isCategoryVariationsSuccess,
+  } = useGetCategoryVariationsQuery(Number.parseInt(id));
+
   const [selectedVariations, setSelectedVariations] = useState<number[]>([]);
 
   const [updateCategory] = useUpdateCategoryMutation();
@@ -64,12 +70,17 @@ const CreateProductPage = () => {
   };
 
   useEffect(() => {
-    if (categoryResponse.isSuccess && category) {
+    if (
+      isCategoryVariationsSuccess &&
+      categoryVariationsData?._embedded?.variations
+    ) {
       setSelectedVariations(
-        category.variations.map((variation) => variation.id) ?? [],
+        categoryVariationsData._embedded.variations.map(
+          (variation) => variation.id,
+        ) ?? [],
       );
     }
-  }, [categoryResponse, category]);
+  }, [categoryVariationsData, isCategoryVariationsSuccess]);
 
   if (!category) {
     return <>Не знайдено</>;
@@ -151,13 +162,11 @@ const CreateProductPage = () => {
                   label="Очистити"
                 />
               </BaseButtons>
-              {category.variations && (
-                <Multiselect
-                  values={variationsList}
-                  selectedValues={selectedVariations}
-                  onChange={setSelectedVariations}
-                />
-              )}
+              <Multiselect
+                values={variationsList}
+                selectedValues={selectedVariations}
+                onChange={setSelectedVariations}
+              />
             </Form>
           </Formik>
         </CardBox>
