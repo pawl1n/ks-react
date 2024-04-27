@@ -2,8 +2,6 @@
 import Layout from "../../layouts/Shop.astro";
 import Products from "../../components/products/Products";
 
-export const prerender = true;
-
 const searchParams: URLSearchParams = Astro.url.searchParams;
 const query = searchParams.get("q") || "";
 ---
