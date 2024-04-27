@@ -16,7 +16,7 @@ export default ({ onSearch, initialValue }: Props) => {
   console.log(initialValue);
 
   return (
-    <form className="max-w-sm px-4" onSubmit={onSubmit}>
+    <form className="max-w-sm" onSubmit={onSubmit}>
       <div className="relative">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +35,7 @@ export default ({ onSearch, initialValue }: Props) => {
         </svg>
         <input
           type="text"
-          placeholder="Search"
+          placeholder="Пошук"
           className="w-full py-3 pl-12 pr-4 text-gray-500 border rounded-md outline-none bg-gray-50 focus:bg-white focus:border-primary focus:ring-primary"
           onChange={(event) => {
             setQuery(event?.target?.value);

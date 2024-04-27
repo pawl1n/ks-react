@@ -51,7 +51,7 @@ md:w-[40vw] xl:max-w-[45vw] transition-all duration-300 ease-in-out z-20 px-4 lg
         {$cartItems?.map((item) => {
           return (
             <CartItem
-              key={`${item.productId}-${item.variationId}`}
+              key={`${item.productId}-${item.productItemId}`}
               item={item}
             />
           );

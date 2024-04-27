@@ -23,19 +23,19 @@ export const shoppingCart = persistentAtom<CartItem[]>("cart", [], {
   },
 });
 
-export const addCartItem = (product: Product, variation: ProductItem) => {
+export const addCartItem = (product: Product, productItem: ProductItem) => {
   const existingEntry = shoppingCart
     .get()
     .find(
       (item) =>
-        item.variationId === variation.id && item.productId === product.id,
+        item.productItemId === productItem.id && item.productId === product.id,
     );
 
   if (existingEntry) {
     shoppingCart.set([
       ...shoppingCart.get().map((item) => {
         if (
-          item.variationId === variation.id &&
+          item.productItemId === productItem.id &&
           item.productId === product.id
         ) {
           return {
@@ -51,12 +51,12 @@ export const addCartItem = (product: Product, variation: ProductItem) => {
       ...shoppingCart.get(),
       {
         ...product,
-        ...variation,
+        ...productItem,
         productSlug: product.slug,
         quantity: 1,
         category: product.category.name,
         productId: product.id,
-        variationId: variation.id,
+        productItemId: productItem.id,
       },
     ]);
   }
@@ -68,7 +68,9 @@ export const removeCartItem = (cartItemId: number, variationId: number) => {
       .get()
       .filter(
         (item) =>
-          !(item.variationId === variationId && item.productId === cartItemId),
+          !(
+            item.productItemId === variationId && item.productId === cartItemId
+          ),
       ),
   ]);
 };
@@ -83,7 +85,7 @@ export const incrementCartItemQuantity = (
 ) => {
   shoppingCart.set([
     ...shoppingCart.get().map((item) => {
-      if (item.variationId === variationId && item.productId === cartItemId) {
+      if (item.productItemId === variationId && item.productId === cartItemId) {
         return {
           ...item,
           quantity: item.quantity + 1,
@@ -100,7 +102,7 @@ export const decrementCartItemQuantity = (
 ) => {
   shoppingCart.set([
     ...shoppingCart.get().map((item) => {
-      if (item.variationId === variationId && item.productId === cartItemId) {
+      if (item.productItemId === variationId && item.productId === cartItemId) {
         return {
           ...item,
           quantity: item.quantity === 1 ? item.quantity : item.quantity - 1,

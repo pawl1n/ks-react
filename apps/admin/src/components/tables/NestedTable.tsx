@@ -1,14 +1,18 @@
-import { ApiArrayResponse, ApiResponseEntity } from 'shared/types/response';
-import { Sort, SortDirection, SortKey } from 'shared/types/pageable';
-import { useState } from 'react';
-import CardBoxModal from '../CardBoxModal';
-import BaseButtons from '../BaseButtons';
-import BaseButton from '../BaseButton';
-import { mdiArrowDownBold, mdiArrowUpBold, mdiEye, mdiTrashCan } from '@mdi/js';
-import BaseIcon from '../BaseIcon';
-import Router from 'next/router';
-import Link from 'next/link';
-import { NestedItemsProps } from '../../types/request';
+import type {
+  ApiArrayResponse,
+  ApiResponseEntity,
+} from "shared/types/response";
+import type { Sort, SortKey } from "shared/types/pageable";
+import { SortDirection } from "shared/types/pageable";
+import { useState } from "react";
+import CardBoxModal from "../CardBoxModal";
+import BaseButtons from "../BaseButtons";
+import BaseButton from "../BaseButton";
+import { mdiArrowDownBold, mdiArrowUpBold, mdiEye, mdiTrashCan } from "@mdi/js";
+import BaseIcon from "../BaseIcon";
+import Router from "next/router";
+import Link from "next/link";
+import type { NestedItemsProps } from "../../types/request";
 
 type Props<T extends ApiResponseEntity, P extends ApiResponseEntity> = {
   columns: Array<{
@@ -102,6 +106,15 @@ function NestedTable<T extends ApiResponseEntity, P extends ApiResponseEntity>({
     }
   };
 
+  const getProperty = <O,>(item: O, property: string): string => {
+    const path = property.split(".");
+    if (path.length === 1) {
+      return item[property as keyof O] as string;
+    }
+
+    return getProperty(item[path[0] as keyof O], path.slice(1).join("."));
+  };
+
   return (
     <>
       <CardBoxModal
@@ -125,7 +138,7 @@ function NestedTable<T extends ApiResponseEntity, P extends ApiResponseEntity>({
                 }}
                 className="cursor-pointer lg:hover:bg-gray-100 lg:dark:hover:bg-slate-700/70"
               >
-                {col.label}{' '}
+                {col.label}{" "}
                 {sortInfo?.key === col.key && (
                   <BaseIcon
                     path={
@@ -143,18 +156,11 @@ function NestedTable<T extends ApiResponseEntity, P extends ApiResponseEntity>({
         <tbody>
           {items.map((item: T) => (
             <tr key={item.id}>
-              {columns.map((col) =>
-                typeof item[col.key as keyof T] === 'object' ? (
-                  <td key={col.key as string} data-label={col.label}>
-                    {(((item[col.key as keyof T] as any)['name'] ??
-                      (item[col.key as keyof T] as any)['id']) as string) ?? ''}
-                  </td>
-                ) : (
-                  <td key={col.key as string} data-label={col.label}>
-                    {(item[col.key as keyof T] as string) ?? ''}
-                  </td>
-                ),
-              )}
+              {columns.map((col) => (
+                <td key={col.key as string} data-label={col.label}>
+                  {getProperty(item, col.key) ?? ""}
+                </td>
+              ))}
               {deleteItem && (
                 <td className="whitespace-nowrap before:hidden lg:w-1">
                   <BaseButtons type="justify-start lg:justify-end" noWrap>
@@ -182,7 +188,7 @@ function NestedTable<T extends ApiResponseEntity, P extends ApiResponseEntity>({
                 key={page}
                 active={page === currentPage}
                 label={(page + 1).toString()}
-                color={page === currentPage ? 'lightDark' : 'whiteDark'}
+                color={page === currentPage ? "lightDark" : "whiteDark"}
                 small
                 onClick={() => setCurrentPage(page)}
               />

@@ -1,5 +1,5 @@
-import { ApiResponseEntity, Link } from "shared/types/response";
-import { ProductItem } from "../product";
+import type { ApiResponseEntity, Link } from "shared/types/response";
+import type { ProductItem } from "../product";
 
 export type OrderItemRequest = {
   productItem: number;
@@ -13,7 +13,7 @@ export type OrderRequest = {
   customerFullName: string;
   paymentType: PaymentType;
   shippingMethod: ShippingMethod;
-  orderItems: OrderItemRequest[];
+  items: OrderItemRequest[];
 };
 
 export type OrderStatusRequest = {
@@ -21,8 +21,12 @@ export type OrderStatusRequest = {
   status: OrderStatus;
 };
 
-export enum PaymentType { CASH = "CASH" };
-export enum ShippingMethod { PICKUP = "PICKUP" };
+export enum PaymentType {
+  CASH = "CASH",
+}
+export enum ShippingMethod {
+  PICKUP = "PICKUP",
+}
 export type OrderStatus = (typeof PossibleStatuses)[number];
 
 export const PossibleStatuses = [

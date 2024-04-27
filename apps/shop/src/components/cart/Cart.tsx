@@ -1,4 +1,3 @@
-
 import { useStore } from "@nanostores/preact";
 import CartItem from "./CartItem";
 import { shoppingCart } from "../../stores/cartStore";
@@ -12,7 +11,7 @@ const Cart = () => {
         {$cartItems?.map((item) => {
           return (
             <CartItem
-              key={item.productId + "-" + item.variationId}
+              key={`${item.productId}-${item.productItemId}`}
               item={item}
             />
           );

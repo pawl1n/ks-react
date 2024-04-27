@@ -37,7 +37,9 @@ const CartItem = memo(({ item }: Props) => {
                 strokeWidth="1.5"
                 stroke="currentColor"
                 className="w-6 h-6 text-gray-500 hover:text-red-500 transition"
-                onClick={() => removeCartItem(item.productId, item.variationId)}
+                onClick={() =>
+                  removeCartItem(item.productId, item.productItemId)
+                }
               >
                 <path
                   strokeLinecap="round"
@@ -58,11 +60,14 @@ const CartItem = memo(({ item }: Props) => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className={`${item.quantity > 1 ? `cursor-pointer` : `cursor-not-allowed`
+                className={`${item.quantity > 1 ? "cursor-pointer" : "cursor-not-allowed"
                   } w-6 h-6 flex-1 flex justify-center items-center`}
                 onClick={() => {
                   if (item.quantity > 1)
-                    decrementCartItemQuantity(item.productId, item.variationId);
+                    decrementCartItemQuantity(
+                      item.productId,
+                      item.productItemId,
+                    );
                 }}
               >
                 <path
@@ -84,7 +89,7 @@ const CartItem = memo(({ item }: Props) => {
                 stroke="currentColor"
                 className="w-6 h-6 flex-1 flex justify-center items-center cursor-pointer"
                 onClick={() =>
-                  incrementCartItemQuantity(item.productId, item.variationId)
+                  incrementCartItemQuantity(item.productId, item.productItemId)
                 }
               >
                 <path

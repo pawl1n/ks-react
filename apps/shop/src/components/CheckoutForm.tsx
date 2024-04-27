@@ -2,11 +2,15 @@ import { useState, useEffect } from "preact/hooks";
 import { getMe } from "../api/userApi";
 import type { User } from "shared/types/user";
 import Cart from "./cart/Cart";
-import { PaymentType, ShippingMethod } from "shared/types/order"
+import { PaymentType, ShippingMethod } from "shared/types/order";
 import type { OrderItemRequest, OrderRequest } from "shared/types/order";
+import { useStore } from "@nanostores/preact";
+import { removeAllCartItems, shoppingCart } from "../stores/cartStore";
+import { create as createOrder } from "../api/ordersApi";
 
 const CheckoutForm = () => {
   const [user, setUser] = useState<User | null>(null);
+  const $cartItems = useStore(shoppingCart);
 
   useEffect(() => {
     getMe().then((res) => {
@@ -28,7 +32,7 @@ const CheckoutForm = () => {
       fname.push(user?.lastName);
     }
     return fname.join(" ");
-  }
+  };
 
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -38,9 +42,18 @@ const CheckoutForm = () => {
     setErrorMessage("");
 
     const form = e.target as HTMLFormElement;
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
     const formData = new FormData(form);
 
-    const orderItems: OrderItemRequest[] = [];
+    const items: OrderItemRequest[] = $cartItems.map((item) => {
+      return {
+        productItem: item.productItemId,
+        quantity: item.quantity,
+      };
+    });
 
     const data: OrderRequest = {
       phoneNumber: formData.get("phoneNumber") as string,
@@ -49,32 +62,57 @@ const CheckoutForm = () => {
       customerFullName: formData.get("fullName") as string,
       paymentType: PaymentType.CASH,
       shippingMethod: ShippingMethod.PICKUP,
-      orderItems,
-    }
+      items,
+    };
 
-    console.log(data);
+    const result = await createOrder(data);
+
+    if (!result.error) {
+      removeAllCartItems();
+    }
   };
 
   return (
     <div className="w-full">
-      <form className="flex gap-12 flex-wrap justify-center md:flex-nowrap w-full" onSubmit={handleSubmit}>
+      <form
+        className="flex gap-12 flex-wrap justify-center md:flex-nowrap w-full"
+        onSubmit={handleSubmit}
+      >
         <div className="flex flex-col gap-2 sm:gap-5 w-full grow">
           <div className="flex flex-col gap-2 sm:gap-5">
             <h2 className="text-2xl font-bold">Контактна інформація</h2>
 
             <label htmlFor="email" className="flex flex-col">
               Email
-              <input name="email" type="email" value={user?.email} className="rounded" />
+              <input
+                name="email"
+                type="email"
+                value={user?.email}
+                required
+                className="rounded"
+              />
             </label>
 
             <label htmlFor="fullName" className="flex flex-col">
               ПІБ
-              <input name="fullName" type="text" value={fullName()} className="rounded" />
+              <input
+                name="fullName"
+                type="text"
+                value={fullName()}
+                required
+                className="rounded"
+              />
             </label>
 
             <label htmlFor="phoneNumber" className="flex flex-col">
               Номер телефону
-              <input name="phoneNumber" type="text" value={user?.phoneNumber} className="rounded" />
+              <input
+                name="phoneNumber"
+                type="text"
+                value={user?.phoneNumber}
+                required
+                className="rounded"
+              />
             </label>
           </div>
 
@@ -87,15 +125,17 @@ const CheckoutForm = () => {
 
             <label htmlFor="address" className="flex flex-col">
               Адреса
-              <input name="address" type="text" className="rounded" />
+              <input name="address" type="text" required className="rounded" />
             </label>
           </div>
-
         </div>
         <div className="flex flex-col gap-2 sm:gap-5 w-full sm:max-w-1/2">
           <h2 className="text-2xl font-bold">Ваше замовлення</h2>
           <Cart />
-          <button type="submit" className="bg-primary rounded text-white p-4 text-center w-full cursor-pointer">
+          <button
+            type="submit"
+            className="bg-primary rounded text-white p-4 text-center w-full cursor-pointer"
+          >
             Оформити замовлення
           </button>
         </div>
@@ -111,7 +151,7 @@ const CheckoutForm = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default CheckoutForm
+export default CheckoutForm;

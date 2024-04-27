@@ -6,8 +6,8 @@ interface ProductProps {
 
 const Product = ({ product }: ProductProps) => {
   return (
-    <div>
-      <div className="border border-[#e4e4e4] h-[300px] w-[300px] mb-4 relative overflow-hidden group transition">
+    <div className="place-self-center md:place-self-auto w-[300px]">
+      <div className="border border-[#e4e4e4] h-[300px] mb-4 relative overflow-hidden group transition">
         <div className="w-full h-full flex justify-center">
           <div className="w-[200px] mx-auto flex justify-center items-center">
             <img

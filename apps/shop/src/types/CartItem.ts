@@ -1,9 +1,9 @@
 import type { VariationOption } from "shared/types/variation";
 
 export default interface CartItemType {
+  productItemId: number;
   productId: number;
   productSlug: string;
-  variationId: number;
   name: string;
   description: string;
   category: string;

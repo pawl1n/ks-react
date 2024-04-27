@@ -1,20 +1,24 @@
-import { ApiArrayResponse, ApiResponseEntity } from 'shared/types/response';
-import { Pageable, Sort, SortDirection, SortKey } from 'shared/types/pageable';
-import { useState } from 'react';
-import CardBoxModal from '../CardBoxModal';
-import BaseButtons from '../BaseButtons';
-import BaseButton from '../BaseButton';
-import { mdiArrowDownBold, mdiArrowUpBold, mdiEye, mdiTrashCan } from '@mdi/js';
-import BaseIcon from '../BaseIcon';
-import Router from 'next/router';
-import Link from 'next/link';
+import type {
+  ApiArrayResponse,
+  ApiResponseEntity,
+} from "shared/types/response";
+import type { Pageable, Sort, SortKey } from "shared/types/pageable";
+import { SortDirection } from "shared/types/pageable";
+import { useState } from "react";
+import CardBoxModal from "../CardBoxModal";
+import BaseButtons from "../BaseButtons";
+import BaseButton from "../BaseButton";
+import { mdiArrowDownBold, mdiArrowUpBold, mdiEye, mdiTrashCan } from "@mdi/js";
+import BaseIcon from "../BaseIcon";
+import Router from "next/router";
+import Link from "next/link";
 
 type Props<T extends ApiResponseEntity> = {
   columns: Array<{
     key: SortKey<T>;
     label: string;
   }>;
-  useGetAll: (pageable: Pageable<T> | void) => {
+  useGetAll: (pageable: Pageable<T> | undefined) => {
     data?: ApiArrayResponse<T>;
   };
   dataKey: string;
@@ -24,9 +28,9 @@ type Props<T extends ApiResponseEntity> = {
 
 type SortInfo<T extends ApiResponseEntity> =
   | {
-      key: SortKey<T>;
-      direction?: SortDirection;
-    }
+    key: SortKey<T>;
+    direction?: SortDirection;
+  }
   | undefined;
 
 function Table<T extends ApiResponseEntity>({
@@ -117,7 +121,7 @@ function Table<T extends ApiResponseEntity>({
                 }}
                 className="cursor-pointer lg:hover:bg-gray-100 lg:dark:hover:bg-slate-700/70"
               >
-                {col.label}{' '}
+                {col.label}{" "}
                 {sortInfo?.key === col.key && (
                   <BaseIcon
                     path={
@@ -136,32 +140,32 @@ function Table<T extends ApiResponseEntity>({
           {items.map((item: T) => (
             <tr key={item.id}>
               {columns.map((col) =>
-                typeof item[col.key] === 'object' ? (
+                typeof item[col.key] === "object" ? (
                   <td key={col.key as string} data-label={col.label}>
-                    {(((item[col.key] as any)['name'] ??
-                      (item[col.key] as any)['id']) as string) ?? ''}
+                    {(((item[col.key] as any)["name"] ??
+                      (item[col.key] as any)["id"]) as string) ?? ""}
                   </td>
                 ) : (
                   <td key={col.key as string} data-label={col.label}>
-                    {(item[col.key] as string) ?? ''}
+                    {(item[col.key] as string) ?? ""}
                   </td>
                 ),
               )}
-              {deleteItem && (
-                <td className="whitespace-nowrap before:hidden lg:w-1">
-                  <BaseButtons type="justify-start lg:justify-end" noWrap>
-                    <Link href={`${Router.asPath}/${item.id}`}>
-                      <BaseIcon path={mdiEye} />
-                    </Link>
+              <td className="whitespace-nowrap before:hidden lg:w-1">
+                <BaseButtons type="justify-start lg:justify-end" noWrap>
+                  <Link href={`${Router.asPath}/${item.id}`}>
+                    <BaseIcon path={mdiEye} />
+                  </Link>
+                  {deleteItem && (
                     <BaseButton
                       color="danger"
                       icon={mdiTrashCan}
                       onClick={() => handleStartDelete(item)}
                       small
                     />
-                  </BaseButtons>
-                </td>
-              )}
+                  )}
+                </BaseButtons>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -174,7 +178,7 @@ function Table<T extends ApiResponseEntity>({
                 key={page}
                 active={page === currentPage}
                 label={(page + 1).toString()}
-                color={page === currentPage ? 'lightDark' : 'whiteDark'}
+                color={page === currentPage ? "lightDark" : "whiteDark"}
                 small
                 onClick={() => setCurrentPage(page)}
               />

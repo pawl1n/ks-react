@@ -5,41 +5,39 @@ import {
   mdiEye,
   mdiPackage,
   mdiTrashCan,
-} from '@mdi/js';
-import { Field, Form, Formik } from 'formik';
-import Head from 'next/head';
-import React, { ReactElement } from 'react';
-import BaseButton from 'components/BaseButton';
-import BaseButtons from 'components/BaseButtons';
-import BaseDivider from 'components/BaseDivider';
-import CardBox from 'components/CardBox';
-import FormField from 'components/FormField';
-import SectionMain from 'components/SectionMain';
-import SectionTitleLineWithButton from 'components/SectionTitleLineWithButton';
-import { getPageTitle } from 'config';
-import Router from 'next/router';
-import LayoutAuthenticated from 'layouts/Authenticated';
-import {
-  Order,
-  OrderItem,
-  OrderStatus,
-  PossibleStatuses,
-} from 'shared/types/order';
+} from "@mdi/js";
+import BaseButton from "components/BaseButton";
+import BaseButtons from "components/BaseButtons";
+import BaseDivider from "components/BaseDivider";
+import CardBox from "components/CardBox";
+import FormField from "components/FormField";
+import SectionMain from "components/SectionMain";
+import SectionTitleLineWithButton from "components/SectionTitleLineWithButton";
+import { getPageTitle } from "config";
+import { Field, Form, Formik } from "formik";
+import LayoutAuthenticated from "layouts/Authenticated";
+import Head from "next/head";
+import Router from "next/router";
+import React, { type ReactElement } from "react";
+import type { Order, OrderItem, OrderStatus } from "shared/types/order";
+import { PossibleStatuses } from "shared/types/order";
+import { addToast } from "stores/toastSlice";
+import { ToastType } from "types/toast";
+import NestedTable from "../../components/tables/NestedTable";
+import Table from "../../components/tables/Table";
 import {
   useGetOrderByIdQuery,
   useGetOrderItemsQuery,
   useUpdateStatusMutation,
-} from '../../services/orders';
-import Table from '../../components/tables/Table';
-import NestedTable from '../../components/tables/NestedTable';
+} from "../../services/orders";
 
 const EditOrderPage = () => {
   const id = Router.query.id as string;
-  if (!parseInt(id)) {
-    throw new Error('Invalid id');
+  if (!Number.parseInt(id)) {
+    throw new Error("Invalid id");
   }
 
-  const response = useGetOrderByIdQuery(parseInt(id));
+  const response = useGetOrderByIdQuery(Number.parseInt(id));
   const order = response?.data;
 
   const [updateStatus] = useUpdateStatusMutation();
@@ -58,7 +56,12 @@ const EditOrderPage = () => {
         Router.back();
       })
       .catch(() => {
-        console.log('error');
+        addToast({
+          toast: {
+            type: ToastType.danger,
+            message: "Не вдалося змінити статус",
+          },
+        });
       });
   };
 
@@ -90,6 +93,12 @@ const EditOrderPage = () => {
         <CardBox>
           <Formik
             initialValues={{
+              id: order.id,
+              customerFullName: order.customerFullName,
+              userEmail: order.userEmail,
+              phoneNumber: order.phoneNumber,
+              address: order.address,
+              shippingMethod: order.shippingMethod,
               status: order.currentStatus,
             }}
             onSubmit={handleSubmit}
@@ -136,13 +145,13 @@ const EditOrderPage = () => {
 
               <NestedTable<OrderItem, Order>
                 columns={[
-                  { key: 'productItem.productName', label: 'Назва' },
-                  { key: 'productItem.description', label: 'Опис' },
-                  { key: 'quantity', label: 'Кількість' },
-                  { key: 'price', label: 'Ціна' },
+                  { key: "productItem.productName", label: "Назва" },
+                  { key: "productItem.description", label: "Опис" },
+                  { key: "quantity", label: "Кількість" },
+                  { key: "price", label: "Ціна" },
                 ]}
                 useGetAll={useGetOrderItemsQuery}
-                dataKey={'orderItems'}
+                dataKey={"orderItems"}
                 parentEntity={order}
               />
 
