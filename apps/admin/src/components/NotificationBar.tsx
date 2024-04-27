@@ -1,9 +1,10 @@
-import { mdiClose } from '@mdi/js';
-import React, { ReactNode, useState } from 'react';
-import { ColorKey } from 'types/style';
-import { colorsBgLight, colorsOutline } from '../colors';
-import BaseButton from './BaseButton';
-import BaseIcon from './BaseIcon';
+import { mdiClose } from "@mdi/js";
+import type React from "react";
+import { type ReactNode, useState } from "react";
+import type { ColorKey } from "types/style";
+import { colorsBgLight, colorsOutline } from "../colors";
+import BaseButton from "./BaseButton";
+import BaseIcon from "./BaseIcon";
 
 type Props = {
   color: ColorKey;

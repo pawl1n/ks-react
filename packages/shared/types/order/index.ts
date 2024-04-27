@@ -8,12 +8,12 @@ export type OrderItemRequest = {
 
 export type OrderRequest = {
   phoneNumber: string;
-  email: string;
+  userEmail: string;
   address: string;
   customerFullName: string;
   paymentType: PaymentType;
   shippingMethod: ShippingMethod;
-  items: OrderItemRequest[];
+  items: OrderItemRequest[] | undefined;
 };
 
 export type OrderStatusRequest = {
@@ -30,7 +30,7 @@ export enum ShippingMethod {
 export type OrderStatus = (typeof PossibleStatuses)[number];
 
 export const PossibleStatuses = [
-  "PENDING",
+  "CREATED",
   "CONFIRMED",
   "CANCELLED",
   "SHIPPED",

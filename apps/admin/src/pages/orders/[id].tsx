@@ -1,11 +1,4 @@
-import {
-  mdiArrowDownBold,
-  mdiArrowLeft,
-  mdiArrowUpBold,
-  mdiEye,
-  mdiPackage,
-  mdiTrashCan,
-} from "@mdi/js";
+import { mdiArrowLeft, mdiPackage } from "@mdi/js";
 import BaseButton from "components/BaseButton";
 import BaseButtons from "components/BaseButtons";
 import BaseDivider from "components/BaseDivider";
@@ -19,16 +12,16 @@ import LayoutAuthenticated from "layouts/Authenticated";
 import Head from "next/head";
 import Router from "next/router";
 import React, { type ReactElement } from "react";
-import type { Order, OrderItem, OrderStatus } from "shared/types/order";
+import type { Order, OrderItem, OrderRequest } from "shared/types/order";
 import { PossibleStatuses } from "shared/types/order";
 import { addToast } from "stores/toastSlice";
 import { ToastType } from "types/toast";
 import NestedTable from "../../components/tables/NestedTable";
-import Table from "../../components/tables/Table";
+
 import {
   useGetOrderByIdQuery,
   useGetOrderItemsQuery,
-  useUpdateStatusMutation,
+  useUpdateOrderMutation,
 } from "../../services/orders";
 
 const EditOrderPage = () => {
@@ -40,16 +33,16 @@ const EditOrderPage = () => {
   const response = useGetOrderByIdQuery(Number.parseInt(id));
   const order = response?.data;
 
-  const [updateStatus] = useUpdateStatusMutation();
+  const [updateOrder] = useUpdateOrderMutation();
 
-  const handleSubmit = async ({ status }: { status: OrderStatus }) => {
-    if (!order || !status) {
+  const handleSubmit = async (changed: OrderRequest) => {
+    if (!changed || !order) {
       return;
     }
 
-    updateStatus({
-      order,
-      status,
+    updateOrder({
+      entity: order,
+      data: changed,
     })
       .unwrap()
       .then(() => {
@@ -92,43 +85,45 @@ const EditOrderPage = () => {
 
         <CardBox>
           <Formik
-            initialValues={{
-              id: order.id,
-              customerFullName: order.customerFullName,
-              userEmail: order.userEmail,
-              phoneNumber: order.phoneNumber,
-              address: order.address,
-              shippingMethod: order.shippingMethod,
-              status: order.currentStatus,
-            }}
+            initialValues={
+              {
+                id: order.id,
+                customerFullName: order.customerFullName,
+                userEmail: order.userEmail,
+                phoneNumber: order.phoneNumber,
+                address: order.address,
+                shippingMethod: order.shippingMethod,
+                paymentType: order.paymentType,
+                status: order.currentStatus,
+                items: undefined,
+              } as OrderRequest
+            }
             onSubmit={handleSubmit}
           >
             <Form>
-              <fieldset disabled>
-                <FormField label="Номер" labelFor="id">
-                  <Field name="id" id="id" />
-                </FormField>
+              <FormField label="Номер" labelFor="id">
+                <Field name="id" id="id" disabled />
+              </FormField>
 
-                <FormField label="Імʼя" labelFor="customerFullName">
-                  <Field name="customerFullName" id="customerFullName" />
-                </FormField>
+              <FormField label="Імʼя" labelFor="customerFullName">
+                <Field name="customerFullName" id="customerFullName" />
+              </FormField>
 
-                <FormField label="Email" labelFor="userEmail">
-                  <Field name="userEmail" id="userEmail" />
-                </FormField>
+              <FormField label="Email" labelFor="userEmail">
+                <Field name="userEmail" id="userEmail" />
+              </FormField>
 
-                <FormField label="Номер телефону" labelFor="phoneNumber">
-                  <Field name="phoneNumber" id="phoneNumber" />
-                </FormField>
+              <FormField label="Номер телефону" labelFor="phoneNumber">
+                <Field name="phoneNumber" id="phoneNumber" />
+              </FormField>
 
-                <FormField label="Адреса" labelFor="address">
-                  <Field name="address" id="address" />
-                </FormField>
+              <FormField label="Адреса" labelFor="address">
+                <Field name="address" id="address" />
+              </FormField>
 
-                <FormField label="Спосіб доставки" labelFor="shippingMethod">
-                  <Field name="shippingMethod" id="shippingMethod" />
-                </FormField>
-              </fieldset>
+              <FormField label="Спосіб доставки" labelFor="shippingMethod">
+                <Field name="shippingMethod" id="shippingMethod" />
+              </FormField>
 
               <FormField label="Статус" labelFor="status">
                 <Field name="status" id="status" component="select">
@@ -143,21 +138,9 @@ const EditOrderPage = () => {
 
               <BaseDivider />
 
-              <NestedTable<OrderItem, Order>
-                columns={[
-                  { key: "productItem.productName", label: "Назва" },
-                  { key: "productItem.description", label: "Опис" },
-                  { key: "quantity", label: "Кількість" },
-                  { key: "price", label: "Ціна" },
-                ]}
-                useGetAll={useGetOrderItemsQuery}
-                dataKey={"orderItems"}
-                parentEntity={order}
-              />
-
               <BaseDivider />
 
-              <BaseButtons>
+              {/*<BaseButtons>
                 <BaseButton type="submit" color="info" label="Зберегти" />
                 <BaseButton
                   type="reset"
@@ -165,9 +148,24 @@ const EditOrderPage = () => {
                   outline
                   label="Очистити"
                 />
-              </BaseButtons>
+              </BaseButtons>*/}
             </Form>
           </Formik>
+          <NestedTable<OrderItem, Order>
+            columns={[
+              {
+                key: "productItem.productName",
+                label: "Назва",
+                disabled: true,
+              },
+              { key: "productItem.description", label: "Опис", disabled: true },
+              { key: "quantity", label: "Кількість", disabled: true },
+              { key: "price", label: "Ціна", disabled: true },
+            ]}
+            useGetAll={useGetOrderItemsQuery}
+            dataKey={"orderItems"}
+            parentEntity={order}
+          />
         </CardBox>
       </SectionMain>
     </>

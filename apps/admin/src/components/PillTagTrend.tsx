@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   mdiAlertCircleOutline,
   mdiAlertOutline,
@@ -6,9 +6,9 @@ import {
   mdiChevronDown,
   mdiChevronUp,
   mdiInformationOutline,
-} from '@mdi/js';
-import { ColorKey, TrendType } from 'types/style';
-import PillTag from './PillTag';
+} from "@mdi/js";
+import type { ColorKey, TrendType } from "types/style";
+import PillTag from "./PillTag";
 
 type Props = {
   label: string;

@@ -59,7 +59,7 @@ export const productsApi = createApi({
         },
         body: data,
       }),
-      invalidatesTags: (result, error, { entity }) => {
+      invalidatesTags: (_result, _error, { entity }) => {
         console.log([{ type: "Products", id: entity.id }]);
         return [{ type: "Products", id: entity.id }];
       },
@@ -130,7 +130,7 @@ export const productsApi = createApi({
         },
         body: data,
       }),
-      invalidatesTags: (result, error, { entity }) => [
+      invalidatesTags: (_result, _error, { entity }) => [
         { type: "ProductItems", id: entity.id },
       ],
     }),

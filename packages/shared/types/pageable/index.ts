@@ -1,4 +1,4 @@
-import { ApiResponseEntity } from "shared/types/response";
+import type { ApiResponseEntity } from "shared/types/response";
 
 export type Pageable<T extends ApiResponseEntity> = {
   page: number;
@@ -22,8 +22,8 @@ export enum SortDirection {
   DESC = "desc",
 }
 
-type NestedKeyOf<ObjectType extends object> = {
+export type NestedKeyOf<ObjectType extends object> = {
   [Key in keyof ObjectType & (string | number)]: ObjectType[Key] extends object
-    ? `${Key}.${NestedKeyOf<ObjectType[Key]>}`
-    : `${Key}`;
+  ? `${Key}.${NestedKeyOf<ObjectType[Key]>}`
+  : `${Key}`;
 }[keyof ObjectType & (string | number)];

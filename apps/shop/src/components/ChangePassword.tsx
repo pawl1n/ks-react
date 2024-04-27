@@ -11,6 +11,8 @@ const UserPage = () => {
     getMe().then((res) => {
       if (res.data) {
         setUser(res.data);
+      } else {
+        window.location.href = "/login";
       }
     });
   }, []);
@@ -23,7 +25,7 @@ const UserPage = () => {
     const currentPassword = formData.get("currentPassword") as string;
     const newPassword = formData.get("newPassword") as string;
     const newPasswordConfirmation = formData.get(
-      "newPasswordConfirmation"
+      "newPasswordConfirmation",
     ) as string;
 
     if (newPassword.length < 7) {
