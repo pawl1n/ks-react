@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   CategoryScale,
   Chart,
@@ -8,8 +8,8 @@ import {
   LineElement,
   PointElement,
   Tooltip,
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
+} from "chart.js";
+import { Line } from "react-chartjs-2";
 
 Chart.register(
   LineElement,
@@ -39,7 +39,7 @@ const options = {
 };
 
 type ChartLineProps = {
-  data: ChartData<'line'>;
+  data: ChartData<"line">;
 };
 
 const ChartLineSample = ({ data }: ChartLineProps) => {

@@ -1,6 +1,7 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
+    "moduleResolution": "node",
     "target": "es6",
     "jsxImportSource": "preact",
     "jsx": "preserve",
@@ -10,5 +11,5 @@
         "name": "@astrojs/ts-plugin"
       }
     ]
-  },
+  }
 }

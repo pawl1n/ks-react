@@ -1,11 +1,11 @@
-import type { ReactElement, ReactNode } from 'react';
-import React from 'react';
-import type { AppProps } from 'next/app';
-import type { NextPage } from 'next';
-import Head from 'next/head';
-import { store } from '../stores/store';
-import { Provider } from 'react-redux';
-import '../css/main.css';
+import type { ReactElement, ReactNode } from "react";
+import React from "react";
+import type { AppProps } from "next/app";
+import type { NextPage } from "next";
+import Head from "next/head";
+import { store } from "../stores/store";
+import { Provider } from "react-redux";
+import "../css/main.css";
 
 export type NextPageWithLayout<P = Record<string, unknown>, IP = P> = NextPage<
   P,
@@ -22,9 +22,9 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || ((page) => page);
 
-  const title = `Кішка Стрибає`;
+  const title = "Кішка Стрибає";
 
-  const description = 'Адміністративна панель';
+  const description = "Адміністративна панель";
 
   return (
     <Provider store={store}>

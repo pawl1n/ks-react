@@ -4,7 +4,7 @@ import type {
 } from "shared/types/response";
 import type { NestedKeyOf, Sort, SortKey } from "shared/types/pageable";
 import { SortDirection } from "shared/types/pageable";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CardBoxModal from "../CardBoxModal";
 import BaseButtons from "../BaseButtons";
 import BaseButton from "../BaseButton";
@@ -123,6 +123,10 @@ function NestedTable<
     }
   };
 
+  useEffect(() => {
+    onChange?.(items);
+  }, [onChange, items]);
+
   if (!isSuccess) {
     return <div>Завантаження...</div>;
   }
@@ -211,9 +215,6 @@ function NestedTable<
                   {deleteItem && (
                     <td className="whitespace-nowrap before:hidden lg:w-1">
                       <BaseButtons type="justify-start lg:justify-end" noWrap>
-                        <Link href={`${Router.asPath}/${item.id}`}>
-                          <BaseIcon path={mdiEye} />
-                        </Link>
                         <BaseButton
                           color="danger"
                           icon={mdiTrashCan}

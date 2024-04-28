@@ -1,6 +1,6 @@
 import { useEffect, useState } from "preact/hooks";
 import type { Product as ProductType } from "shared/types/product";
-import { getAll, search } from "../../api/products";
+import { getAll } from "../../api/products";
 import SearchBar from "../SearchBar";
 import Product from "./Product";
 
@@ -11,39 +11,27 @@ type Props = {
 
 const Products = ({ categoryPath, query }: Props) => {
   const [products, setProducts] = useState([] as ProductType[]);
-  const [page, setPage] = useState(0);
   const [isLastPage, setIsLastPage] = useState(false);
 
   const [isLoading, setIsLoading] = useState(true);
 
-  const [params] = useState(
-    new URLSearchParams({
-      size: "5",
-      page: String(page),
-      ...(categoryPath && { categoryPath }),
-    }),
-  );
+  const [params, setParams] = useState({
+    size: "5",
+    page: 0,
+    q: query,
+    ...(categoryPath && { categoryPath }),
+  });
 
   useEffect(() => {
     setIsLoading(true);
-    if (query) {
-      search(query, params).then((res) => {
-        if (page === res.data?.page?.totalPages) {
-          setIsLastPage(true);
-        }
-        setProducts(res.data?._embedded?.products ?? []);
-        setIsLoading(false);
-      });
-      return;
-    }
-    getAll(params).then((res) => {
-      if (page === res.data?.page?.totalPages) {
+    getAll(new URLSearchParams(params)).then((res) => {
+      if (params.page === res.data?.page?.totalPages) {
         setIsLastPage(true);
       }
       setProducts(res.data?._embedded?.products ?? []);
       setIsLoading(false);
     });
-  }, [page, params, query]);
+  }, [params]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -60,7 +48,10 @@ const Products = ({ categoryPath, query }: Props) => {
     const clientHeight = document.documentElement.clientHeight;
 
     if (scrollTop + clientHeight >= offsetHeight && !isLastPage) {
-      setPage((prevPage) => prevPage + 1);
+      setParams({
+        ...params,
+        page: params.page + 1,
+      });
     }
   };
 

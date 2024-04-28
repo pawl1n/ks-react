@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 interface MainState {
   userName: string;
@@ -13,15 +13,15 @@ type UserPayloadObject = {
 
 const initialState: MainState = {
   /* User */
-  userName: '',
-  userEmail: '',
+  userName: "",
+  userEmail: "",
 
   /* Field focus with ctrl+k (to register only once) */
   isFieldFocusRegistered: false,
 };
 
 export const mainSlice = createSlice({
-  name: 'main',
+  name: "main",
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<UserPayloadObject>) => {

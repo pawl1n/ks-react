@@ -1,6 +1,12 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 
-import type { Order, OrderItem, OrderRequest } from "shared/types/order";
+import type {
+  Order,
+  OrderItem,
+  OrderRequest,
+  OrderReport,
+  OrderReportRequest,
+} from "shared/types/order";
 import type { Pageable } from "shared/types/pageable";
 import type { ApiArrayResponse } from "shared/types/response";
 import type { NestedItemsProps, UpdateRequestProps } from "../types/request";
@@ -79,8 +85,15 @@ export const ordersApi = createApi({
           ]
           : [{ type: "OrderItems", id: "LIST" }],
     }),
+    getReport: builder.query<OrderReport, OrderReportRequest>({
+      query: (params: OrderReportRequest) => ({
+        url: "/orders/report",
+        params,
+      }),
+      providesTags: () => [{ type: "Orders", id: "LIST" }],
+    }),
   }),
-  refetchOnFocus: true,
+  refetchOnFocus: false,
   refetchOnReconnect: true,
 });
 
@@ -90,4 +103,5 @@ export const {
   useCreateOrderMutation,
   useUpdateOrderMutation,
   useGetOrderItemsQuery,
+  useGetReportQuery,
 } = ordersApi;

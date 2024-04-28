@@ -1,26 +1,23 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { AuthResponse, LoginRequest } from 'shared/types/auth';
-import { RootState } from '../stores/store';
-import { setToken } from '../stores/tokenSlice';
-import {
-  isRejectedWithValue,
-  Middleware,
-  MiddlewareAPI,
-} from '@reduxjs/toolkit';
-import Router from 'next/router';
-import { addToast } from '../stores/toastSlice';
-import { ToastType } from 'types/toast';
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import type { AuthResponse, LoginRequest } from "shared/types/auth";
+import type { RootState } from "../stores/store";
+import { setToken } from "../stores/tokenSlice";
+import type { Middleware, MiddlewareAPI } from "@reduxjs/toolkit";
+import { isRejectedWithValue } from "@reduxjs/toolkit";
+import Router from "next/router";
+import { addToast } from "../stores/toastSlice";
+import { ToastType } from "types/toast";
 
-const baseUrl = 'http://localhost:8080/api/auth';
+const baseUrl = "http://localhost:8080/api/auth";
 
 export const authApi = createApi({
-  reducerPath: 'authApi',
+  reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
     baseUrl: baseUrl,
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).token.accessToken;
       if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
+        headers.set("Authorization", `Bearer ${token}`);
       }
       return headers;
     },
@@ -28,10 +25,10 @@ export const authApi = createApi({
   endpoints: (builder) => ({
     login: builder.mutation<AuthResponse, LoginRequest>({
       query: (credentials) => ({
-        url: '/login',
-        method: 'POST',
+        url: "/login",
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(credentials),
       }),
@@ -50,7 +47,7 @@ export const authMiddleware =
         if (window.history.length > 1) {
           Router.back();
         } else {
-          Router.push('/').then();
+          Router.push("/").then();
         }
       }
     }
@@ -66,7 +63,7 @@ export const unauthenticatedErrorMiddleware: Middleware =
           addToast({
             toast: {
               type: ToastType.danger,
-              message: 'Відсутні необхідні привілеї',
+              message: "Відсутні необхідні привілеї",
             },
           }),
         );

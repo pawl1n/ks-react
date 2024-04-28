@@ -18,11 +18,6 @@ const productsApi = {
     product: Product,
   ): Promise<ApiResponse<ApiArrayResponse<ProductItem>>> =>
     get(product._links.variations.href, false),
-  search: (
-    query: string,
-    searchParams?: URLSearchParams,
-  ): Promise<ApiResponse<ApiArrayResponse<Product>>> =>
-    get(`products/search?q=${query}`, false, searchParams),
 };
 
-export const { getAll, getOneBySlug, getVariations, search } = productsApi;
+export const { getAll, getOneBySlug, getVariations } = productsApi;

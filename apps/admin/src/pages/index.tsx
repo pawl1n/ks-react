@@ -1,21 +1,21 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import React, { ReactElement } from 'react';
-import CardBox from '../components/CardBox';
-import LayoutGuest from '../layouts/Guest';
-import SectionMain from '../components/SectionMain';
-import { gradientBgPurplePink } from '../colors';
-import { appTitle } from '../config';
-import { useAppDispatch } from '../stores/hooks';
-import { setDarkMode, setStyle, StyleKey } from '../stores/styleSlice';
+import Head from "next/head";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import React, { ReactElement } from "react";
+import CardBox from "../components/CardBox";
+import LayoutGuest from "../layouts/Guest";
+import SectionMain from "../components/SectionMain";
+import { gradientBgPurplePink } from "../colors";
+import { appTitle } from "../config";
+import { useAppDispatch } from "../stores/hooks";
+import { setDarkMode, setStyle, StyleKey } from "../stores/styleSlice";
 
 const StyleSelect = () => {
   const dispatch = useAppDispatch();
 
   dispatch(setDarkMode(false));
 
-  const styles: StyleKey[] = ['white', 'basic'];
+  const styles: StyleKey[] = ["white", "basic"];
 
   const router = useRouter();
 
@@ -24,7 +24,7 @@ const StyleSelect = () => {
 
     dispatch(setStyle(style));
 
-    router.push('/dashboard').catch(console.error);
+    router.push("/dashboard").catch(console.error);
   };
 
   return (
@@ -40,7 +40,7 @@ const StyleSelect = () => {
             Pick a style&hellip;
           </h1>
           <h2 className="mb-12 text-center text-xl text-white md:text-xl">
-            Style switching with a single{' '}
+            Style switching with a single{" "}
             <code className="rounded bg-white bg-opacity-20 px-1.5 py-0.5">
               action()
             </code>
@@ -53,14 +53,7 @@ const StyleSelect = () => {
                 isHoverable
                 onClick={(e) => handleStylePick(e, style)}
               >
-                <div className="mb-3 md:mb-6">
-                  <Image
-                    src={`https://static.justboil.me/templates/one/small/${style}-v3.png`}
-                    width={1280}
-                    height={720}
-                    alt={style}
-                  />
-                </div>
+                <div className="mb-3 md:mb-6"></div>
                 <h1 className="text-xl font-black capitalize md:text-2xl">
                   {style}
                 </h1>

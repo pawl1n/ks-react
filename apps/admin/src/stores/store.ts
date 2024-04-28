@@ -1,21 +1,21 @@
-import { configureStore } from '@reduxjs/toolkit';
-import styleReducer from './styleSlice';
-import mainReducer from './mainSlice';
-import tokenSlice from './tokenSlice';
-import { setupListeners } from '@reduxjs/toolkit/query/react';
-import { ToolkitStore } from '@reduxjs/toolkit/dist/configureStore';
-import { productsApi } from '../services/products';
+import { configureStore } from "@reduxjs/toolkit";
+import styleReducer from "./styleSlice";
+import mainReducer from "./mainSlice";
+import tokenSlice from "./tokenSlice";
+import { setupListeners } from "@reduxjs/toolkit/query/react";
+import type { ToolkitStore } from "@reduxjs/toolkit/dist/configureStore";
+import { productsApi } from "../services/products";
 import {
   authApi,
   authMiddleware,
   unauthenticatedErrorMiddleware,
-} from '../services/auth';
-import { usersApi, usersMiddleware } from '../services/users';
-import { categoriesApi } from '../services/categories';
-import { imagesApi } from '../services/images';
-import toastSlice, { toastMiddleware } from './toastSlice';
-import { variationsApi } from '../services/variations';
-import { ordersApi } from '../services/orders';
+} from "../services/auth";
+import { usersApi, usersMiddleware } from "../services/users";
+import { categoriesApi } from "../services/categories";
+import { imagesApi } from "../services/images";
+import toastSlice, { toastMiddleware } from "./toastSlice";
+import { variationsApi } from "../services/variations";
+import { ordersApi } from "../services/orders";
 
 export const store: ToolkitStore = configureStore({
   reducer: {

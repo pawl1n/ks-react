@@ -32,7 +32,7 @@ export type OrderStatus = (typeof PossibleStatuses)[number];
 export const PossibleStatuses = [
   "CREATED",
   "CONFIRMED",
-  "CANCELLED",
+  "CANCELED",
   "SHIPPED",
   "DELIVERED",
   "COMPLETED",
@@ -65,4 +65,21 @@ export interface Order extends ApiResponseEntity {
     self: Link;
     items: Link;
   };
+}
+
+export interface OrderReport {
+  startDate: string;
+  endDate: string;
+  details: OrderReportDetails;
+}
+
+export type OrderReportDetails = {
+  [key in (typeof PossibleStatuses)[number]]: {
+    [key: string]: number;
+  };
+};
+
+export interface OrderReportRequest {
+  startDate: string;
+  endDate: string;
 }

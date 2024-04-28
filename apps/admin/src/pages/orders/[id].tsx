@@ -11,8 +11,13 @@ import { Field, Form, Formik } from "formik";
 import LayoutAuthenticated from "layouts/Authenticated";
 import Head from "next/head";
 import Router from "next/router";
-import React, { type ReactElement } from "react";
-import type { Order, OrderItem, OrderRequest } from "shared/types/order";
+import React, { useState, type ReactElement } from "react";
+import type {
+  Order,
+  OrderItem,
+  OrderItemRequest,
+  OrderRequest,
+} from "shared/types/order";
 import { PossibleStatuses } from "shared/types/order";
 import { addToast } from "stores/toastSlice";
 import { ToastType } from "types/toast";
@@ -33,12 +38,21 @@ const EditOrderPage = () => {
   const response = useGetOrderByIdQuery(Number.parseInt(id));
   const order = response?.data;
 
+  const [items, setItems] = useState<OrderItem[]>([]);
+
   const [updateOrder] = useUpdateOrderMutation();
 
   const handleSubmit = async (changed: OrderRequest) => {
     if (!changed || !order) {
       return;
     }
+
+    changed.items = items.map((item) => {
+      return {
+        productItem: item.productItem.id,
+        quantity: item.quantity,
+      };
+    });
 
     updateOrder({
       entity: order,
@@ -138,9 +152,7 @@ const EditOrderPage = () => {
 
               <BaseDivider />
 
-              <BaseDivider />
-
-              {/*<BaseButtons>
+              <BaseButtons>
                 <BaseButton type="submit" color="info" label="Зберегти" />
                 <BaseButton
                   type="reset"
@@ -148,7 +160,9 @@ const EditOrderPage = () => {
                   outline
                   label="Очистити"
                 />
-              </BaseButtons>*/}
+              </BaseButtons>
+
+              <BaseDivider />
             </Form>
           </Formik>
           <NestedTable<OrderItem, Order>
@@ -163,6 +177,7 @@ const EditOrderPage = () => {
               { key: "price", label: "Ціна", disabled: true },
             ]}
             useGetAll={useGetOrderItemsQuery}
+            onChange={setItems}
             dataKey={"orderItems"}
             parentEntity={order}
           />

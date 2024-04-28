@@ -57,7 +57,7 @@ const CheckoutForm = () => {
 
     const data: OrderRequest = {
       phoneNumber: formData.get("phoneNumber") as string,
-      email: formData.get("email") as string,
+      userEmail: formData.get("email") as string,
       address: formData.get("address") as string,
       customerFullName: formData.get("fullName") as string,
       paymentType: PaymentType.CASH,
