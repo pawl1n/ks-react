@@ -5,11 +5,15 @@ import type {
   OrderItem,
   OrderRequest,
   OrderReport,
-  OrderReportRequest,
 } from "shared/types/order";
 import type { Pageable } from "shared/types/pageable";
 import type { ApiArrayResponse } from "shared/types/response";
-import type { NestedItemsProps, UpdateRequestProps } from "../types/request";
+import type { Statistics } from "types/response";
+import type {
+  NestedItemsProps,
+  UpdateRequestProps,
+  DateRangeRequest,
+} from "../types/request";
 import { baseQueryWithReauthorization } from "./baseQueryWithReauthorization";
 
 export const ordersApi = createApi({
@@ -28,11 +32,11 @@ export const ordersApi = createApi({
       providesTags: (result) =>
         result
           ? [
-            ...(result?._embedded?.orders ?? []).map(
-              ({ id }) => ({ type: "Orders", id }) as const,
-            ),
-            { type: "Orders", id: "LIST" },
-          ]
+              ...(result?._embedded?.orders ?? []).map(
+                ({ id }) => ({ type: "Orders", id }) as const,
+              ),
+              { type: "Orders", id: "LIST" },
+            ]
           : [{ type: "Orders", id: "LIST" }],
     }),
     getOrderById: builder.query<Order, number>({
@@ -78,16 +82,23 @@ export const ordersApi = createApi({
       providesTags: (result) =>
         result
           ? [
-            ...(result?._embedded?.orders ?? []).map(
-              ({ id }) => ({ type: "OrderItems", id }) as const,
-            ),
-            { type: "OrderItems", id: "LIST" },
-          ]
+              ...(result?._embedded?.orders ?? []).map(
+                ({ id }) => ({ type: "OrderItems", id }) as const,
+              ),
+              { type: "OrderItems", id: "LIST" },
+            ]
           : [{ type: "OrderItems", id: "LIST" }],
     }),
-    getReport: builder.query<OrderReport, OrderReportRequest>({
-      query: (params: OrderReportRequest) => ({
+    getReport: builder.query<OrderReport, DateRangeRequest>({
+      query: (params) => ({
         url: "/orders/report",
+        params,
+      }),
+      providesTags: () => [{ type: "Orders", id: "LIST" }],
+    }),
+    getOrderStats: builder.query<Statistics, DateRangeRequest>({
+      query: (params) => ({
+        url: "/orders/stats",
         params,
       }),
       providesTags: () => [{ type: "Orders", id: "LIST" }],
@@ -104,4 +115,5 @@ export const {
   useUpdateOrderMutation,
   useGetOrderItemsQuery,
   useGetReportQuery,
+  useGetOrderStatsQuery,
 } = ordersApi;

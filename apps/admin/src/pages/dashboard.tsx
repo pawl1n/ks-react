@@ -1,30 +1,38 @@
-import { mdiChartTimelineVariant } from "@mdi/js";
+import {
+  mdiAccountMultiple,
+  mdiCartOutline,
+  mdiChartPie,
+  mdiChartTimelineVariant,
+} from "@mdi/js";
 import { sampleChartData } from "components/ChartLineSample/config";
 import Head from "next/head";
 import type { ReactElement } from "react";
 import { useState, useEffect } from "react";
 import type React from "react";
-import { useGetReportQuery } from "services/orders";
+import { useGetOrderStatsQuery, useGetReportQuery } from "services/orders";
 import SectionMain from "../components/SectionMain";
 import SectionTitleLineWithButton from "../components/SectionTitleLineWithButton";
 import { getPageTitle } from "../config";
 import LayoutAuthenticated from "../layouts/Authenticated";
 import CardBox from "components/CardBox";
-import ChartLineSample from "components/ChartLineSample";
 import "chartjs-adapter-moment";
 import {
   CategoryScale,
   Chart,
-  ChartData,
   LinearScale,
   LineController,
   LineElement,
   PointElement,
   Tooltip,
   TimeScale,
+  Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import moment from "moment";
+import CardBoxWidget from "components/CardBoxWidget";
+import type { PossibleStatuses } from "shared/types/order";
+import { useGetUserStatsQuery } from "services/users";
+import type { possibleRoles } from "shared/types/user";
 
 Chart.register(
   LineElement,
@@ -34,6 +42,7 @@ Chart.register(
   CategoryScale,
   Tooltip,
   TimeScale,
+  Legend,
 );
 
 const Dashboard = () => {
@@ -42,10 +51,21 @@ const Dashboard = () => {
   //
   // const clientsListed = clients.slice(0, 4);
   //
-  //
   const dateFrom = moment().subtract(7, "days");
   const [startDate, setStartDate] = useState(dateFrom);
   const [endDate, setEndDate] = useState(moment());
+
+  const orderStats = useGetOrderStatsQuery({
+    startDate: startDate.toISOString(),
+    endDate: endDate.toISOString(),
+    orderStatus: "CREATED" as (typeof PossibleStatuses)[number],
+  });
+
+  const userStats = useGetUserStatsQuery({
+    startDate: startDate.toISOString(),
+    endDate: endDate.toISOString(),
+    role: "ADMIN" as (typeof possibleRoles)[number],
+  });
 
   const options = {
     responsive: true,
@@ -68,6 +88,11 @@ const Dashboard = () => {
         },
       },
     },
+    plugins: {
+      legend: {
+        display: true,
+      },
+    },
   };
   const ordersResponse = useGetReportQuery({
     startDate: startDate.toISOString(),
@@ -76,81 +101,72 @@ const Dashboard = () => {
   const [chartData, setChartData] = useState(sampleChartData());
   const fillChartData = (e: React.MouseEvent) => {
     e.preventDefault();
-
-    setChartData(sampleChartData());
   };
 
   useEffect(() => {
-    setChartData(sampleChartData(ordersResponse.data?.details));
+    setChartData(sampleChartData(ordersResponse.data));
   }, [ordersResponse]);
 
   return (
     <>
       <Head>
-        <title>{getPageTitle("Dashboard")}</title>
+        <title>{getPageTitle("Огляд")}</title>
       </Head>
       <SectionMain>
         <SectionTitleLineWithButton
           icon={mdiChartTimelineVariant}
-          title="Огляд"
+          title={`Огляд за ${startDate.format("DD.MM.YYYY")} - ${endDate.format(
+            "DD.MM.YYYY",
+          )}`}
           main
         />
-        {/*<div className="grid grid-cols-1 gap-6 lg:grid-cols-3 mb-6">*/}
-        {/*  <CardBoxWidget*/}
-        {/*    trendLabel="12%"*/}
-        {/*    trendType="up"*/}
-        {/*    trendColor="success"*/}
-        {/*    icon={mdiAccountMultiple}*/}
-        {/*    iconColor="success"*/}
-        {/*    number={512}*/}
-        {/*    label="Clients"*/}
-        {/*  />*/}
-        {/*  <CardBoxWidget*/}
-        {/*    trendLabel="16%"*/}
-        {/*    trendType="down"*/}
-        {/*    trendColor="danger"*/}
-        {/*    icon={mdiCartOutline}*/}
-        {/*    iconColor="info"*/}
-        {/*    number={7770}*/}
-        {/*    numberPrefix="$"*/}
-        {/*    label="Sales"*/}
-        {/*  />*/}
-        {/*  <CardBoxWidget*/}
-        {/*    trendLabel="Overflow"*/}
-        {/*    trendType="warning"*/}
-        {/*    trendColor="warning"*/}
-        {/*    icon={mdiChartTimelineVariant}*/}
-        {/*    iconColor="danger"*/}
-        {/*    number={256}*/}
-        {/*    numberSuffix="%"*/}
-        {/*    label="Performance"*/}
-        {/*  />*/}
-        {/*</div>*/}
-        {/*<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">*/}
-        {/*  <div className="flex flex-col justify-between">*/}
-        {/*    {transactions.map((transaction: Transaction) => (*/}
-        {/*      <CardBoxTransaction*/}
-        {/*        key={transaction.id}*/}
-        {/*        transaction={transaction}*/}
-        {/*      />*/}
-        {/*    ))}*/}
-        {/*  </div>*/}
-        {/*  <div className="flex flex-col justify-between">*/}
-        {/*    {clientsListed.map((client: Client) => (*/}
-        {/*      <CardBoxClient key={client.id} client={client} />*/}
-        {/*    ))}*/}
-        {/*  </div>*/}
-        {/*</div>*/}
-        {/*<div className="my-6">*/}
-        {/*  <SectionBannerStarOnGitHub />*/}
-        {/*</div>*/}
-        {/*<SectionTitleLineWithButton icon={mdiChartPie} title="Trends overview">*/}
-        {/*  <BaseButton*/}
-        {/*    icon={mdiReload}*/}
-        {/*    color="whiteDark"*/}
-        {/*    onClick={fillChartData}*/}
-        {/*  />*/}
-        {/*</SectionTitleLineWithButton>*/}
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 mb-6">
+          <CardBoxWidget
+            icon={mdiAccountMultiple}
+            iconColor="success"
+            number={userStats.data?.count || 0}
+            label="Клієнтів"
+          />
+          <CardBoxWidget
+            icon={mdiCartOutline}
+            iconColor="info"
+            number={orderStats.data?.count || 0}
+            numberPrefix=""
+            label="Замовлень"
+          />
+          <CardBoxWidget
+            icon={mdiChartTimelineVariant}
+            iconColor="success"
+            number={orderStats.data?.sum || 0}
+            numberSuffix=" грн."
+            label="Замовлень на суму"
+          />
+          {/*</div>*/}
+          {/*<div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">*/}
+          {/*  <div className="flex flex-col justify-between">*/}
+          {/*    {transactions.map((transaction: Transaction) => (*/}
+          {/*      <CardBoxTransaction*/}
+          {/*        key={transaction.id}*/}
+          {/*        transaction={transaction}*/}
+          {/*      />*/}
+          {/*    ))}*/}
+          {/*  </div>*/}
+          {/*  <div className="flex flex-col justify-between">*/}
+          {/*    {clientsListed.map((client: Client) => (*/}
+          {/*      <CardBoxClient key={client.id} client={client} />*/}
+          {/*    ))}*/}
+          {/*  </div>*/}
+          {/*</div>*/}
+          {/*<div className="my-6">*/}
+          {/*  <SectionBannerStarOnGitHub />*/}
+        </div>
+        <SectionTitleLineWithButton icon={mdiChartPie} title="Графік замовлень">
+          {/*<BaseButton
+            icon={mdiReload}
+            color="whiteDark"
+            onClick={fillChartData}
+          />*/}
+        </SectionTitleLineWithButton>
         <CardBox className="mb-6">
           <Line options={options} data={chartData} className="h-96" />
         </CardBox>

@@ -5,7 +5,7 @@ export interface User extends ApiResponseEntity {
   middleName?: string;
   lastName?: string;
   email: string;
-  role: "ADMIN" | "USER";
+  role: (typeof possibleRoles)[number];
   phoneNumber: string;
   _links: {
     self: {
@@ -16,6 +16,8 @@ export interface User extends ApiResponseEntity {
     };
   };
 }
+
+export const possibleRoles = ["ADMIN", "USER"] as const;
 
 export type UserUpdateRequest = {
   firstName: string;

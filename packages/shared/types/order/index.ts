@@ -78,8 +78,3 @@ export type OrderReportDetails = {
     [key: string]: number;
   };
 };
-
-export interface OrderReportRequest {
-  startDate: string;
-  endDate: string;
-}

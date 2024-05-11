@@ -1,4 +1,9 @@
-import { OrderReportDetails, PossibleStatuses } from "shared/types/order";
+import moment from "moment";
+import type {
+  OrderReport,
+  OrderReportDetails,
+  PossibleStatuses,
+} from "shared/types/order";
 
 export const chartColors = {
   default: {
@@ -47,11 +52,12 @@ export const datasetObject = (
     data,
     tension: 0.5,
     cubicInterpolationMode: "default",
+    label: color,
   };
 };
 
 export const sampleChartData = (
-  details: OrderReportDetails | undefined = undefined,
+  report: OrderReport | undefined = undefined,
 ) => {
   const labels = [];
   const points = 9;
@@ -60,19 +66,37 @@ export const sampleChartData = (
     labels.push(`0${i}`);
   }
 
-  if (details) {
+  if (report?.details) {
+    const details = report.details;
+    const defaultData: PointData[] = [];
+    const endDate = moment(report.endDate);
+
+    for (
+      const date = moment(report.startDate);
+      !date.isAfter(endDate);
+      date.add(1, "day")
+    ) {
+      defaultData.push({ x: date.format("YYYY-MM-DD"), y: 0 });
+    }
+
     return {
       datasets: Object.keys(details).map((key) => {
         return datasetObject(
           key as keyof (typeof PossibleStatuses)[number],
-          Object.keys(details[key as keyof OrderReportDetails]).map(
-            (innerKey) => {
-              return {
-                x: innerKey,
-                y: details[key as keyof OrderReportDetails][innerKey],
-              };
-            },
-          ),
+          // Object.keys(details[key as keyof OrderReportDetails]).map(
+          //   (innerKey) => {
+          //     return {
+          //       x: innerKey,
+          //       y: details[key as keyof OrderReportDetails][innerKey],
+          //     };
+          //   },
+          // )
+          defaultData.map((data) => {
+            return {
+              x: data.x,
+              y: details[key as keyof OrderReportDetails][data.x] || 0,
+            };
+          }),
         );
       }),
     };

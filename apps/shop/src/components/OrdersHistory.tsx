@@ -12,13 +12,11 @@ const UserPage = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [pages, setPages] = useState([] as number[]);
 
-  const [params] = useState(
-    new URLSearchParams({
-      size: "5",
-      page: String(page),
-      sort: "id,desc",
-    }),
-  );
+  const [params, setParams] = useState({
+    size: "5",
+    page: String(page),
+    sort: "id,desc",
+  });
   useEffect(() => {
     getMe().then((res) => {
       if (res.data) {
@@ -30,7 +28,7 @@ const UserPage = () => {
   }, []);
 
   useEffect(() => {
-    getUserOrders(params).then((res) => {
+    getUserOrders(new URLSearchParams(params)).then((res) => {
       setOrders(res.data?._embedded?.orders ?? []);
       setTotalPages(res.data?.page?.totalPages ?? 0);
     });
@@ -47,6 +45,13 @@ const UserPage = () => {
     }
     setPages(newPages);
   }, [totalPages, page]);
+
+  useEffect(() => {
+    setParams({
+      ...params,
+      page: String(page),
+    });
+  }, [page]);
 
   if (!user) {
     return <></>;

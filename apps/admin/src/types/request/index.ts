@@ -70,3 +70,9 @@ export type NestedItemsProps<
   parent: Parent;
   pageable: Pageable<Entity>;
 };
+
+export interface DateRangeRequest {
+  startDate: string;
+  endDate: string;
+  [key: string]: string | undefined;
+}
