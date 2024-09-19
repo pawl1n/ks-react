@@ -13,7 +13,7 @@
     "@astrojs/cloudflare": "^10.2.4",
     "@astrojs/preact": "^3.2.0",
     "@astrojs/sitemap": "^3.1.4",
-    "@astrojs/tailwind": "^5.1.0",
+    "@astrojs/tailwind": "^5.1.1",
     "@astrojs/ts-plugin": "^1.0.10",
     "@nanostores/persistent": "^0.10.1",
     "@nanostores/preact": "^0.5.1",
